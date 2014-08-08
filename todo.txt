@@ -1,11 +1,13 @@
 GLOBAL :
-- page d'installation
+- fill in the installation page
 - n'utiliser que DateTime
-- rationaliser le système des dates
+- streamline the Basics\Dates class
 
-SONDAGES :
+POLLS :
 - montrer résultats polls ordre croissant
 
-COMMENTAIRES :
-- votes
-- lister par popularité
+COMMENTS :
+- list by popularity
+
+VOTES :
+- fix a graphical issue when clicking on "Remove your vote" button

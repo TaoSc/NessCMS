@@ -52,6 +52,7 @@ order_options		= Ordre
 coms_order_op1		= Le plus récent en premier
 coms_order_op2		= Le plus ancien en premier
 age					= Âge
+remove_vote			= Enlever votre vote
 bbcode_placeholder	= Vous pouvez utiliser le BBCode.
 com_hidden_lvl1		= Le contenu de ce commentaire a été caché.
 register			= S'inscrire

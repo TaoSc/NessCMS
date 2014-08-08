@@ -54,6 +54,7 @@ order_options		= Order
 coms_order_op1		= Décroissant
 coms_order_op2		= Croissant
 age					= Age
+remove_vote			= Remove your vote
 bbcode_placeholder	= You can use BBCode.
 com_hidden_lvl1		= The content of this commment has been hidden.
 register			= Register

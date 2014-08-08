@@ -13,4 +13,4 @@ Fully collaborative and multilingual PHP CMS for the web
 
 ## License
 
-Licensed under the GPL V3 license.
+Licensed under the GPL v3 license.

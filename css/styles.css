@@ -317,6 +317,9 @@ div.single-comment .content-itself {
 div.single-comment .content-itself.bg-warning {
 	background: #fcf8e3;
 }
+div.single-comment .content-itself button.vote-btn {
+	margin-top: 5px;
+}
 div.single-comment .options-box {
 	margin-top: 5px;
 }

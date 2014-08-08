@@ -134,10 +134,22 @@ CREATE TABLE IF NOT EXISTS `site` (
 
 INSERT INTO `site` (`name`, `value`) VALUES
 ('anonymous_coms', '1'),
-('directory', '/tao/'),
+('directory', '/nesscms/'),
 ('name', 'Tao'),
 ('private_emails', '1'),
 ('url_rewriting', '1');
+
+CREATE TABLE IF NOT EXISTS `votes` (
+`id` int(11) NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `table_name` varchar(255) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `vote_date` datetime NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2 ;
+
+INSERT INTO `votes` (`id`, `state`, `author_id`, `table_name`, `post_id`, `vote_date`) VALUES
+(1, 1, 1, 'comments', 3, '2014-08-08 17:25:29');
 
 
 ALTER TABLE `comments`
@@ -164,6 +176,9 @@ ALTER TABLE `polls_users`
 ALTER TABLE `site`
  ADD UNIQUE KEY `name` (`name`);
 
+ALTER TABLE `votes`
+ ADD PRIMARY KEY (`id`);
+
 
 ALTER TABLE `comments`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
@@ -175,6 +190,8 @@ ALTER TABLE `polls`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 ALTER TABLE `polls_users`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+ALTER TABLE `votes`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

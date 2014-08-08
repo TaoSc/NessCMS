@@ -32,8 +32,8 @@
 
 				$this->comment['author'] = (new \Members\Single($this->comment['author_id']))->getMember(false);
 				$this->comment['language'] = (new \Basics\Languages($this->comment['language'], false))->getLanguage($language);
-				// $this->comment['likes'] = \Likes\Handling::number($this->comment['id'], 'comments');
-				// $this->comment['dislikes'] = \Likes\Handling::number($this->comment['id'], 'comments', -1);
+				$this->comment['likes'] = \Votes\Handling::number($this->comment['id'], 'comments');
+				$this->comment['dislikes'] = \Votes\Handling::number($this->comment['id'], 'comments', -1);
 			}
 			return $this->comment;
 		}

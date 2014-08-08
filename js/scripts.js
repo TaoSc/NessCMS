@@ -60,6 +60,34 @@ $(function () {
 			return false;
 		});
 
+		$('#comments').parent().on('click', 'button.vote-btn', function () {
+			var commentId = $(this).attr('data-id'),
+				voteState = $(this).attr('value'),
+				posting = $.post(topDir + 'votes/comments/' + commentId, {'vote_state': voteState});
+
+			posting.done(function (datas) {
+				var decodedDatas = JSON.parse(datas);
+					btnSelector = 'button.vote-btn[data-id=' + commentId + ']';
+
+				if (voteState === 'strip')
+					$(btnSelector + '[value=' + voteState + ']').remove();
+
+				$(btnSelector).each(function () {
+					var btnState = $(this).attr('value');
+
+					if (btnState !== 'strip') {
+						$('span.votes-nbr', this).text(decodedDatas[btnState]);
+
+						$(this).prop('disabled', function (index, value) {
+							return !value;
+						});
+					}
+				});
+			});
+
+			return false;
+		});
+
 		$('#comments').parent().on('click', 'button.answer-btn', function () {
 			var commentId = $(this).attr('value');
 

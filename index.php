@@ -169,6 +169,9 @@
 	elseif ($params[0] === 'members' AND isset($params[1]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/members/profile.rel.php';
 
+	elseif ($params[0] === 'votes' AND isset($params[2]) AND $foldersDepth === 2)
+		include $siteDir . 'controllers/votes/ajax.rel.php';
+
 	else
 		error();
 

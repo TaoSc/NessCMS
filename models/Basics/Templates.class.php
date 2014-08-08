@@ -34,7 +34,7 @@
 		}
 
 		static function smallUserBox($member) {
-			global $siteDir, $subDir, $clauses;
+			global $siteDir, $linksDir, $clauses;
 
 			include $siteDir . 'views/Templates/smallUserBox.php';
 		}
@@ -42,6 +42,7 @@
 		static function comment($comment, $languageVerif, $hidden, $commentsTemplate = false) {
 			global $siteDir, $linksDir, $language, $clauses, $currentMemberId;
 			$commentAnswers = \Comments\Handling::getComments('parent_id = ' . $comment['id'], $languageVerif, $hidden, true);
+			$hasVoted = \Votes\Handling::did($comment['id'], 'comments');
 
 			$lastCommentId = $comment['parent_id'];
 			$comment['recursivity'] = 0;

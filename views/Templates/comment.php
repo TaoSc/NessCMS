@@ -12,10 +12,12 @@
 				<div class="col-lg-12">
 <?php
 				Basics\Templates::dateTime($comment['date'], $comment['time']);
+
 				if ($comment['modif_date']) {
 					echo ' · ' . $clauses->get('last_modified');
 					Basics\Templates::dateTime($comment['modif_date'], $comment['modif_time']);
 				}
+
 				if ($comment['language']['code'] !== $language)
 					echo ' · ' . $clauses->get('comment_lang_info') . Basics\Strings::mb_lcfirst($comment['language']['lang_name']);
 ?>
@@ -27,8 +29,16 @@
 <?php
 					if ($comment['hidden'] == 1)
 						echo '<span class="text-danger">' . $clauses->get('com_hidden_lvl1') . '</span>';
-					else
+					else {
+						if ($hasVoted) {
+?>
+							<button type="button" class="btn btn-inverse btn-xs vote-btn pull-right" data-id="<?php echo $comment['id']; ?>" value="strip">
+								<?php echo $clauses->get('remove_vote'); ?>
+							</button>
+<?php
+						}
 						echo $comment['content'];
+					}
 ?>
 				</div>
 			</div>
@@ -37,14 +47,16 @@
 				<div class="col-xs-7">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<button type="button" class="btn btn-success btn-sm like-btn">
-								<span class="glyphicon glyphicon-thumbs-up"></span> <?php echo $clauses->get('to_like'); ?>
+							<button type="button" class="btn btn-success btn-sm vote-btn<?php if ($hasVoted OR !$currentMemberId) echo ' disabled'; ?>" data-id="<?php echo $comment['id']; ?>" value="up">
+								<span class="glyphicon glyphicon-thumbs-up"></span> <?php echo $clauses->get('to_like'); ?> 
+								(<span class="votes-nbr"><?php echo $comment['likes']; ?></span>)
 							</button>
 						</div>
 
 						<div class="btn-group">
-							<button type="button" class="btn btn-danger btn-sm dislike-btn">
+							<button type="button" class="btn btn-danger btn-sm vote-btn<?php if ($hasVoted OR !$currentMemberId) echo ' disabled'; ?>" data-id="<?php echo $comment['id']; ?>" value="down">
 								<span class="glyphicon glyphicon-thumbs-down"></span> <?php echo $clauses->get('to_dislike'); ?>
+								(<span class="votes-nbr"><?php echo $comment['dislikes']; ?></span>)								
 							</button>
 						</div>
 					</div>
