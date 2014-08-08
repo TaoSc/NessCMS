@@ -26,7 +26,7 @@
 
 				$this->poll['question'] = $clauses->getDB('polls_questions', $this->poll['id'])['name'];
 				$this->poll['time'] = \Basics\Dates::sexyTime($this->poll['time']);
-				$this->poll['date'] = \Basics\Dates::countryDate($this->poll['date']);
+				$this->poll['date'] = $this->poll['date'];
 
 				foreach ($this->poll['answers'] as $key => $answerLoop) {
 					$this->poll['answers'][$key]['name'] = $clauses->getDB('polls_answers', $answerLoop['id'])['name'];

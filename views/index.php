@@ -78,14 +78,22 @@
 	<div class="col-md-4">
 		<h2><a href="<?php echo $linksDir; ?>polls/" title="<?php echo $clauses->get('show_more'); ?>"><?php echo $clauses->get('poll'); ?> »</a></h2>
 		<div class="well poll-sidebar">
-			<blockquote>
-				<?php echo $poll['question']; ?>
-				<small class="pull-right poll-participants"><?php echo Basics\Strings::plural($clauses->get('participants'), $poll['total_votes']); ?></small>
-			</blockquote>
+<?php
+			if ($poll) {
+?>
+				<blockquote>
+					<?php echo $poll['question']; ?>
+					<small class="pull-right poll-participants"><?php echo Basics\Strings::plural($clauses->get('participants'), $poll['total_votes']); ?></small>
+				</blockquote>
 
-			<?php Basics\Templates::pollAnswers($poll); ?>
+				<?php Basics\Templates::pollAnswers($poll); ?>
 
-			<a href="<?php echo $linksDir . 'polls/' . $poll['id']; ?>"><?php echo $clauses->get('more'); ?> »</a>
+				<a href="<?php echo $linksDir . 'polls/' . $poll['id']; ?>"><?php echo $clauses->get('more'); ?> »</a>
+<?php
+			}
+			else
+				echo $clauses->get('no_poll_sidebar');
+?>
 		</div>
 
 		<h2><?php echo $clauses->get('featured_content'); ?></h2>

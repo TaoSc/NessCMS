@@ -42,7 +42,9 @@
 		static function comment($comment, $languageVerif, $hidden, $commentsTemplate = false) {
 			global $siteDir, $linksDir, $language, $clauses, $currentMemberId;
 			$commentAnswers = \Comments\Handling::getComments('parent_id = ' . $comment['id'], $languageVerif, $hidden, true);
+
 			$hasVoted = \Votes\Handling::did($comment['id'], 'comments');
+			$voteBtnsCond = ($hasVoted OR (!$currentMemberId AND !Site::parameter('anonymous_votes')) OR $comment['hidden'] == 1);
 
 			$lastCommentId = $comment['parent_id'];
 			$comment['recursivity'] = 0;

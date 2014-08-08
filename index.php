@@ -172,6 +172,8 @@
 	elseif ($params[0] === 'votes' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/votes/ajax.rel.php';
 
+	elseif ($params[0] === 'admin' AND $foldersDepth !== 0)
+		echo 'Soon!';
 	else
 		error();
 

@@ -20,12 +20,9 @@
 			if ($this->comment AND $parsing) {
 				global $language;
 
-				$this->comment['date'] = \Basics\Dates::countryDate($this->comment['date']);
 				$this->comment['time'] = \Basics\Dates::sexyTime($this->comment['time']);
-				if ($this->comment['modif_date']) {
-					$this->comment['modif_date'] = \Basics\Dates::countryDate($this->comment['modif_date']);
+				if ($this->comment['modif_date'])
 					$this->comment['modif_time'] = \Basics\Dates::sexyTime($this->comment['modif_time']);
-				}
 				$this->comment['content'] = htmlspecialchars($this->comment['content']);
 				if ($lineJump)
 					$this->comment['content'] = \Basics\Strings::BBCode(nl2br($this->comment['content'], false));

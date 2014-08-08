@@ -30,7 +30,7 @@
 					if ($comment['hidden'] == 1)
 						echo '<span class="text-danger">' . $clauses->get('com_hidden_lvl1') . '</span>';
 					else {
-						if ($hasVoted) {
+						if ($hasVoted AND $currentMemberId) {
 ?>
 							<button type="button" class="btn btn-inverse btn-xs vote-btn pull-right" data-id="<?php echo $comment['id']; ?>" value="strip">
 								<?php echo $clauses->get('remove_vote'); ?>
@@ -47,14 +47,14 @@
 				<div class="col-xs-7">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<button type="button" class="btn btn-success btn-sm vote-btn<?php if ($hasVoted OR !$currentMemberId) echo ' disabled'; ?>" data-id="<?php echo $comment['id']; ?>" value="up">
+							<button type="button" class="btn btn-success btn-sm vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $comment['id']; ?>" value="up">
 								<span class="glyphicon glyphicon-thumbs-up"></span> <?php echo $clauses->get('to_like'); ?> 
 								(<span class="votes-nbr"><?php echo $comment['likes']; ?></span>)
 							</button>
 						</div>
 
 						<div class="btn-group">
-							<button type="button" class="btn btn-danger btn-sm vote-btn<?php if ($hasVoted OR !$currentMemberId) echo ' disabled'; ?>" data-id="<?php echo $comment['id']; ?>" value="down">
+							<button type="button" class="btn btn-danger btn-sm vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $comment['id']; ?>" value="down">
 								<span class="glyphicon glyphicon-thumbs-down"></span> <?php echo $clauses->get('to_dislike'); ?>
 								(<span class="votes-nbr"><?php echo $comment['dislikes']; ?></span>)								
 							</button>

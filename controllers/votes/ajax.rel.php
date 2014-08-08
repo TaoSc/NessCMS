@@ -1,11 +1,9 @@
 <?php
-	if ($ajaxCheck AND $_POST['vote_state'] AND $currentMemberId) {
+	if ($ajaxCheck AND $_POST['vote_state']) {
 		$alreadyVoted = Votes\Handling::did($params[2], $params[1]);
 
-		if ($_POST['vote_state'] === 'strip' AND $alreadyVoted) {
+		if ($_POST['vote_state'] === 'strip' AND $alreadyVoted AND $currentMemberId AND Votes\Handling::delete($params[2], $params[1]))
 			$noError = true;
-			Votes\Handling::delete($params[2], $params[1]);
-		}
 		elseif ($_POST['vote_state'] !== 'strip' AND !$alreadyVoted) {
 			$noError = true;
 
@@ -13,10 +11,11 @@
 				$voteState = +1;
 			elseif ($_POST['vote_state'] === 'down')
 				$voteState = -1;
+
+			if (isset($voteState) AND Votes\Handling::send($params[2], $voteState, $params[1]))
+				$noError = true;
 			else
 				$noError = false;
-
-			Votes\Handling::send($params[2], $voteState, $params[1]);
 		}
 
 		if (isset($noError) AND $noError)

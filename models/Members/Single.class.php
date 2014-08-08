@@ -32,9 +32,9 @@
 					$this->member['avatar_slug'] = $this->member['slug'];
 				if ($this->member['birth']) {
 					$this->member['age'] = \Basics\Dates::age($this->member['birth']);
-					$this->member['birth'] = \Basics\Dates::countryDate($this->member['birth']);
+					$this->member['birth'] = $this->member['birth'];
 				}
-				$this->member['registration']['date'] = \Basics\Dates::countryDate($this->member['reg_date']);
+				$this->member['registration']['date'] = $this->member['reg_date'];
 				$this->member['registration']['time'] = \Basics\Dates::sexyTime($this->member['reg_time']);
 				$this->member['type'] = (new Type($this->member['type_id']))->getType();
 				if ($lineJump)

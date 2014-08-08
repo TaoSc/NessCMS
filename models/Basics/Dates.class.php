@@ -1,62 +1,24 @@
 <?php
-	// Toutes les dates doivent être traitées en utilisant le format américain.
 	namespace Basics;
 
 	class Dates {
-		static function usDate($date) {
-			if (mb_strpos($date, '-') === 4) {
-				$date = explode('-', $date);
-				return $date[1] . '-' . $date[2] . '-' . $date[0];
-			}
-			elseif (mb_strpos($date, '/')) {
-				$date = explode('/', $date);
-				return $date[1] . '-' . $date[0] . '-' . $date[2];
-			}
+		static function countryDate($date, $language = null) {
+			if ($language === null)
+				global $language;
+
+			if ($language === 'standard')
+				$dateFormat = 'Y-m-d';
 			else
-				return $date;
-		}
+				$dateFormat = (new Languages($language))->get('date_format');
 
-		static function frDate($date) {
-			if (mb_strpos($date, '-') === 4) {
-				$date = explode('-', $date);
-				return $date[2] . '/' . $date[1] . '/' . $date[0];
-			}
-			elseif (mb_strpos($date, '-') === 2) {
-				$date = explode('-', $date);
-				return $date[1] . '/' . $date[0] . '/' . $date[2];
-			}
-			else {
-				$date = explode('/', $date);
-				return $date[1] . '-' . $date[0] . '-' . $date[2];
-			}
-		}
-
-		static function enDate($date) {
-			if (mb_strpos($date, '/')) {
-				$date = explode('/', $date);
-				return $date[2] . '-' . $date[1] . '-' . $date[0];
-			}
-			elseif (mb_strpos($date, '-') === 2) {
-				$date = explode('-', $date);
-				return $date[2] . '-' . $date[0] . '-' . $date[1];
-			}
-			else {
-				$date = explode('-', $date);
-				return $date[1] . '-' . $date[2] . '-' . $date[0];
-			}
-		}
-
-		static function countryDate($date) {
-			global $language;
-
-			$funcName = explode('-', $language)[1] . 'Date';
-			return Dates::$funcName($date);
+			$date = \DateTime::createFromFormat('Y-m-d', $date);
+			return $date->format($dateFormat);
 		}
 
 		static function relativeTime($date, $time) {
 			global $clauses;
 
-			$interval = time() - strtotime(Dates::enDate($date) . ' ' . $time);
+			$interval = time() - strtotime($date . ' ' . $time);
 
 			if ($interval < 1)
 				return $clauses->get('soon');
@@ -83,7 +45,7 @@
 				global $language, $clauses;
 
 				if (mb_strpos($date, '-') !== 2)
-					$date = Dates::usDate($date);
+					$date = Dates::countryDate($date, 'en-us');
 				if ($today AND $date === date('m-d-Y'))
 					return $clauses->get('today');
 
@@ -136,7 +98,7 @@
 		}
 
 		static function age($birthDate) {
-			list($month, $day, $year) = explode('-', Dates::usDate($birthDate));
+			list($year, $month, $day) = explode('-', $birthDate);
 			$now = (new \DateTime());
 			$todayMonth = $now->format('n');
 			$todayDay = $now->format('j');
