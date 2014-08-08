@@ -1,3 +1,11 @@
+config.inc.php
+fonts/Helvetica Neue/
+images/backgrounds/
+images/blank.gif
+images/jpegtran.exe
+images/optipng.exe
+images/optimize.cmd
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
