@@ -1,0 +1,11 @@
+GLOBAL :
+- page d'installation
+- n'utiliser que DateTime
+- rationaliser le système des dates
+
+SONDAGES :
+- montrer résultats polls ordre croissant
+
+COMMENTAIRES :
+- votes
+- lister par popularité
