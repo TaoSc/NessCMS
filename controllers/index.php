@@ -9,7 +9,7 @@
 		elseif ($newsLoop['priority'] === 'normal')
 			$width = 250;
 
-		$news[$key]['img_address'] = Basics\Templates::getImg('news/' . $newsLoop['img_slug'], $newsLoop['img'], $width, 100);
+		$news[$key]['img_address'] = \Basics\Templates::getImg('heroes/' . $newsLoop['img']['slug'], $newsLoop['img']['format'], $width, 100);
 	}
 
 	$pageTitle = $clauses->get('home');

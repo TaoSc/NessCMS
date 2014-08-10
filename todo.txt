@@ -12,9 +12,3 @@ NEWS :
 
 ADMIN :
 - create the admin
-
-POLLS :
-- show poll results in ascending order
-
-COMMENTS :
-- list by popularity

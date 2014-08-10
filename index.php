@@ -154,6 +154,9 @@
 	elseif ($params[0] === 'lang' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/lang.rel.php';
 
+	elseif ($params[0] === 'news' AND isset($params[1]) AND $foldersDepth === 1)
+		include $siteDir . 'controllers/news/news.rel.php';
+
 	elseif ($params[0] === 'polls' AND isset($params[1]) AND $foldersDepth === 1)
 		include $siteDir . 'controllers/polls/poll.rel.php';
 	elseif ($params[0] === 'polls' AND isset($params[2]) AND $params[2] === 'send' AND $foldersDepth === 2)
@@ -173,7 +176,7 @@
 		include $siteDir . 'controllers/votes/ajax.rel.php';
 
 	elseif ($params[0] === 'admin' AND $foldersDepth !== 0)
-		echo 'Soon!';
+		include $siteDir . 'controllers/admin/routing.php';
 	else
 		error();
 

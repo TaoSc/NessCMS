@@ -32,6 +32,7 @@
 				$this->comment['language'] = (new \Basics\Languages($this->comment['language'], false))->getLanguage($language);
 				$this->comment['likes'] = \Votes\Handling::number($this->comment['id'], 'comments');
 				$this->comment['dislikes'] = \Votes\Handling::number($this->comment['id'], 'comments', -1);
+				$this->comment['popularity'] = $this->comment['likes'] - $this->comment['dislikes'];
 			}
 			return $this->comment;
 		}

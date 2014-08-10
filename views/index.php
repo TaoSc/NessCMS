@@ -10,7 +10,7 @@
 			<div class="carousel-inner">
 				<div class="item active">
 					<a href="#null">
-						<img src="./images/news/mario-kart-8-750x400.jpg" alt="Headlines news image">
+						<img src="./images/heroes/mario-kart-8-750x400.jpg" alt="Headlines news image">
 						<div class="carousel-caption">
 							<h2>Mario Kart 8: a Wii U seller?</h2>
 							<h3>Well, let's review it!</h3>
@@ -19,7 +19,7 @@
 				</div>
 				<div class="item">
 					<a href="#null">
-						<img src="./images/news/watch-dogs-750x400.jpg" alt="Headlines news image">
+						<img src="./images/heroes/watch-dogs-750x400.jpg" alt="Headlines news image">
 						<div class="carousel-caption">
 							<h2>Watch Dogs now avaible</h2>
 							<h3>What has changed since E3 2012?</h3>
@@ -28,7 +28,7 @@
 				</div>
 				<div class="item">
 					<a href="#null">
-						<img src="./images/news/xbox-one-750x400.jpg" alt="Headlines news image">
+						<img src="./images/heroes/xbox-one-750x400.jpg" alt="Headlines news image">
 						<div class="carousel-caption">
 							<h2>An Xbox One pack for 399$</h2>
 							<h3>You probably guessed it's without Kinect.</h3>
@@ -60,7 +60,7 @@
 		foreach ($news as $newsLoop) {
 ?>
 			<div class="col-lg-12 <?php echo $newsLoop['priority']; ?> news<?php if ($newsLoop['priority'] === 'normal') echo ' no-padding'; ?>">
-				<a href="">
+				<a href="<?php echo $subDir . 'news/' . $newsLoop['slug']; ?>">
 					<?php if ($newsLoop['priority'] === 'important') echo '<span class="sprites hotThumbLow"></span>'; ?>
 					<img data-original="<?php echo $newsLoop['img_address']; ?>" alt="<?php echo $clauses->get('img_thumb'); ?>">
 					<?php if ($newsLoop['priority'] === 'important') echo '<div class="mask"></div>'; ?>

@@ -51,7 +51,7 @@
 			return $allCommentsNbr;
 		}
 
-		static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $ascending = false, $hidden = true, $commentsPerPage = 10) {
+		static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $order = false, $hidden = true, $commentsPerPage = 10) {
 			global $siteDir, $linksDir, $clauses, $location, $language, $currentMemberId;
 			$basicCondition = 'post_id = ' . $postId . ' AND post_type = \'' . $postType . '\'';
 			$advancedCondition = null;
@@ -69,7 +69,11 @@
 				error();
 			else {
 				$offsetLimit = $actualComments . ', ' . $commentsPerPage;
-				$comments = Handling::getComments($basicCondition . ' AND parent_id = 0', $languageCheck, $hidden, $ascending, $offsetLimit);
+				if ($order > 1)
+					$order = $sortNeeded = 1;
+				$comments = Handling::getComments($basicCondition . ' AND parent_id = 0', $languageCheck, $hidden, $order, $offsetLimit);
+				if (isset($sortNeeded))
+					$comments = \Basics\Handling::twoDimSorting($comments, 'popularity');
 				$pageRootCommentsNbr = count($comments);
 
 				include $siteDir . 'views/Templates/comments.php';

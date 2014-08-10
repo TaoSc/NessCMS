@@ -9,8 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $subDir; ?>css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $subDir; ?>css/styles.css">
 		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<script>var topDir = <?php echo $topDir; ?>;</script>
 		<script src="<?php echo $subDir; ?>js/jquery.min.js"></script>
@@ -71,7 +71,7 @@
 								if ($rights['admin_access'])
 									echo '<li><a href="' . $linksDir . 'admin/' . '"><span class="glyphicon glyphicon-wrench"></span> ' . $clauses->get('admin') . '</a></li>';
 ?>
-								<li><a href="<?php echo $linksDir; ?>bug-report"><span class="glyphicon glyphicon-warning-sign"></span> <?php echo $clauses->get('report_bug'); ?></a></li>
+								<li><a href="//github.com/TaoSc/NessCMS/issues"><span class="glyphicon glyphicon-warning-sign"></span> <?php echo $clauses->get('report_bug'); ?></a></li>
 								<li class="divider"></li>
 								<li><a href="<?php echo $linksDir . 'members/logout/' . str_replace('%', '=', urlencode($location)); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $clauses->get('log_out'); ?></a></li>
 							</ul>

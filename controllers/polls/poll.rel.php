@@ -4,7 +4,7 @@
 	if (empty($poll))
 		error();
 	elseif ($ajaxCheck)
-		include $siteDir . 'views/Templates/pollAnswers.php';
+		Basics\Templates::pollAnswers($poll);
 	else {
 		$pageTitle = $clauses->get('o_quote') . Basics\Strings::cropTxt($poll['question'], 20) . $clauses->get('c_quote') . ' - ' . $clauses->get('polls');
 		$viewPath = 'polls/poll.rel';

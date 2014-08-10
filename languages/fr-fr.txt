@@ -53,6 +53,7 @@ coms_lang_op2		= Toutes les langues
 order_options		= Ordre
 coms_order_op1		= Le plus récent en premier
 coms_order_op2		= Le plus ancien en premier
+coms_order_op3		= Trier par popularité
 age					= Âge
 remove_vote			= Enlever votre vote
 no_poll_sidebar		= Il n'y a aucun sondage pour le moment.

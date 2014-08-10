@@ -22,6 +22,19 @@
 			return false;
 		}
 
+		static function twoDimSorting($array, $keyName) {
+			$keysArray = [];
+			foreach ($array as $key => $element)
+				$keysArray[$key] = $element[$keyName];
+			arsort($keysArray);
+
+			$tempArray = [];
+			foreach ($keysArray as $key => $element)
+				$tempArray[] = $array[$key];
+
+			return $tempArray;
+		}
+
 		static function countEntrys($table = 'posts', $conditions = '0 = 0') {
 			global $db;
 
@@ -30,14 +43,23 @@
 			return (int) $request->fetch(\PDO::FETCH_ASSOC)['total'];
 		}
 
-		static function idFromSlug($slug, $from = 'posts', $column =  'slug') {
+		static function idFromSlug($slug, $tableName = 'posts', $column =  'slug', $language = false) {
 			global $db;
 
-			$request = $db->prepare('SELECT id FROM ' . $from . ' WHERE ' . $column . ' = ?');
-			$request->execute([$slug]);
-			$datas = $request->fetch(\PDO::FETCH_ASSOC);
-			$id = $datas['id'];
-			$request->closeCursor();
+			if ($language) {
+				$request = $db->prepare('SELECT incoming_id FROM languages_routing WHERE table_name = ? AND language = ? AND column_name = ? AND value = ?');
+				$request->execute([$tableName, $language, $column, $slug]);
+				$datas = $request->fetch(\PDO::FETCH_ASSOC);
+				$id = $datas['incoming_id'];
+				$request->closeCursor();
+			}
+			else {
+				$request = $db->prepare('SELECT id FROM ' . $tableName . ' WHERE ' . $column . ' = ?');
+				$request->execute([$slug]);
+				$datas = $request->fetch(\PDO::FETCH_ASSOC);
+				$id = $datas['id'];
+				$request->closeCursor();
+			}
 
 			return $id;
 		}

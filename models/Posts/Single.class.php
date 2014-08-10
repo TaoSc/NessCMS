@@ -32,17 +32,11 @@
 				$this->post['title'] = $clauses->getDB('posts', $this->post['id'], 'title');
 				$this->post['sub_title'] = $clauses->getDB('posts', $this->post['id'], 'sub_title');
 
-				if (!$this->post['img']) {
-					$this->post['img_slug'] = 'default';
-					$this->post['img'] = 'png';
-				}
-				else
-					$this->post['img_slug'] = $this->post['slug'];
-
 				$this->post['time'] = \Basics\Dates::sexyTime($this->post['time']);
 				if ($this->post['modif_date'])
 					$this->post['modif_time'] = \Basics\Dates::sexyTime($this->post['modif_time']);
 
+				$this->post['img'] = (new \Medias\Image($this->post['img']))->getImage();
 				// $this->post['category'] = (new \Categories\Single($this->post['category_id']))->getCategory(false);
 				$this->post['authors'] = [];
 				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)

@@ -21,14 +21,24 @@
 			echo Dates::sexyDate($date, true, true) . ' ' . $clauses->get('at') . ' ' . Dates::sexyTime($date . ' ' . $time);
 		}
 
-		static function getImg($slug, $extension, $width, $height) {
-			global $subDir;
+		static function getImg($slug, $extension, $width, $height, $relativeLoc = true) {
+			if ($relativeLoc) {
+				global $subDir;
+				$dir = $subDir;
+			}
+			else {
+				global $siteDir;
+				$dir = $siteDir;
+			}
 
-			return $subDir . 'images/' . $slug . '-' . $width . 'x' . $height .  '.' . $extension;
+			return $dir . 'images/' . $slug . '-' . $width . 'x' . $height .  '.' . $extension;
 		}
 
 		static function pollAnswers($poll) {
 			global $siteDir, $clauses;
+
+			if ($poll['already_voted'])
+				$poll['answers'] = Handling::twoDimSorting($poll['answers'], 'votes');
 
 			include $siteDir . 'views/Templates/pollAnswers.php';
 		}
