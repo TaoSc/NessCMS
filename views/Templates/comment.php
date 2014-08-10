@@ -84,7 +84,7 @@
 			echo ' less-margin';
 		echo '">';
 			foreach ($commentAnswers as $commentLoop)
-				Basics\Templates::comment($commentLoop, $languageVerif, $hidden, $commentsTemplate);
+				Basics\Templates::comment($commentLoop, $languageCheck, $hidden, $commentsTemplate);
 		echo '</div>';
 	}
 ?>

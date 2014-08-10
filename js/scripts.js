@@ -110,7 +110,7 @@ $(function () {
 		});
 	}
 
-	$('.news-list > .important-news').each(function () {
+	$('.news-list > .important.news').each(function () {
 		$(this).hover(function () {
 			$('.mask', this).stop(true).animate({
 				opacity: '0.5'

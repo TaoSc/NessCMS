@@ -36,12 +36,12 @@
 	$siteName = Basics\Site::parameter('name');
 
 	// Gestion de la langue
-	if (!isset($_COOKIE['tao_lang'])) {
-		setcookie('tao_lang', 'en-us', time() + 63072000, $topDir, null, false, true);
-		$language = 'en-us';
+	if (!isset($_COOKIE['nesscms_lang'])) {
+		setcookie('nesscms_lang', Basics\Site::parameter('default_language'), time() + 63072000, $topDir, null, false, true);
+		$language = Basics\Site::parameter('default_language');
 	}
 	else
-		$language = $_COOKIE['tao_lang'];
+		$language = $_COOKIE['nesscms_lang'];
 
 	// Gestion des erreurs
 	function error($error = 404, $homeBtn = true) {
@@ -63,8 +63,8 @@
 	}
 
 	// Gestion du membre
-	if (isset($_COOKIE['tao_name']) AND isset($_COOKIE['tao_password']) AND !isset($_SESSION['member']))
-		Members\Handling::login($_COOKIE['tao_name'], $_COOKIE['tao_password']);
+	if (isset($_COOKIE['nesscms_name']) AND isset($_COOKIE['nesscms_password']) AND !isset($_SESSION['member']))
+		Members\Handling::login($_COOKIE['nesscms_name'], $_COOKIE['nesscms_password']);
 	if (empty($_SESSION['id'])) {
 		$rights['admin_access'] = false;
 		$currentMemberId = 0;

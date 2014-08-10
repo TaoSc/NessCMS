@@ -2,7 +2,7 @@
 	// $backgroundImage = ' style="background-image: url(\'' . $subDir . 'images/backgrounds/' . mt_rand(2, 21) . '.jpg\');"';
 
 	$actualLang = $clauses->getLanguage();
-	$languagesList = Basics\Languages::getLanguages('code != \'' . $language . '\'', $actualLang['code']);
+	$languagesList = Basics\Languages::getLanguages('code != \'' . $language . '\' AND enabled = true', $actualLang['code']);
 
 	$navigation = [
 		['caption' => $clauses->get('home'), 'link' => 'index'],

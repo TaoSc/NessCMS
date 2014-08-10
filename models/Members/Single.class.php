@@ -16,7 +16,7 @@
 			$this->member = $request->fetch(\PDO::FETCH_ASSOC);
 		}
 
-		function getMember($lineJump = true) {
+		function getMember($biography = true) {
 			if ($this->member) {
 				global $clauses;
 
@@ -24,12 +24,14 @@
 					$this->member['name'] = $this->member['first_name'] . ' ' .  $this->member['last_name'];
 				else
 					$this->member['name'] = false;
+
 				if (!$this->member['avatar']) {
 					$this->member['avatar_slug'] = 'default';
 					$this->member['avatar'] = 'png';
 				}
 				else
 					$this->member['avatar_slug'] = $this->member['slug'];
+
 				if ($this->member['birth']) {
 					$this->member['age'] = \Basics\Dates::age($this->member['birth']);
 					$this->member['birth'] = $this->member['birth'];
@@ -37,7 +39,7 @@
 				$this->member['registration']['date'] = $this->member['reg_date'];
 				$this->member['registration']['time'] = \Basics\Dates::sexyTime($this->member['reg_time']);
 				$this->member['type'] = (new Type($this->member['type_id']))->getType();
-				if ($lineJump)
+				if ($biography)
 					$this->member['biography'] =  \Basics\Strings::BBCode(nl2br($clauses->getDB('members', $this->member['id'], 'biography'), false));
 			}
 

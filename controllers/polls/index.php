@@ -2,10 +2,10 @@
 	$pollsList = Polls\Handling::getPolls();
 
 	$finalPollsList = [];
-	foreach ($pollsList as $poll)
-		$finalPollsList[] = ['label' => Basics\Strings::plural($clauses->get('votes'), $poll['total_votes']),
-							 'text' => $poll['question'],
-							 'link' => $linksDir . 'polls/' . $poll['id']];
+	foreach ($pollsList as $pollLoop)
+		$finalPollsList[] = ['label' => Basics\Strings::plural($clauses->get('votes'), $pollLoop['total_votes']),
+							 'text' => $pollLoop['question'],
+							 'link' => $linksDir . 'polls/' . $pollLoop['id']];
 
 	if ($currentMemberId)
 		$createPollLink = 'admin/polls/edit/0';

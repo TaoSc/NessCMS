@@ -1,6 +1,17 @@
 GLOBAL :
+- automatic loader file
+- automatic installation process
 - fill in the installation page
+- ability to create themes
 - streamline the Basics\Dates class
+
+NEWS :
+- create pages for the news
+- categories
+- tags
+
+ADMIN :
+- create the admin
 
 POLLS :
 - show poll results in ascending order

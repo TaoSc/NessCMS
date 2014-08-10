@@ -42,14 +42,15 @@
 							</a>
 							<ul class="dropdown-menu">
 <?php
-								foreach ($languagesList as $langLoop)
+								foreach ($languagesList as $languageLoop)
 									echo '<li>
-										<a href="' . $linksDir . 'lang/' . $langLoop['code'] . '/' . str_replace('%', '=', urlencode($location)) . '">
-											<span class="sprites ' . $langLoop['code'] . ' flag"></span>' . $langLoop['name'] . '
+										<a href="' . $linksDir . 'lang/' . $languageLoop['code'] . '/' . str_replace('%', '=', urlencode($location)) . '">
+											<span class="sprites ' . $languageLoop['code'] . ' flag"></span>' . $languageLoop['name'] . '
 										</a>
 									</li>';
+								if ($languagesList)
+									echo '<li class="divider"></li>';
 ?>
-								<li class="divider"></li>
 								<li><a href="#null"><span class="sprites unknown flag"></span><?php echo $clauses->get('lang_add'); ?></a></li>
 							</ul>
 						</li>

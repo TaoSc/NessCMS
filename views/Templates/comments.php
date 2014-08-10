@@ -9,19 +9,19 @@
 				echo '<li';
 				if ($actualPage - 1 === 0)
 					echo ' class="disabled"';
-				echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage - 1) . '/' . (int) $languageVerif . '/' . (int) $ascending . '">«</a></li>';
+				echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage - 1) . '/' . (int) $languageCheck . '/' . (int) $ascending . '">«</a></li>';
 
 				for ($i = 1; $i <= $pages; $i++) {
 					echo '<li';
 					if ($actualPage == $i)
 						echo ' class="active"';
-					echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $i . '/' . (int) $languageVerif . '/' . (int) $ascending . '">' . $i . '</a></li>';
+					echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $i . '/' . (int) $languageCheck . '/' . (int) $ascending . '">' . $i . '</a></li>';
 				}
 
 				echo '<li';
 				if ($actualPage + 1 > $pages)
 					echo ' class="disabled"';
-				echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage + 1) . '/' . (int) $languageVerif . '/' . (int) $ascending . '">»</a></li>';
+				echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage + 1) . '/' . (int) $languageCheck . '/' . (int) $ascending . '">»</a></li>';
 ?>
 			</ul>
 
@@ -37,8 +37,8 @@
 			<div class="btn-group pull-left coms-dropdowns">
 				<button class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown"><?php echo $clauses->get('order_options'); ?> <span class="caret"></span></button>
 				<ul class="dropdown-menu" role="menu">
-					<li><?php echo '<a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $actualPage . '/' . (int) $languageVerif . '/0">' . $clauses->get('coms_order_op1') . '</a></li>'; ?>
-					<li><?php echo '<a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $actualPage . '/' . (int) $languageVerif . '/1">' . $clauses->get('coms_order_op2') . '</a></li>'; ?>
+					<li><?php echo '<a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $actualPage . '/' . (int) $languageCheck . '/0">' . $clauses->get('coms_order_op1') . '</a></li>'; ?>
+					<li><?php echo '<a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $actualPage . '/' . (int) $languageCheck . '/1">' . $clauses->get('coms_order_op2') . '</a></li>'; ?>
 				</ul>
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 				echo '<p>' . $clauses->get('guest_coms_disabled') . '</p>';
 			else {
 ?>
-				<form class="form-horizontal" method="post" action="<?php echo $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $actualPage . '/' . (int) $languageVerif . '/' . (int) $ascending; ?>">
+				<form class="form-horizontal" method="post" action="<?php echo $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $actualPage . '/' . (int) $languageCheck . '/' . (int) $ascending; ?>">
 					<fieldset>
 						<legend><?php echo $clauses->get('send_comment_title'); ?></legend>
 
@@ -87,7 +87,7 @@
 			<div class="comments-list col-lg-12">
 <?php
 				foreach ($comments as $commentLoop)
-					Basics\Templates::comment($commentLoop, $languageVerif, $hidden, true);
+					Basics\Templates::comment($commentLoop, $languageCheck, $hidden, true);
 ?>
 			</div>
 		</div>

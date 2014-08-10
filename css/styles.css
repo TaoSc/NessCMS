@@ -183,59 +183,59 @@ div#headlines-carousel {
 	font-size: 55px;
 }
 
-.news-list > div {
+.news-list > .news {
 	margin-bottom: 10px;
 }
-.news-list > div .glyphicon-comment {
+.news-list > .news .glyphicon-comment {
 	font-size: 10px;
 }
-.news-list > div h4 {
+.news-list > .news h4 {
 	height: 22px;
 	overflow: hidden;
 }
-.news-list .news {
+.news-list .normal.news {
 	height: 100px;
 	overflow: hidden;
 	background-color: #fafafa;
 	box-shadow: 0px 0px 5px #eee;
 }
-.news-list .news a {
+.news-list .normal.news a {
 	color: #5D5F5F;
 }
-.news-list .news img {
+.news-list .normal.news img {
 	float: left;
 	background: #e3e3e3;
 	margin-right: 10px;
 }
-.news-list .news h3 {
+.news-list .normal.news h3 {
 	margin-top: 7px;
 	height: 54px;
 	overflow: hidden;
 }
-.news-list .important-news {
+.news-list .important.news {
 	text-shadow: 0px 1px 1px black;
 	height: 100px;
 	background: #fafafa;
 	box-shadow: 0px 0px 5px #eee;
 }
-.news-list .important-news, .news-list .important-news h3 {
+.news-list .important.news, .news-list .important.news h3 {
 	position: relative;
 	overflow: hidden;
 }
-.news-list .important-news a {
+.news-list .important.news a {
 	color: white;
 }
-.news-list .important-news a:hover {
+.news-list .important.news a:hover {
 	text-decoration: none;
 }
-.news-list .important-news img {
+.news-list .important.news img {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	width: 750px;
 	height: 100%;
 }
-.news-list .important-news .mask {
+.news-list .important.news .mask {
 	background: black;
 	opacity: 0.2;
 	position: absolute;
@@ -243,11 +243,11 @@ div#headlines-carousel {
 	height: 100%;
 	left: 0px;
 }
-.news-list .important-news h3 {
+.news-list .important.news h3 {
 	height: 28px;
 	top: 10px;
 }
-.news-list .important-news h4 {
+.news-list .important.news h4 {
 	position: relative;
 	top: 8px;
 }

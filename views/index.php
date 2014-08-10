@@ -56,23 +56,28 @@
 	<div class="col-md-8 news-list">
 		<h2><?php echo $clauses->get('latest_news'); ?></h2>
 
-		<div class="col-lg-12 important-news">
-			<a href="#null">
-				<span class="sprites hotThumbLow"></span>
-				<img data-original="./images/news/ios-8-os-x-10.10-750x100.png" alt="Big thumbnail for a news">
-				<div class="mask"></div>
-				<h3>iOS 8 and OS X Yosemite unveiled: new features, design & more</h3>
-				<h4>They've never been so close!<small> — <?php echo Basics\Dates::sexyDate('2014-07-18', true, true) . ' ' . $clauses->get('at') . ' ' . Basics\Dates::sexyTime('2014-07-18 16:15:58'); ?> <span class="badge">42 <span class="glyphicon glyphicon-comment"></span></span></small></h4>
-			</a>
-		</div>
-
-		<div class="col-lg-12 news no-padding">
-			<a href="#null">
-				<img data-original="./images/news/super-smash-bros-for-nintendo-3ds-and-wii-u-250x100.png" alt="Thumbnail for a news">
-				<h3>Super Smash Bros. for Wii U will use NFC tags</h3>
-				<h4>Physical DLCs ?!<small> — <?php echo Basics\Dates::sexyDate('2014-05-27', true, true) . ' ' . $clauses->get('at') . ' ' . Basics\Dates::sexyTime('2014-05-27 8:26:12'); ?> <span class="badge">18 <span class="glyphicon glyphicon-comment"></span></span></small></h4>
-			</a>
-		</div>
+<?php
+		foreach ($news as $newsLoop) {
+?>
+			<div class="col-lg-12 <?php echo $newsLoop['priority']; ?> news<?php if ($newsLoop['priority'] === 'normal') echo ' no-padding'; ?>">
+				<a href="">
+					<?php if ($newsLoop['priority'] === 'important') echo '<span class="sprites hotThumbLow"></span>'; ?>
+					<img data-original="<?php echo $newsLoop['img_address']; ?>" alt="<?php echo $clauses->get('img_thumb'); ?>">
+					<?php if ($newsLoop['priority'] === 'important') echo '<div class="mask"></div>'; ?>
+					<h3><?php echo $newsLoop['title']; ?></h3>
+					<h4><?php echo $newsLoop['sub_title']; ?>
+						<small>
+							— <?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?>
+							<span class="badge"><?php echo $newsLoop['comments_nbr']; ?> <span class="glyphicon glyphicon-comment"></span></span>
+						</small>
+					</h4>
+				</a>
+			</div>
+<?php
+		}
+		if (!$news)
+			echo $clauses->get('no_news');
+?>
 	</div>
 
 	<div class="col-md-4">

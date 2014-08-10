@@ -9,8 +9,8 @@
 			$pollsIds = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			$polls = [];
-			foreach ($pollsIds as $poll)
-				$polls[] = (new Single($poll['id']))->getPoll();
+			foreach ($pollsIds as $pollLoop)
+				$polls[] = (new Single($pollLoop['id']))->getPoll();
 			return $polls;
 		}
 	}

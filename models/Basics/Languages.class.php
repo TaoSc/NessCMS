@@ -16,7 +16,7 @@
 				global $siteDir;
 
 				if (!file_exists($siteDir . 'languages/' . $this->language['code'] . '.txt'))
-					$this->language['code'] = 'fr-fr';
+					$this->language['code'] = Site::parameter('default_language');
 				$this->file = file($siteDir . 'languages/' . $this->language['code'] . '.txt', FILE_SKIP_EMPTY_LINES);
 			}
 		}
@@ -36,7 +36,7 @@
 					$finalSentence = trim($line[1], "\t\n\r\0\x0B");
 
 					if ($finalSentence === '')
-						return (new Languages('fr-fr'))->get($mark);
+						return (new Languages(Site::parameter('default_language')))->get($mark);
 					else
 						return str_replace('NULL', null, $finalSentence);
 				}
@@ -47,18 +47,27 @@
 			return 'return "' . addslashes($this->get($mark)) . '";';
 		}
 
-		function getDB($tableName, $id, $columnsName = '*', $originLanguage = false) {
+		function getDB($tableName, $id, $columnsName = '*', $originLanguageTemp = false, $errorRecovery = true) {
 			global $db;
-			if ($originLanguage === false)
+			if ($originLanguageTemp === false)
 				$originLanguage = $this->language['code'];
+			else
+				$originLanguage = $originLanguageTemp;
+			$condition = 'table_name = ? AND incoming_id = ? AND language = ?';
+			if ($columnsName !== '*')
+				$condition .= ' AND column_name = \'' . $columnsName . '\'';
 
-			$request = $db->prepare('SELECT ' . $columnsName . ' FROM languages_routing WHERE table_name = ? AND incoming_id = ? AND language = ?');
+			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $condition);
 			$request->execute([$tableName, $id, $originLanguage]);
 			$columns = $request->fetchAll(\PDO::FETCH_ASSOC);
 
-			if (empty($columns))
-				return false;
-			elseif (count($columns)) {
+			if (empty($columns)) {
+				if ($originLanguageTemp === false AND $originLanguage !== Site::parameter('default_language') AND $errorRecovery)
+					return $this->getDB($tableName, $id, $columnsName, Site::parameter('default_language'));
+				else
+					return false;
+			}
+			elseif (count($columns) > 1) {
 				$newColumns = [];
 				foreach ($columns as $columnsElem)
 					$newColumns[$columnsElem['column_name']] = $columnsElem['value'];

@@ -67,8 +67,8 @@
 
 		function clear() {
 			$files = glob($this->dirname . '*');
-			foreach ($files as $file)
-				unlink($file);
+			foreach ($files as $fileLoop)
+				unlink($fileLoop);
 		}
 
 		function getDirname() {

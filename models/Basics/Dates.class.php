@@ -44,9 +44,7 @@
 			if (!mb_strpos($date, ':')) {
 				global $language, $clauses;
 
-				if (mb_strpos($date, '-') !== 2)
-					$date = Dates::countryDate($date, 'en-us');
-				if ($today AND $date === date('m-d-Y'))
+				if ($today AND $date === (new \DateTime)->format('Y-m-d'))
 					return $clauses->get('today');
 
 				$localDays = [$clauses->get('sunday'), $clauses->get('monday'), $clauses->get('tuesday'), $clauses->get('wednesday'),
@@ -54,7 +52,7 @@
 				$localMonths = [$clauses->get('january'), $clauses->get('february'), $clauses->get('march'), $clauses->get('april'),
 								$clauses->get('may'), $clauses->get('june'), $clauses->get('july'), $clauses->get('august'),
 								$clauses->get('september'), $clauses->get('october'), $clauses->get('november'), $clauses->get('december')];
-				$parsedDate = \DateTime::createFromFormat('m-d-Y', $date);
+				$parsedDate = \DateTime::createFromFormat('Y-m-d', $date);
 
 				if ($language === 'fr-fr') {
 					$date = $localDays[$parsedDate->format('w')];
@@ -64,8 +62,8 @@
 					$date .= $localMonths[$parsedDate->format('n') - 1];
 					$date .= ' ' . $parsedDate->format('Y');
 				}
-				elseif ($language === 'en-us' OR $language === 'en-en') {
-					$suffix = Dates::EnDaySuffix($parsedDate->format('j'));
+				else {
+					$suffix = Dates::enDaySuffix($parsedDate->format('j'));
 
 					$date = $localDays[$parsedDate->format('w')];
 					if ($cutDays)

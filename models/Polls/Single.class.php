@@ -24,12 +24,12 @@
 			if ($this->poll) {
 				global $clauses;
 
-				$this->poll['question'] = $clauses->getDB('polls_questions', $this->poll['id'])['name'];
+				$this->poll['question'] = $clauses->getDB('polls_questions', $this->poll['id'], 'name');
 				$this->poll['time'] = \Basics\Dates::sexyTime($this->poll['time']);
 				$this->poll['date'] = $this->poll['date'];
 
 				foreach ($this->poll['answers'] as $key => $answerLoop) {
-					$this->poll['answers'][$key]['name'] = $clauses->getDB('polls_answers', $answerLoop['id'])['name'];
+					$this->poll['answers'][$key]['name'] = $clauses->getDB('polls_answers', $answerLoop['id'], 'name');
 					$this->poll['answers'][$key]['votes'] = $votes = \Basics\Handling::countEntrys('polls_users', 'poll_id = ' . $this->poll['id'] . ' AND answer_id = ' . $answerLoop['id']);
 					$this->poll['answers'][$key]['votes_percents'] = $votes ? $votes / $this->poll['total_votes'] * 100 : 0;
 				}

@@ -56,8 +56,8 @@
 				return false;
 			elseif ($pwd === $member['password']) {
 				if ($cookies === 'on') {
-					setcookie('tao_name', $nickname, time() + 63072000, $topDir, null, false, true);
-					setcookie('tao_password', $member['password'], time() + 63072000, $topDir, null, false, true);
+					setcookie('nesscms_name', $nickname, time() + 63072000, $topDir, null, false, true);
+					setcookie('nesscms_password', $member['password'], time() + 63072000, $topDir, null, false, true);
 				}
 				$_SESSION['id'] = $member['id'];
 
@@ -71,8 +71,8 @@
 			global $topDir;
 
 			session_destroy();
-			setcookie('tao_name', '', time(), $topDir, null, false, true);
-			setcookie('tao_password', '', time(), $topDir, null, false, true);
+			setcookie('nesscms_name', '', time(), $topDir, null, false, true);
+			setcookie('nesscms_password', '', time(), $topDir, null, false, true);
 
 			return true;
 		}

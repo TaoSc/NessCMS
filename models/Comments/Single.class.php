@@ -8,7 +8,8 @@
 			global $db;
 
 			$request = $db->prepare('
-				SELECT id, author_id, parent_id, post_id, post_type, hidden, content, language, DATE(post_date) date, TIME(post_date) time, DATE(modif_date) modif_date, TIME(modif_date) modif_time
+				SELECT id, author_id, parent_id, post_id, post_type, hidden, content, language, DATE(post_date) date, TIME(post_date) time,
+				DATE(modif_date) modif_date, TIME(modif_date) modif_time
 				FROM comments
 				WHERE id = ?
 			');
