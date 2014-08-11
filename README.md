@@ -2,6 +2,41 @@
 
 A fully collaborative and multilingual PHP CMS for the web.
 
+## Installation
+
+### Simple
+
+On your web browser:
+1. Go to the directory on wich you have installed the CMS
+2. Follow the instructions ^^
+
+### Manual (e.g.: for development purposes)
+
+1. Create a database and fill it in with the content of the "NessCMS.sql" file
+2. Fill in the “config.sample.inc.php” file with informations on your database
+3. Rename it “config.inc.php”
+4. That's it! If you want to use the administration, log in with with the nickname and password "admin".
+
+## Configuration
+
+### URL Rewriting
+
+If you want to use URL Rewriting on your website you must enable the option on the Admin of the CMS and adapt your server accordingly.
+
+Here's an example using Nginx:
+```ini
+location /nesscms/ {
+	if (!-d $request_filename) {
+		rewrite ^/nesscms/([\w+=/-]+)$ /nesscms/index.php?location=$1 last; break;
+	}
+
+	location ~ /(cache|controllers|languages|models|views)/ {
+		return 403;
+	}
+}
+```
+Note that access to the above folders should be forbidden in all cases.
+
 ## Contributing
 
 1. Fork it

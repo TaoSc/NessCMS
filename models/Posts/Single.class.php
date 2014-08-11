@@ -37,12 +37,27 @@
 					$this->post['modif_time'] = \Basics\Dates::sexyTime($this->post['modif_time']);
 
 				$this->post['img'] = (new \Medias\Image($this->post['img']))->getImage();
-				// $this->post['category'] = (new \Categories\Single($this->post['category_id']))->getCategory(false);
 				$this->post['authors'] = [];
 				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)
 					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
 			}
 
 			return $this->post;
+		}
+
+		static function setViews($newsId, $reset = false) {
+			global $db;
+
+			if ($reset)
+				$viewsNbr = 0;
+			else {
+				$request = $db->prepare('SELECT views FROM posts WHERE type = ? AND id = ?');
+				$request->execute(['news', $newsId]);
+
+				$viewsNbr = ++$request->fetch(\PDO::FETCH_ASSOC)['views'];
+			}
+
+			$request = $db->prepare('UPDATE posts SET views = ? WHERE type = ? AND id = ?');
+			$request->execute([$viewsNbr, 'news', $newsId]);
 		}
 	}

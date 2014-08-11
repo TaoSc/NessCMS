@@ -1,6 +1,7 @@
 config.inc.php
 themes/default/fonts/Helvetica Neue/
 themes/default/images/backgrounds/
+images/avatars/taos-100x100.jpg
 images/jpegtran.exe
 images/optipng.exe
 images/optimize.cmd

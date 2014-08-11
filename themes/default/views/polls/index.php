@@ -4,7 +4,12 @@
 			<h1><?php echo $clauses->get('polls'); ?></h1>
 		</div>
 
-		<?php Basics\Templates::textList($finalPollsList); ?>
+<?php
+		Basics\Templates::textList($finalPollsList);
+
+		if (!$finalPollsList)
+			echo $clauses->get('no_poll_sidebar');
+?>
 		<div class="bottom-link">
 			<a href="<?php echo $linksDir . $createPollLink; ?>">» <?php echo $clauses->get('create_poll'); ?></a>
 		</div>

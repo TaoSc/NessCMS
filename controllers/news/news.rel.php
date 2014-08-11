@@ -20,8 +20,8 @@
 		else
 			$nextNews = $nextNews[0];
 
-		// if (($currentMemberId AND \Basics\Handling::recursiveArraySearch($currentMemberId, $news['authors']) === false) OR !$currentMemberId)
-			// Posts\Handling::setViews($news['id']);
+		if (($currentMemberId AND \Basics\Handling::recursiveArraySearch($currentMemberId, $news['authors']) === false) OR !$currentMemberId)
+			Posts\Single::setViews($news['id']);
 
 		$pageTitle = $news['title'] . ' - ' . $clauses->get('news');
 		$viewPath = 'news/news.rel';

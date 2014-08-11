@@ -9,9 +9,10 @@
 	// Vérifications du système
 	if (file_exists($configFile))
 		include $configFile;
-	else
-		die('<p>This website doesn\'t seems to be configured yet.
-			<br><a href="' . $siteDir . 'install.html">Follow those simple instructions to make it run !</a></p>');
+	else {
+		include $siteDir . 'install.php';
+		die();
+	}
 
 	// Connexion à la base de données
 	try {

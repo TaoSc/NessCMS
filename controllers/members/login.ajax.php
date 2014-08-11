@@ -1,5 +1,5 @@
 <?php
 	if ($ajaxCheck)
-		include $siteDir. 'views/members/login.ajax.php';
+		include $siteDir . $theme['dir'] . 'views/members/login.ajax.php';
 	else
 		header('Location: ' . $linksDir . 'members/login');

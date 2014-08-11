@@ -1,13 +1,9 @@
 GLOBAL :
-- automatic loader file
-- automatic installation process
-- fill in the installation page
-- ability to create themes
+- automatic installation file more personalizable
 - streamline the Basics\Dates class
 
 NEWS :
 - create pages for the news
-- categories
 - tags
 
 ADMIN :

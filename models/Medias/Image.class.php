@@ -18,7 +18,6 @@
 			if ($this->image) {
 				$this->image['sizes'] = json_decode($this->image['sizes'], true);
 				$this->image['sizes_nbr'] = count($this->image['sizes']);
-				$this->image['files'] = glob($subDir . 'images/heroes/' . $this->image['slug'] . '*.' . $this->image['format']);
 				$this->image['address'] = $subDir . 'images/heroes/' . $this->image['slug'] . '.' . $this->image['format'];
 			}
 		}
