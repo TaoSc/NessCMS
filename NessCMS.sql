@@ -160,6 +160,7 @@ INSERT INTO `site` (`name`, `value`) VALUES
 ('anonymous_votes', '0'),
 ('default_language', 'fr-fr'),
 ('directory', '/nesscms/'),
+('theme', 'default'),
 ('name', 'Tao'),
 ('private_emails', '1'),
 ('url_rewriting', '1');

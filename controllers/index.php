@@ -1,7 +1,7 @@
 <?php
 	$poll = (new Polls\Single(Basics\Handling::latestId('polls')))->getPoll();
 
-	$news = \News\Handling::getNews('visible = true', true, '0, 5');
+	$news = \News\Handling::getNews('0 = 0', true, true, '0, 5');
 
 	foreach ($news as $key => $newsLoop) {
 		if ($newsLoop['priority'] === 'important')

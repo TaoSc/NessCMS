@@ -19,4 +19,4 @@
 		}
 	}
 
-	include $siteDir . 'views/template.rel.php';
+	include $siteDir . $theme['dir'] . 'views/template.rel.php';

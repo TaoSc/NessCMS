@@ -52,7 +52,7 @@
 		}
 
 		static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $order = false, $hidden = true, $commentsPerPage = 10) {
-			global $siteDir, $linksDir, $clauses, $location, $language, $currentMemberId;
+			global $siteDir, $linksDir, $clauses, $location, $language, $currentMemberId, $theme;
 			$basicCondition = 'post_id = ' . $postId . ' AND post_type = \'' . $postType . '\'';
 			$advancedCondition = null;
 			if ($languageCheck)
@@ -76,7 +76,7 @@
 					$comments = \Basics\Handling::twoDimSorting($comments, 'popularity');
 				$pageRootCommentsNbr = count($comments);
 
-				include $siteDir . 'views/Templates/comments.php';
+				include $siteDir . $theme['dir'] . 'views/Templates/comments.php';
 			}
 		}
 	}

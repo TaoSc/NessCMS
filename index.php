@@ -145,6 +145,8 @@
 		$currentMember = &$_SESSION['member'];
 		$rights = (new Members\Type($currentMember['type']['id']))->getRights();
 	}
+	include $siteDir . 'themes/' . \Basics\Site::parameter('theme') . '/theme.php';
+	$theme['dir'] = 'themes/' . $theme['dir'];
 
 	// Routage
 	$controllerPath = $siteDir . 'controllers/' . $location . '.php';
@@ -188,7 +190,7 @@
 			ob_start();
 		}
 
-		$viewPath = $siteDir . 'views/' . $viewPath . '.php';
+		$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
 		include $siteDir . 'controllers/template.rel.php';
 
 		// if ($cachingCond)

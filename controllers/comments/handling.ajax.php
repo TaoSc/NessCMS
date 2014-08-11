@@ -1,5 +1,5 @@
 <?php
-	$supportedTypes = ['polls', 'news', 'reviews'];
+	$supportedTypes = ['polls', 'posts'];
 
 	if ($ajaxCheck AND is_numeric($params[3] . $params[4] . $params[5]) AND array_search($params[1], $supportedTypes) !== false)
 		Comments\Handling::view($params[2], $params[1], $params[3], $params[4], $params[5]);

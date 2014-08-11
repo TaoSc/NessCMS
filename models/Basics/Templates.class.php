@@ -2,6 +2,17 @@
 	namespace Basics;
 
 	class Templates {
+		static function basicHeaders() {
+			global $topDir, $subDir;
+
+			echo '<meta charset="utf-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+				<link rel="stylesheet" type="text/css" href="' . $subDir . 'css/bootstrap.min.css">
+				<script>var topDir = ' . $topDir . ';</script>
+				<script src="' . $subDir . 'js/jquery.min.js"></script>
+				<script src="' . $subDir . 'js/bootstrap.min.js"></script>';
+		}
+
 		static function textList($array) {
 			$list = null;
 
@@ -24,33 +35,33 @@
 		static function getImg($slug, $extension, $width, $height, $relativeLoc = true) {
 			if ($relativeLoc) {
 				global $subDir;
-				$dir = $subDir;
+				$dir = &$subDir;
 			}
 			else {
 				global $siteDir;
-				$dir = $siteDir;
+				$dir = &$siteDir;
 			}
 
 			return $dir . 'images/' . $slug . '-' . $width . 'x' . $height .  '.' . $extension;
 		}
 
 		static function pollAnswers($poll) {
-			global $siteDir, $clauses;
+			global $siteDir, $clauses, $theme;
 
 			if ($poll['already_voted'])
 				$poll['answers'] = Handling::twoDimSorting($poll['answers'], 'votes');
 
-			include $siteDir . 'views/Templates/pollAnswers.php';
+			include $siteDir . $theme['dir'] . 'views/Templates/pollAnswers.php';
 		}
 
 		static function smallUserBox($member) {
-			global $siteDir, $linksDir, $clauses;
+			global $siteDir, $linksDir, $clauses, $theme;
 
-			include $siteDir . 'views/Templates/smallUserBox.php';
+			include $siteDir . $theme['dir'] . 'views/Templates/smallUserBox.php';
 		}
 
 		static function comment($comment, $languageCheck, $hidden, $commentsTemplate = false) {
-			global $siteDir, $linksDir, $language, $clauses, $currentMemberId;
+			global $siteDir, $linksDir, $language, $clauses, $currentMemberId, $theme;
 			$commentAnswers = \Comments\Handling::getComments('parent_id = ' . $comment['id'], $languageCheck, $hidden, true);
 
 			$hasVoted = \Votes\Handling::did($comment['id'], 'comments');
@@ -63,6 +74,6 @@
 				$comment['recursivity'] += 1;
 			}
 
-			include $siteDir . 'views/Templates/comment.php';
+			include $siteDir . $theme['dir'] . 'views/Templates/comment.php';
 		}
 	}

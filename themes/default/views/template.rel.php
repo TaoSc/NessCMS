@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<?php \Basics\Templates::basicHeaders(); ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $subDir; ?>images/favicon.ico">
 		<title><?php echo $siteName; ?> | <?php echo $pageTitle; ?></title>
-		<link rel="stylesheet" type="text/css" href="<?php echo $subDir; ?>css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo $subDir; ?>css/styles.css">
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<script>var topDir = <?php echo $topDir; ?>;</script>
-		<script src="<?php echo $subDir; ?>js/jquery.min.js"></script>
-		<script src="<?php echo $subDir; ?>js/jquery.color.min.js"></script>
-		<script src="<?php echo $subDir; ?>js/jquery.lazyload.min.js"></script>
-		<script src="<?php echo $subDir; ?>js/bootstrap.min.js"></script>
-		<script src="<?php echo $subDir; ?>js/scripts.js"></script>
+		<link rel="stylesheet" type="text/css" href="<?php echo $subDir . $theme['dir']; ?>css/styles.css">
+		<script src="<?php echo $subDir . $theme['dir']; ?>js/jquery.color.min.js"></script>
+		<script src="<?php echo $subDir . $theme['dir']; ?>js/jquery.lazyload.min.js"></script>
+		<script src="<?php echo $subDir . $theme['dir']; ?>js/scripts.js"></script>
 	</head>
 	<body>
 		<header role="banner" class="navbar navbar-fixed-top navbar-inverse">

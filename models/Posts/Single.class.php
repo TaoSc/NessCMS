@@ -40,7 +40,7 @@
 				// $this->post['category'] = (new \Categories\Single($this->post['category_id']))->getCategory(false);
 				$this->post['authors'] = [];
 				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)
-					$this->post['authors'][] = (new \Members\Single($memberLoop['id']))->getMember(false);
+					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
 			}
 
 			return $this->post;

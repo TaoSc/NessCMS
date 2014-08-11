@@ -1,7 +1,6 @@
 config.inc.php
-fonts/Helvetica Neue/
-images/backgrounds/
-images/blank.gif
+themes/default/fonts/Helvetica Neue/
+themes/default/images/backgrounds/
 images/jpegtran.exe
 images/optipng.exe
 images/optimize.cmd

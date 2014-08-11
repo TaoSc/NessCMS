@@ -60,7 +60,7 @@
 		foreach ($news as $newsLoop) {
 ?>
 			<div class="col-lg-12 <?php echo $newsLoop['priority']; ?> news<?php if ($newsLoop['priority'] === 'normal') echo ' no-padding'; ?>">
-				<a href="<?php echo $subDir . 'news/' . $newsLoop['slug']; ?>">
+				<a href="<?php echo $linksDir . 'news/' . $newsLoop['slug']; ?>">
 					<?php if ($newsLoop['priority'] === 'important') echo '<span class="sprites hotThumbLow"></span>'; ?>
 					<img data-original="<?php echo $newsLoop['img_address']; ?>" alt="<?php echo $clauses->get('img_thumb'); ?>">
 					<?php if ($newsLoop['priority'] === 'important') echo '<div class="mask"></div>'; ?>
