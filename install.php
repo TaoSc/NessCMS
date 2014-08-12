@@ -1,7 +1,9 @@
 <?php
+	$language = 'en-us';
+
 	if (pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_BASENAME) === 'install.php')
 		header('Location: ./');
-	elseif (isset($_POST['site_name'])) {
+	elseif (isset($_POST['nickname']) AND isset($_POST['email']) AND isset($_POST['pwd']) AND isset($_POST['pwd2']) AND isset($_POST['site_name'])) {
 		if (PHP_VERSION_ID < 50400)
 			die('Your version of PHP is too old. Please use PHP 5.4 at least');
 
@@ -24,6 +26,13 @@
 
 		$request = $db->prepare($SQLRequest);
 		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/')]);
+
+		$clauses = new Basics\Languages($language);
+
+		if (!Members\Handling::registration($_POST['nickname'], $_POST['email'], $_POST['pwd'], $_POST['pwd2'], 'on'))
+			die('We were unable to create your account. <a href="./">Please retry.</a>');
+		else
+			$request = $db->query('UPDATE members SET type_id = 1 WHERE id = 1');
 
 		unlink(__FILE__);
 		unlink($siteDir . 'NessCMS.sql');
@@ -65,6 +74,48 @@
 										</div>
 									</div>
 								</div>
+
+								<fieldset class="col-lg-12">
+									<legend>Your account</legend>
+
+									<div class="col-lg-offset-1 col-lg-10">
+										<div class="row">
+											<div class="form-group">
+												<label class="col-lg-3" for="nickname">Nickname</label>
+												<div class="col-lg-9">
+													<input id="nickname" name="nickname" type="text" placeholder="" class="form-control" required>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="form-group">
+												<label class="col-lg-3" for="email">E-mail</label>
+												<div class="col-lg-9">
+													<input id="email" name="email" type="text" placeholder="" class="form-control" required>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="form-group">
+												<label class="col-lg-3" for="pwd">Password</label>
+												<div class="col-lg-9">
+													<input id="pwd" name="pwd" type="password" placeholder="" class="form-control" required>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="form-group">
+												<label class="col-lg-3" for="pwd2">Password (checking)</label>
+												<div class="col-lg-9">
+													<input id="pwd2" name="pwd2" type="password" placeholder="" class="form-control" required>
+												</div>
+											</div>
+										</div>
+									</div>
+								</fieldset>
 
 <?php
 								if (!file_exists($configFile)) {

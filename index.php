@@ -6,6 +6,16 @@
 	session_start();
 	mb_internal_encoding('UTF-8');
 
+	// Auto-chargement des classes
+	spl_autoload_register(function ($class) {
+		global $siteDir;
+
+		if (file_exists($siteDir . 'models/' . $class . '.class.php'))
+			require $siteDir . 'models/' . $class . '.class.php';
+		elseif (file_exists($siteDir . 'models/' . $class . '.php'))
+			require $siteDir . 'models/' . $class . '.php';
+	});
+
 	// Vérifications du système
 	if (file_exists($configFile))
 		include $configFile;
@@ -21,16 +31,6 @@
 	catch (Exception $error) {
 		die('Error with <b>PHP Data Objects</b> : ' . $error->getMessage());
 	}
-
-	// Auto-chargement des classes
-	spl_autoload_register(function ($class) {
-		global $siteDir;
-
-		if (file_exists($siteDir . 'models/' . $class . '.class.php'))
-			require $siteDir . 'models/' . $class . '.class.php';
-		elseif (file_exists($siteDir . 'models/' . $class . '.php'))
-			require $siteDir . 'models/' . $class . '.php';
-	});
 
 	// Variables liées au site
 	$topDir = Basics\Site::parameter('directory');
@@ -148,11 +148,12 @@
 	}
 	include $siteDir . 'themes/' . \Basics\Site::parameter('theme') . '/theme.php';
 	$theme['dir'] = 'themes/' . $theme['dir'];
+	$siteVersion = 'dev';
 
 	// Routage
 	$controllerPath = $siteDir . 'controllers/' . $location . '.php';
 
-	if (file_exists($controllerPath))
+	if (file_exists($controllerPath) AND $params[0] !== 'admin')
 		include $controllerPath;
 	elseif ($params[0] === 'lang' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/lang.rel.php';
@@ -178,8 +179,10 @@
 	elseif ($params[0] === 'votes' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/votes/ajax.rel.php';
 
-	elseif ($params[0] === 'admin' AND $foldersDepth !== 0)
+	elseif ($params[0] === 'admin' AND $foldersDepth !== 0) {
+		$admin = true;
 		include $siteDir . 'controllers/admin/routing.php';
+	}
 	else
 		error();
 
@@ -191,9 +194,13 @@
 			ob_start();
 		}
 
-		$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
-		include $siteDir . 'controllers/template.rel.php';
+		if (!isset($admin) OR !$admin) {
+			$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
+			include $siteDir . 'controllers/template.rel.php';
 
-		// if ($cachingCond)
-			// $cache->write($location, ob_get_flush(), $memberCheck);
+			// if ($cachingCond)
+				// $cache->write($location, ob_get_flush(), $memberCheck);
+		}
+		else
+			include $siteDir . 'controllers/admin/template.rel.php';
 	}

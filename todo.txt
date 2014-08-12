@@ -1,5 +1,4 @@
 GLOBAL :
-- automatic installation file more personalizable
 - streamline the Basics\Dates class
 
 NEWS :

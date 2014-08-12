@@ -7,8 +7,9 @@ A fully collaborative and multilingual PHP CMS for the web.
 ### Simple
 
 On your web browser:
+
 1. Go to the directory on wich you have installed the CMS
-2. Follow the instructions ^^
+2. Follow the instructions
 
 ### Manual (e.g.: for development purposes)
 
@@ -23,7 +24,7 @@ On your web browser:
 
 If you want to use URL Rewriting on your website you must enable the option on the Admin of the CMS and adapt your server accordingly.
 
-Here's an example using Nginx:
+Here is an example using Nginx:
 ```ini
 location /nesscms/ {
 	if (!-d $request_filename) {

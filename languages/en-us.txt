@@ -16,6 +16,7 @@ forum				= Forum
 previous			= Previous
 next				= Next
 search_placeholder	= Search…
+config				= 
 type				= 
 featured_content	= Featured content
 most_read			= Most readed

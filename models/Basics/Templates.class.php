@@ -10,7 +10,7 @@
 				<link rel="stylesheet" type="text/css" href="' . $subDir . 'css/bootstrap.min.css">
 				<script>var topDir = ' . $topDir . ';</script>
 				<script src="' . $subDir . 'js/jquery.min.js"></script>
-				<script src="' . $subDir . 'js/bootstrap.min.js"></script>';
+				<script src="' . $subDir . 'js/bootstrap.min.js"></script>' . PHP_EOL;
 		}
 
 		static function textList($array) {
