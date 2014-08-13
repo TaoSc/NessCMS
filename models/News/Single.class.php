@@ -15,6 +15,10 @@
 		function getNews() {
 			$newsItself = $this->news->getPost();
 			if ($newsItself) {
+				global $clauses;
+
+				$newsItself['content'] = $clauses->getDB('posts', $newsItself['id'], 'content');
+
 				$newsItself['category'] = (new \Categories\Single($newsItself['category_id']))->getCategory(false);
 				$newsItself['comments_nbr'] = \Comments\Handling::countComments(0, $newsItself['id'], 'posts', $this->languageCheck);
 			}

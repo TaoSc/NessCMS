@@ -1,0 +1,1 @@
+admin_index			= Vous êtes dans l'interface d'administration de votre site.

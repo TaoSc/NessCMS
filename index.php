@@ -139,6 +139,15 @@
 	}
 
 	// Appels coûteux en terme de performance
+	if ($params[0] === 'admin' AND $foldersDepth !== 0) {
+		include $siteDir . 'themes/admin/theme.php';
+		$admin = true;
+	}
+	else {
+		include $siteDir . 'themes/' . \Basics\Site::parameter('theme') . '/theme.php';
+		$admin = false;
+	}
+	$theme['dir'] = 'themes/' . $theme['dir'];
 	$clauses = new Basics\Languages($language);
 	if ($currentMemberId) {
 		if (!isset($_SESSION['member']))
@@ -146,14 +155,14 @@
 		$currentMember = &$_SESSION['member'];
 		$rights = (new Members\Type($currentMember['type']['id']))->getRights();
 	}
-	include $siteDir . 'themes/' . \Basics\Site::parameter('theme') . '/theme.php';
-	$theme['dir'] = 'themes/' . $theme['dir'];
 	$siteVersion = 'dev';
 
 	// Routage
 	$controllerPath = $siteDir . 'controllers/' . $location . '.php';
 
-	if (file_exists($controllerPath) AND $params[0] !== 'admin')
+	if ($admin)
+		include $siteDir . 'controllers/admin/routing.php';
+	elseif (file_exists($controllerPath))
 		include $controllerPath;
 	elseif ($params[0] === 'lang' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/lang.rel.php';
@@ -179,10 +188,6 @@
 	elseif ($params[0] === 'votes' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/votes/ajax.rel.php';
 
-	elseif ($params[0] === 'admin' AND $foldersDepth !== 0) {
-		$admin = true;
-		include $siteDir . 'controllers/admin/routing.php';
-	}
 	else
 		error();
 
@@ -194,8 +199,8 @@
 			ob_start();
 		}
 
+		$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
 		if (!isset($admin) OR !$admin) {
-			$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
 			include $siteDir . 'controllers/template.rel.php';
 
 			// if ($cachingCond)

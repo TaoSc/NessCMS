@@ -86,7 +86,9 @@
 		}
 
 		static function plural($word, $quantity) {
-			if ((int) $quantity === 1)
+			global $clauses;
+
+			if ((int) $quantity === 1 AND array_search($word, explode(',', $clauses->get('plural_exceptions'))) === false)
 				return $quantity . ' ' . mb_substr($word, 0, -1);
 			else
 				return $quantity . ' ' . $word;

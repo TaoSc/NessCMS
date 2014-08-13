@@ -13,11 +13,14 @@
 			$this->language = $request->fetch(\PDO::FETCH_ASSOC);
 
 			if (!empty($this->language) AND $retrieveFile) {
-				global $siteDir;
+				global $siteDir, $theme;
 
 				if (!file_exists($siteDir . 'languages/' . $this->language['code'] . '.txt'))
 					$this->language['code'] = Site::parameter('default_language');
 				$this->file = file($siteDir . 'languages/' . $this->language['code'] . '.txt', FILE_SKIP_EMPTY_LINES);
+
+				if (file_exists($siteDir . $theme['dir'] . 'languages/' . $this->language['code'] . '.txt'))
+					$this->file = array_merge($this->file, file($siteDir . $theme['dir'] . 'languages/' . $this->language['code'] . '.txt', FILE_SKIP_EMPTY_LINES));
 			}
 		}
 

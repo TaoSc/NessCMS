@@ -1,1 +1,1 @@
-Soon!
+<?php echo $clauses->get('admin_index'); ?>

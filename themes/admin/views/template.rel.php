@@ -18,9 +18,25 @@
 	<body>
 		<header class="container">
 			<nav role="banner" class="navbar navbar-default">
-				<div class="navbar-header pull-left">
+				<div class="navbar-header">
 					<a href="<?php echo $linksDir; ?>index" class="navbar-brand"><?php echo $siteName; ?></a>
 				</div>
+
+				<ul class="nav navbar-nav lang-selector">
+					<li class="dropdown">
+						<a data-toggle="dropdown" href="#null"><?php echo $actualLang['country_name']; ?> <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+<?php
+							foreach ($languagesList as $languageLoop)
+								echo '<li>
+									<a href="' . $linksDir . 'lang/' . $languageLoop['code'] . '/' . str_replace('%', '=', urlencode($location)) . '">
+										<span class="sprites ' . $languageLoop['code'] . ' flag"></span>' . $languageLoop['name'] . '
+									</a>
+								</li>';
+?>
+						</ul>
+					</li>
+				</ul>
 			</nav>
 		</header>
 
@@ -45,11 +61,13 @@
 
 				<div class="row">
 					<div class="col-lg-12">
-						<?php include $siteDir . 'themes/admin/views/' . $viewPath . '.php'; ?>
+						<?php include $viewPath; ?>
 					</div>
 				</div>
 			</section>
 		</div>
+
+		<hr>
 
 		<footer class="container">
 			<div class="col-lg-12 text-center">

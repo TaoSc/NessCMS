@@ -13,10 +13,10 @@ On your web browser:
 
 ### Manual (e.g.: for development purposes)
 
-1. Create a database and fill it in with the content of the "NessCMS.sql" file
+1. Create a database and fill it in with the content of the “NessCMS.sql” file
 2. Fill in the “config.sample.inc.php” file with informations on your database
 3. Rename it “config.inc.php”
-4. That's it! If you want to use the administration, log in with with the nickname and password "admin".
+4. That's it! (If you want to use the administration you must change the type of the first member from 3 to 1, then, log in with with the nickname and password “admin”).
 
 ## Configuration
 
@@ -49,6 +49,12 @@ Note that access to the above folders should be forbidden in all cases.
 ## Versioning
 
 **NessCMS** respects the [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html) creed.
+
+## Requirements
+
+* A web server (Apache2, nginx, etc…)
+* PHP 5.4+
+* MySQL 5+
 
 ## License
 
