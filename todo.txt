@@ -1,5 +1,5 @@
 GLOBAL :
-- streamline the Basics\Dates class
+- rewrite error function
 
 NEWS :
 - create pages for the news

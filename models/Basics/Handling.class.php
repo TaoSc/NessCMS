@@ -46,12 +46,9 @@
 		static function idFromSlug($slug, $tableName = 'posts', $column =  'slug', $language = false) {
 			global $db;
 
-			if ($language) {
-				$request = $db->prepare('SELECT incoming_id FROM languages_routing WHERE table_name = ? AND language = ? AND column_name = ? AND value = ?');
-				$request->execute([$tableName, $language, $column, $slug]);
-				$datas = $request->fetch(\PDO::FETCH_ASSOC);
-				$id = $datas['incoming_id'];
-				$request->closeCursor();
+			if ($language !== false) {
+				global $clauses;
+				$id = $clauses->getDB($tableName, $slug, $column, $language, true, true);
 			}
 			else {
 				$request = $db->prepare('SELECT id FROM ' . $tableName . ' WHERE ' . $column . ' = ?');

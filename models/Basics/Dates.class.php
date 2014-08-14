@@ -41,43 +41,27 @@
 		}
 
 		static function sexyDate($date, $cutDays = false, $today = false) {
-			if (!mb_strpos($date, ':')) {
-				global $language, $clauses;
+			global $language, $clauses;
 
-				if ($today AND $date === (new \DateTime)->format('Y-m-d'))
-					return $clauses->get('today');
+			if ($today AND $date === (new \DateTime)->format('Y-m-d'))
+				return $clauses->get('today');
 
-				$localDays = [$clauses->get('sunday'), $clauses->get('monday'), $clauses->get('tuesday'), $clauses->get('wednesday'),
-							  $clauses->get('thursday'), $clauses->get('friday'), $clauses->get('saturday')];
-				$localMonths = [$clauses->get('january'), $clauses->get('february'), $clauses->get('march'), $clauses->get('april'),
-								$clauses->get('may'), $clauses->get('june'), $clauses->get('july'), $clauses->get('august'),
-								$clauses->get('september'), $clauses->get('october'), $clauses->get('november'), $clauses->get('december')];
-				$parsedDate = \DateTime::createFromFormat('Y-m-d', $date);
+			$localDays = [$clauses->get('sunday'), $clauses->get('monday'), $clauses->get('tuesday'), $clauses->get('wednesday'),
+						  $clauses->get('thursday'), $clauses->get('friday'), $clauses->get('saturday')];
+			$localMonths = [$clauses->get('january'), $clauses->get('february'), $clauses->get('march'), $clauses->get('april'),
+							$clauses->get('may'), $clauses->get('june'), $clauses->get('july'), $clauses->get('august'),
+							$clauses->get('september'), $clauses->get('october'), $clauses->get('november'), $clauses->get('december')];
+			$date = \DateTime::createFromFormat('Y-m-d', $date);
 
-				if ($language === 'fr-fr') {
-					$date = $localDays[$parsedDate->format('w')];
-					if ($cutDays)
-						$date = Strings::cropTxt($date, 3, '.');
-					$date .= ' ' . $parsedDate->format('j') . ' ';
-					$date .= $localMonths[$parsedDate->format('n') - 1];
-					$date .= ' ' . $parsedDate->format('Y');
-				}
-				else {
-					$suffix = Dates::enDaySuffix($parsedDate->format('j'));
+			$dayWord = $localDays[$date->format('w')];
+			if ($cutDays)
+				$dayWord = Strings::cropTxt($dayWord, 3, '.');
+			$dayNum = $date->format('j');
+			$daySuffix = Dates::enDaySuffix($date->format('j'));
+			$monthWord = $localMonths[$date->format('n') - 1];
+			$yearNum = $date->format('Y');
 
-					$date = $localDays[$parsedDate->format('w')];
-					if ($cutDays)
-						$date = Strings::cropTxt($date, 3, '.');
-					$date .= ', ' . $localMonths[$parsedDate->format('n') - 1] . ' ';
-					$date .= $parsedDate->format('j') . '<sup>' . $suffix . '</sup>, ';
-					$date .= $parsedDate->format('Y');
-				}
-				return $date;
-			}
-			else {
-				$date = explode(':', $date);
-				return $date[0] . ' h ' . $date[1] . ' min';
-			}
+			return stripslashes(eval($clauses->getMagic('sexy_date_format')));
 		}
 
 		static function enDaySuffix($day) {

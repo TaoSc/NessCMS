@@ -54,7 +54,7 @@
 			include $siteDir . $theme['dir'] . 'views/Templates/pollAnswers.php';
 		}
 
-		static function smallUserBox($member) {
+		static function smallUserBox($member, $size = 'col-sm-5') {
 			global $siteDir, $linksDir, $clauses, $theme;
 
 			include $siteDir . $theme['dir'] . 'views/Templates/smallUserBox.php';

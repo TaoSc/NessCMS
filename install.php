@@ -83,7 +83,7 @@
 											<div class="form-group">
 												<label class="col-lg-3" for="nickname">Nickname</label>
 												<div class="col-lg-9">
-													<input id="nickname" name="nickname" type="text" placeholder="" class="form-control" required>
+													<input id="nickname" name="nickname" type="text" class="form-control" required>
 												</div>
 											</div>
 										</div>
@@ -92,7 +92,7 @@
 											<div class="form-group">
 												<label class="col-lg-3" for="email">E-mail</label>
 												<div class="col-lg-9">
-													<input id="email" name="email" type="text" placeholder="" class="form-control" required>
+													<input id="email" name="email" type="text" class="form-control" required>
 												</div>
 											</div>
 										</div>
@@ -101,7 +101,7 @@
 											<div class="form-group">
 												<label class="col-lg-3" for="pwd">Password</label>
 												<div class="col-lg-9">
-													<input id="pwd" name="pwd" type="password" placeholder="" class="form-control" required>
+													<input id="pwd" name="pwd" type="password" class="form-control" required>
 												</div>
 											</div>
 										</div>
@@ -110,7 +110,7 @@
 											<div class="form-group">
 												<label class="col-lg-3" for="pwd2">Password (checking)</label>
 												<div class="col-lg-9">
-													<input id="pwd2" name="pwd2" type="password" placeholder="" class="form-control" required>
+													<input id="pwd2" name="pwd2" type="password" class="form-control" required>
 												</div>
 											</div>
 										</div>

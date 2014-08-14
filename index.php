@@ -83,12 +83,10 @@
 	}
 	else
 		$location = 'index';
+
 	$foldersDepth = mb_substr_count($location, '/');
-	if ($ajaxCheck AND isset($_SERVER['HTTP_REFERER'])) {
+	if ($ajaxCheck AND isset($_SERVER['HTTP_REFERER']))
 		$relativeFoldersDepth = mb_substr_count($_SERVER['HTTP_REFERER'], '/') - (mb_substr_count($topDir, '/') + 2);
-		if (mb_substr($_SERVER['HTTP_REFERER'], -1) === '/')
-			$relativeFoldersDepth += 1;
-	}
 	else
 		$relativeFoldersDepth = &$foldersDepth;
 
@@ -122,9 +120,9 @@
 		if (isset($memberCheck)) {
 			if (headers_sent())
 				$encoding = false;
-			elseif (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== false)
+			elseif (mb_strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== false)
 				$encoding = 'x-gzip';
-			elseif (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
+			elseif (mb_strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
 				$encoding = 'gzip';
 			else
 				$encoding = false;
@@ -193,19 +191,15 @@
 
 	// Gestion de l'affichage de la page et de l'écriture du cache
 	if (isset($viewPath)) {
-		$cachingCond = !isset($caching) OR (isset($caching) AND $caching === true);
+		$cachingCond = !$admin AND (!isset($caching) OR (isset($caching) AND $caching === true));
 		if ($cachingCond) {
 			$memberCheck = !isset($memberCheck) ? true : $memberCheck;
 			ob_start();
 		}
 
 		$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
-		if (!isset($admin) OR !$admin) {
-			include $siteDir . 'controllers/template.rel.php';
+		include $siteDir . 'controllers/template.rel.php';
 
-			// if ($cachingCond)
-				// $cache->write($location, ob_get_flush(), $memberCheck);
-		}
-		else
-			include $siteDir . 'controllers/admin/template.rel.php';
+		// if ($cachingCond)
+			// $cache->write($location, ob_get_flush(), $memberCheck);
 	}

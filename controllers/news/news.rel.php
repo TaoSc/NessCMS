@@ -1,8 +1,12 @@
 <?php
-	$news = (new News\Single(Basics\Handling::idFromSlug($params[1], 'posts', 'slug', $language)))->getNews();
+	$langSlug = Basics\Handling::idFromSlug($params[1], 'posts', 'slug', $language);
+	$anySlug = Basics\Handling::idFromSlug($params[1], 'posts', 'slug', null);
+	$news = (new News\Single($anySlug))->getNews();
 
 	if (empty($news))
 		error();
+	elseif ($langSlug !== $anySlug)
+		header('Location: ' . $subDir . 'news/' . $news['slug']);
 	else {
 		$previousNews = \News\Handling::getNews('id <' . $news['id'], true, true, '0, 1');
 		if (!$previousNews) {

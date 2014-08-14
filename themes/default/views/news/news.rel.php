@@ -4,6 +4,19 @@
 			<h1><?php echo $news['title'] . ' <small>' . $news['sub_title'] . '</small>'; ?></h1>
 		</div>
 
+		<div class="row">
+		<div class="col-lg-8">
+			<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
+
+			<hr>
+
+			<?php echo $news['content']; ?>
+		</div>
+		<div class="col-lg-4">
+			<?php Basics\Templates::smallUserBox($news['authors'][0], null); ?>
+		</div>
+		</div>
+
 		<div class="bottom-link">
 			<ul class="pager">
 <?php

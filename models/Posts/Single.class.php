@@ -11,15 +11,17 @@
 				SELECT id, visible, type, category_id, img, authors_ids, priority, DATE(post_date) date, TIME(post_date) time,
 				DATE(modif_date) modif_date, TIME(modif_date) modif_time, views
 				FROM posts
-				WHERE id = ? AND type = ? AND visible = ?
-			');
-			$request->execute([$id, $type, $visible]);
+				WHERE id = ? AND type = ?' . ($visible ? ' AND visible = ' . $visible : null)
+			);
+			$request->execute([$id, $type]);
 			$this->post = $request->fetch(\PDO::FETCH_ASSOC);
 
 			if (!empty($this->post) AND $languageCheck) {
 				global $clauses;
 
-				if ($clauses->getDB('posts', $this->post['id'], 'availability', false, false) != true)
+				$this->post['availability'] = $clauses->getDB('posts', $this->post['id'], 'availability', false, false);
+				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug', false, false);
+				if (!$this->post['availability'] OR !$this->post['slug'])
 					$this->post = false;
 			}
 		}
@@ -28,7 +30,6 @@
 			if ($this->post) {
 				global $clauses;
 
-				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug');
 				$this->post['title'] = $clauses->getDB('posts', $this->post['id'], 'title');
 				$this->post['sub_title'] = $clauses->getDB('posts', $this->post['id'], 'sub_title');
 

@@ -8,7 +8,7 @@
 					<div class="form-group">
 						<label class="col-lg-3" for="name"><?php echo $clauses->get('name_login'); ?></label>
 						<div class="col-lg-9">
-							<input id="name" name="name" type="text" placeholder="" class="form-control" required>
+							<input id="name" name="name" type="text" class="form-control" required>
 						</div>
 					</div>
 				</div>
@@ -17,7 +17,7 @@
 					<div class="form-group">
 						<label class="col-lg-3" for="pwd"><?php echo $clauses->get('password'); ?></label>
 						<div class="col-lg-9">
-							<input id="pwd" name="pwd" type="password" placeholder="" class="form-control" required>
+							<input id="pwd" name="pwd" type="password" class="form-control" required>
 						</div>
 					</div>
 				</div>

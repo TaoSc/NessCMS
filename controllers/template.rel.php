@@ -4,12 +4,21 @@
 	$actualLang = $clauses->getLanguage();
 	$languagesList = Basics\Languages::getLanguages('code != \'' . $language . '\' AND enabled = true', $actualLang['code']);
 
-	$navigation = [
-		['caption' => $clauses->get('home'), 'link' => 'index'],
-		['caption' => $clauses->get('news'), 'link' => 'news/index'],
-		['caption' => $clauses->get('reviews'), 'link' => 'reviews/index'],
-		['caption' => $clauses->get('forum'), 'link' => 'forum/index']
-	];
+	if ($admin) {
+		$navigation = [
+			['caption' => $clauses->get('home'), 'link' => 'admin/index'],
+			['caption' => $clauses->get('news'), 'link' => 'admin/news/index'],
+			['caption' => $clauses->get('config'), 'link' => 'admin/configuration'],
+		];
+	}
+	else {
+		$navigation = [
+			['caption' => $clauses->get('home'), 'link' => 'index'],
+			['caption' => $clauses->get('news'), 'link' => 'news/index'],
+			['caption' => $clauses->get('reviews'), 'link' => 'reviews/index'],
+			['caption' => $clauses->get('forum'), 'link' => 'forum/index']
+		];
+	}
 
 	if (isset($breadcrumb)) {
 		foreach ($breadcrumb as $key => $helperElem) {
