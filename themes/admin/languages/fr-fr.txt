@@ -1,1 +1,13 @@
 admin_index			= Vous êtes dans l'interface d'administration de votre site.
+create_news			= Créer une news
+edit_news			= Modifier une news
+news_create_fails	= La création de cette news a échouée.
+system_conf			= Configuration du système
+anonymous_coms		= Commentaires anonymes
+anonymous_votes		= Votes anonymes
+site_name			= Nom du site
+private_emails		= Garder les e-mails privées
+url_rewriting		= URLs propres (réécriture d'URL)
+default_users_type	= Type par défaut des membres
+enable				= Activer
+disable				= Désactiver

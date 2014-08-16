@@ -43,22 +43,19 @@
 			return (int) $request->fetch(\PDO::FETCH_ASSOC)['total'];
 		}
 
-		static function idFromSlug($slug, $tableName = 'posts', $column =  'slug', $language = false) {
+		static function idFromSlug($slug, $tableName = 'posts', $column =  'slug', $noLanguage = true) {
 			global $db;
 
-			if ($language !== false) {
+			if ($noLanguage !== true) {
 				global $clauses;
-				$id = $clauses->getDB($tableName, $slug, $column, $language, true, true);
+				return $clauses->getDB($tableName, $slug, $column, $noLanguage, true, true);
 			}
 			else {
 				$request = $db->prepare('SELECT id FROM ' . $tableName . ' WHERE ' . $column . ' = ?');
 				$request->execute([$slug]);
 				$datas = $request->fetch(\PDO::FETCH_ASSOC);
-				$id = $datas['id'];
-				$request->closeCursor();
+				return $datas['id'];
 			}
-
-			return $id;
 		}
 
 		static function latestId($from = 'posts', $select = 'id') {
@@ -66,9 +63,6 @@
 
 			$request = $db->query('SELECT ' . $select . ' FROM ' . $from . ' ORDER BY id DESC LIMIT 1');
 			$datas = $request->fetch(\PDO::FETCH_ASSOC);
-			$id = $datas[$select];
-			$request->closeCursor();
-
-			return $id;
+			return $datas[$select];
 		}
 	}

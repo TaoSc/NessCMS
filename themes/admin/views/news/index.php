@@ -12,10 +12,10 @@
 <?php
 			foreach ($news as $key => $newsLoop) {
 ?>
-			<tr>
-				<td><a href="<?php echo $newsLoop['id']; ?>"><?php echo $newsLoop['title']; ?></a></td>
-				<td><?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?></td>
-			</tr>
+				<tr>
+					<td><a href="<?php echo $newsLoop['id']; ?>"><?php echo $newsLoop['title']; ?></a></td>
+					<td><?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?></td>
+				</tr>
 <?php
 			}
 ?>

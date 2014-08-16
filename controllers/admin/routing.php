@@ -6,6 +6,8 @@
 
 	elseif ($rights['admin_access'] AND isset($params[2]) AND $params[1] === 'news' AND $params[2] === 'index' AND $foldersDepth === 2)
 		include $siteDir . 'controllers/admin/news/index.php';
+	elseif ($rights['admin_access'] AND isset($params[2]) AND $params[1] === 'news' AND is_numeric($params[2]) AND $foldersDepth === 2)
+		include $siteDir . 'controllers/admin/news/edit.rel.php';
 
 	else {
 		error();

@@ -25,4 +25,18 @@
 
 			return $newsItself;
 		}
+
+		static function create($categId, $title, $subTitle, $content, $img, $tags = null, $slug = null, $visible = false, $parseSlug = true) {
+			if (!empty($categId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
+				if ($newsId = \Posts\Single::create()) {
+					echo 'lol';
+
+					return $newsId;
+				}
+				else
+					return false;
+			}
+			else
+				return false;
+		}
 	}

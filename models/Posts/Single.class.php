@@ -3,6 +3,11 @@
 
 	class Single {
 		private $post;
+		static $imgsSizes = [
+			[250, 100],
+			[750, 100],
+			[750, 400]
+		];
 
 		function __construct($id, $type, $visible = true, $languageCheck = true) {
 			global $db;
@@ -46,19 +51,56 @@
 			return $this->post;
 		}
 
-		static function setViews($newsId, $reset = false) {
+		static function setViews($postId, $reset = false) {
 			global $db;
 
 			if ($reset)
 				$viewsNbr = 0;
 			else {
 				$request = $db->prepare('SELECT views FROM posts WHERE type = ? AND id = ?');
-				$request->execute(['news', $newsId]);
+				$request->execute(['news', $postId]);
 
 				$viewsNbr = ++$request->fetch(\PDO::FETCH_ASSOC)['views'];
 			}
 
 			$request = $db->prepare('UPDATE posts SET views = ? WHERE type = ? AND id = ?');
-			$request->execute([$viewsNbr, 'news', $newsId]);
+			$request->execute([$viewsNbr, 'news', $postId]);
+		}
+
+		static function create($categId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $type = 'news', $parseSlug = true) {
+			if (!empty($categId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
+				$slug = empty($slug) ? $title : $slug;
+				if ($parseSlug)
+					$slug = \Basics\Strings::slug($slug);
+
+				if (\Basics\Handling::countEntrys('posts', 'type = \'' . $type . '\' AND slug = \'' . $slug . '\''))
+					return false;
+				else {
+					global $db, $currentMemberId;
+
+					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
+
+					$request = $db->prepare('
+						INSERT INTO posts(category_id, img, author_id, title, sub_title, description, content, post_date, slug, visible, type)
+						VALUES(?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?)
+					');
+					$request->execute([
+						$categId,
+						$img,
+						json_encode([$currentMemberId]),
+						$title,
+						$subTitle,
+						$description,
+						$content,
+						$slug,
+						$visible,
+						$type
+					]);
+
+					return (new Single(\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false)))->getPost()['id'];
+				}
+			}
+			else
+				return false;
 		}
 	}

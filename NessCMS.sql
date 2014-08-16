@@ -6,7 +6,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-
 CREATE TABLE IF NOT EXISTS `categories` (
 `id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL
@@ -153,6 +152,7 @@ INSERT INTO `site` (`name`, `value`) VALUES
 ('private_emails', '0'),
 ('theme', 'default'),
 ('url_rewriting', '0');
+('default_users_type', '2');
 
 CREATE TABLE IF NOT EXISTS `votes` (
 `id` int(11) NOT NULL,
@@ -163,7 +163,6 @@ CREATE TABLE IF NOT EXISTS `votes` (
   `post_id` int(11) NOT NULL,
   `vote_date` datetime NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2 ;
-
 
 ALTER TABLE `categories`
  ADD PRIMARY KEY (`id`);
@@ -200,7 +199,6 @@ ALTER TABLE `site`
 
 ALTER TABLE `votes`
  ADD PRIMARY KEY (`id`);
-
 
 ALTER TABLE `categories`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;

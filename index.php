@@ -44,32 +44,11 @@
 	else
 		$language = $_COOKIE['nesscms_lang'];
 
-	// Gestion des erreurs
-	function error($error = 404, $homeBtn = true) {
-		global $siteDir, $clauses, $viewPath, $pageTitle, $errorMsg, $caching, $showHomeBtn;
-
-		if ($error === 404)
-			header('HTTP/1.0 404 Not Found');
-		elseif ($error === 403)
-			header('HTTP/1.0 403 Forbidden');
-
-		if (is_int($error))
-			$error = $clauses->get('error') . ' ' . $error . '.';
-
-		$errorMsg = $error;
-		$showHomeBtn = $homeBtn;
-		$viewPath = 'error.rel';
-		$caching = false;
-		$pageTitle = $clauses->get('error');
-	}
-
 	// Gestion du membre
 	if (isset($_COOKIE['nesscms_name']) AND isset($_COOKIE['nesscms_password']) AND !isset($_SESSION['member']))
 		Members\Handling::login($_COOKIE['nesscms_name'], $_COOKIE['nesscms_password']);
-	if (empty($_SESSION['id'])) {
-		$rights['admin_access'] = false;
+	if (empty($_SESSION['id']))
 		$currentMemberId = 0;
-	}
 	else
 		$currentMemberId = &$_SESSION['id'];
 
@@ -153,7 +132,31 @@
 		$currentMember = &$_SESSION['member'];
 		$rights = (new Members\Type($currentMember['type']['id']))->getRights();
 	}
+	else
+		$rights = (new Members\Type(3))->getRights();
 	$siteVersion = 'dev';
+
+	// Gestion des erreurs
+	function error($errorMsg = 404, $showHomeBtn = true) {
+		global $siteDir, $clauses, $theme, $language, $admin, $siteName, $location, $linksDir, $subDir, $currentMemberId, $rights, $currentMember;
+
+		if ($errorMsg === 404)
+			header('HTTP/1.0 404 Not Found');
+		elseif ($errorMsg === 403)
+			header('HTTP/1.0 403 Forbidden');
+
+		if (is_int($errorMsg))
+			$errorMsg = $clauses->get('error') . ' ' . $errorMsg . '.';
+
+		include $siteDir . 'themes/' . \Basics\Site::parameter('theme') . '/theme.php';
+		$admin = false;
+		$theme['dir'] = 'themes/' . $theme['dir'];
+
+		$pageTitle = $clauses->get('error');
+		$viewPath = $siteDir . $theme['dir'] . 'views/error.rel.php';
+		include $siteDir . 'controllers/template.rel.php';
+		die();
+	}
 
 	// Routage
 	$controllerPath = $siteDir . 'controllers/' . $location . '.php';
@@ -168,7 +171,7 @@
 	elseif ($params[0] === 'news' AND isset($params[1]) AND $foldersDepth === 1)
 		include $siteDir . 'controllers/news/news.rel.php';
 
-	elseif ($params[0] === 'polls' AND isset($params[1]) AND $foldersDepth === 1)
+	elseif ($params[0] === 'polls' AND isset($params[1]) AND is_numeric($params[1]) AND $foldersDepth === 1)
 		include $siteDir . 'controllers/polls/poll.rel.php';
 	elseif ($params[0] === 'polls' AND isset($params[2]) AND $params[2] === 'send' AND $foldersDepth === 2)
 		include $siteDir . 'controllers/polls/send.ajax.php';

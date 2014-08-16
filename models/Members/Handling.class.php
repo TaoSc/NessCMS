@@ -85,9 +85,9 @@
 
 				$request = $db->prepare('
 					INSERT INTO members(type_id, nickname, slug, email, password, registration)
-					VALUES(2, ?, ?, ?, ?, NOW())
+					VALUES(?, ?, ?, ?, ?, NOW())
 				');
-				$request->execute([$nickname, $slug, htmlspecialchars($email), hash('sha256', $pwd2)]);
+				$request->execute([Basics\Site::parameter('default_users_type'), $nickname, $slug, htmlspecialchars($email), hash('sha256', $pwd2)]);
 
 				if (Handling::login($nickname, hash('sha256', $pwd2), $cookies))
 					return true;
