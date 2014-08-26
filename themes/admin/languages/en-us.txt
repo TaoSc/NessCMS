@@ -1,4 +1,5 @@
 admin_index			= You are in the administration interface of your site.
+create				= Create
 create_news			= Create a news
 edit_news			= Edit a news
 news_create_fails	= The creation of this news has failed.
@@ -11,3 +12,5 @@ url_rewriting		= Clean URLs (URL Rewriting)
 default_users_type	= Default members type
 enable				= Enable
 disable				= Disable
+make_visible		= Make visible
+img_placeholder		= Type the URL of your image.

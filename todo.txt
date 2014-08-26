@@ -1,6 +1,3 @@
 NEWS :
 - create pages for the news
 - tags
-
-ADMIN :
-- create the admin

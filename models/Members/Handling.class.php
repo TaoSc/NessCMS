@@ -59,7 +59,7 @@
 					setcookie('nesscms_name', $nickname, time() + 63072000, $topDir, null, false, true);
 					setcookie('nesscms_password', $member['password'], time() + 63072000, $topDir, null, false, true);
 				}
-				$_SESSION['id'] = $member['id'];
+				$_SESSION['id'] = (int) $member['id'];
 
 				return true;
 			}

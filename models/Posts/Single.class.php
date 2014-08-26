@@ -13,7 +13,7 @@
 			global $db;
 
 			$request = $db->prepare('
-				SELECT id, visible, type, category_id, img, authors_ids, priority, DATE(post_date) date, TIME(post_date) time,
+				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time,
 				DATE(modif_date) modif_date, TIME(modif_date) modif_time, views
 				FROM posts
 				WHERE id = ? AND type = ?' . ($visible ? ' AND visible = ' . $visible : null)
@@ -42,13 +42,31 @@
 				if ($this->post['modif_date'])
 					$this->post['modif_time'] = \Basics\Dates::sexyTime($this->post['modif_time']);
 
-				$this->post['img'] = (new \Medias\Image($this->post['img']))->getImage();
+				$this->post['img'] = (new \Medias\Image($this->post['img_id']))->getImage();
 				$this->post['authors'] = [];
 				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)
 					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
 			}
 
 			return $this->post;
+		}
+
+		function deletePost() {
+			if ($this->post) {
+				global $db;
+
+				$request = $db->prepare('DELETE FROM posts WHERE type = ? AND id = ?');
+				$request->execute([$this->post['type'], $this->post['id']]);
+
+				$request = $db->prepare('DELETE FROM languages_routing WHERE table_name = ? AND incoming_id = ?');
+				$request->execute(['posts', $this->post['id']]);
+
+				(new \Medias\Image($this->post['img_id']))->deleteImage();
+
+				return true;
+			}
+			else
+				return false;
 		}
 
 		static function setViews($postId, $reset = false) {
@@ -67,13 +85,15 @@
 			$request->execute([$viewsNbr, 'news', $postId]);
 		}
 
-		static function create($categId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $type = 'news', $parseSlug = true) {
-			if (!empty($categId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
-				$slug = empty($slug) ? $title : $slug;
+		static function create($categoryId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $type = 'news', $parseSlug = true) {
+			if (!empty($categoryId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
+				global $language;
+				if (empty($slug))
+					$slug = $title;
 				if ($parseSlug)
 					$slug = \Basics\Strings::slug($slug);
 
-				if (\Basics\Handling::countEntrys('posts', 'type = \'' . $type . '\' AND slug = \'' . $slug . '\''))
+				if (\Basics\Handling::countEntrys('languages_routing', 'language = \'' . $language . '\' AND table_name = \'posts\' AND column_name = \'slug\' AND value = \'' . $slug . '\''))
 					return false;
 				else {
 					global $db, $currentMemberId;
@@ -81,23 +101,56 @@
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 
 					$request = $db->prepare('
-						INSERT INTO posts(category_id, img, author_id, title, sub_title, description, content, post_date, slug, visible, type)
-						VALUES(?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?)
+						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date)
+						VALUES (?, ?, ?, ?, ?, ?, NOW())
 					');
 					$request->execute([
-						$categId,
+						$visible,
+						$type,
+						$categoryId,
 						$img,
 						json_encode([$currentMemberId]),
-						$title,
-						$subTitle,
-						$description,
-						$content,
-						$slug,
-						$visible,
-						$type
+						'normal'
 					]);
 
-					return (new Single(\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false)))->getPost()['id'];
+					$postId = \Basics\Handling::latestId();
+					// \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false)
+
+					$request = $db->prepare('
+						INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value)
+						VALUES (?, ?, ?, \'posts\', \'title\', ?),
+						(?, ?, ?, \'posts\', \'sub_title\', ?),
+						(?, ?, ?, \'posts\', \'content\', ?),
+						(?, ?, ?, \'posts\', \'slug\', ?),
+						(?, ?, ?, \'posts\', \'availability\', 1)
+					');
+					$request->execute([
+						\Basics\Strings::identifier(),
+						$language,
+						$postId,
+						$title,
+
+						\Basics\Strings::identifier(),
+						$language,
+						$postId,
+						$subTitle,
+
+						\Basics\Strings::identifier(),
+						$language,
+						$postId,
+						$content,
+
+						\Basics\Strings::identifier(),
+						$language,
+						$postId,
+						$slug,
+
+						\Basics\Strings::identifier(),
+						$language,
+						$postId
+					]);
+
+					return $postId;
 				}
 			}
 			else

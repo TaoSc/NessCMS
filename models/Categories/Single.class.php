@@ -48,21 +48,24 @@
 			}
 			else
 				return false;
-		}
+		}*/
 
 		function delCateg() {
-			if ($this->category) {
+			if ($this->category AND $this->category['id'] != 1) {
 				global $db;
+
+				$request = $db->prepare('DELETE FROM languages_routing WHERE incoming_id = ? AND table_name = ?');
+				$request->execute([$this->category['id'], 'categories']);
 
 				$request = $db->prepare('DELETE FROM categories WHERE id = ?');
 				$request->execute([$this->category['id']]);
 
-				$request = $db->prepare('UPDATE posts SET category_id = 3 WHERE category_id = ?');
+				$request = $db->prepare('UPDATE posts SET category_id = 1 WHERE category_id = ?');
 				$request->execute([$this->category['id']]);
 
 				return true;
 			}
 			else
 				return false;
-		}*/
+		}
 	}

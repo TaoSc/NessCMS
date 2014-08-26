@@ -1,23 +1,35 @@
 <?php
-	if ($params[2] === '0' AND $_SERVER['REQUEST_METHOD'] === 'POST') {
-		if ($newsId = \News\Single::create())
-			header('Location: ' . $subDir . 'admin/edit/' . $newsId);
+	if ($params[2] === '0' AND $rights['news_create'] AND $_SERVER['REQUEST_METHOD'] === 'POST') {
+		if ($newsId = \News\Single::create($_POST['category_id'], $_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['img'], null, null, isset($_POST['visible']) ? true : 0))
+			header('Location: ' . $subDir . 'admin/news/' . $newsId);
 		else
-			error('news_create_fails');
+			error($clauses->get('news_create_fails'));
 	}
 	elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		echo 'Soon!';
+		// $news = (new News\Single($params[2], false))->getNews();
+
+		// if ($news->setNews())
+			// header('Location: ' . $subDir . 'admin/news/' . $news['id']);
+		// else
+			// error('news_edit_fails');
 	}
 	else {
 		if ($params[2] === '0')
-			$news['title'] = 'Creation';
-		else
-			$news = (new News\Single($params[2]))->getNews();
+			$create = true;
+		else {
+			$create = false;
+			$news = (new News\Single($params[2], false))->getNews();
+			if ($news['visible'])
+				$btnsGroupMenu[] = ['link' => $subDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
+			$btnsGroupMenu[] = ['link' => $subDir . 'admin/news/' . $news['id'] . '/delete', 'name' => $clauses->get('delete'), 'type' => 'warning'];
+		}
+		$categories = \Categories\Handling::getCategories();
 
-		if (empty($news))
+		if (empty($news) AND !$create)
 			error();
 		else {
-			$pageTitle = $news['title'] . ' - ' . $clauses->get('news');
+			$pageTitle = ($create ? $clauses->get('create') : $news['title']) . ' - ' . $clauses->get('news');
 			$viewPath = 'news/edit.rel';
 		}
 	}

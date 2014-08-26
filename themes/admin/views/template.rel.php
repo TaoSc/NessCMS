@@ -61,7 +61,21 @@
 
 				<div class="row">
 					<div class="col-lg-12">
-						<?php include $viewPath; ?>
+<?php
+						if (isset($btnsGroupMenu) AND !empty($btnsGroupMenu)) {
+?>
+							<div class="btn-group btn-group-justified">
+<?php
+								foreach ($btnsGroupMenu as $btnsGroupElem)
+									echo '<a href="' . $btnsGroupElem['link'] . '" type="button" class="btn btn-' . (isset($btnsGroupElem['type']) ? $btnsGroupElem['type'] : 'link') . '">' . $btnsGroupElem['name'] . '</a>';
+?>
+							</div>
+							<hr>
+<?php
+						}
+
+						include $viewPath;
+?>
 					</div>
 				</div>
 			</section>

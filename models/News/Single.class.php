@@ -26,15 +26,21 @@
 			return $newsItself;
 		}
 
-		static function create($categId, $title, $subTitle, $content, $img, $tags = null, $slug = null, $visible = false, $parseSlug = true) {
-			if (!empty($categId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
-				if ($newsId = \Posts\Single::create()) {
-					echo 'lol';
+		function deleteNews() {
+			if ($this->news->deletePost()) {
+				
 
-					return $newsId;
-				}
-				else
-					return false;
+				return true;
+			}
+			else
+				return false;
+		}
+
+		static function create($categoryId, $title, $subTitle, $content, $img, $tags = null, $slug = null, $visible = false) {
+			if ($newsId = \Posts\Single::create($categoryId, $title, $subTitle, $content, $img, $slug, $visible)) {
+				
+
+				return $newsId;
 			}
 			else
 				return false;

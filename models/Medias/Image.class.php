@@ -56,31 +56,33 @@
 				return false;
 		}
 
-		function delImage($size) {
+		function deleteImage($size = false) {
 			if ($this->image) {
 				global $db;
 
 				if ($size) {
 					$size = explode('x', $size);
 					if (in_array($size, $this->image['sizes'])) {
-						global $siteDir;
 						$sizeKey = array_search($size, $this->image['sizes']);
 
 						unlink(\Basics\Templates::getImg('heroes/' . $this->image['slug'], $this->image['format'], $this->image['sizes'][$sizeKey][0], $this->image['sizes'][$sizeKey][1], false));
 
 						unset($this->image['sizes'][$sizeKey]);
 
-						$request = $db->prepare('UPDATE medias SET sizes = ? WHERE type = \'images\' AND id = ?');
-						$request->execute([json_encode($this->image['sizes']), $this->image['id']]);
+						$request = $db->prepare('UPDATE medias SET sizes = ? WHERE type = ? AND id = ?');
+						$request->execute(['images', json_encode($this->image['sizes']), $this->image['id']]);
 					}
 					else
 						return false;
 				}
 				else {
-					$request = $db->prepare('DELETE FROM medias WHERE type = \'images\' AND id = ?');
-					$request->execute([$this->image['id']]);
+					global $siteDir;
 
-					foreach($this->image['files'] as $sizeLoop)
+					$request = $db->prepare('DELETE FROM medias WHERE type = ? AND id = ?');
+					$request->execute(['images', $this->image['id']]);
+
+					$filesList = glob($siteDir . 'images/heroes/' . $this->image['slug'] . '*.' . $this->image['format']);
+					foreach ($filesList as $sizeLoop)
 						unlink($sizeLoop);
 				}
 
@@ -90,7 +92,7 @@
 				return false;
 		}
 
-		static function create($imageAddress, $imageName, $imageSizes) {
+		static function create($imageAddress, $imageName, $imageSizes = [[100, 70]]) {
 			global $siteDir, $db, $currentMemberId;
 
 			$imageInfos = pathinfo($imageAddress);
@@ -103,7 +105,6 @@
 				return false;;
 
 			$imageIdentifier = \Basics\Strings::identifier();
-			// $imageSizes[] = [100, 70];
 			$imageExtension = \Basics\Images::crop($imageAddress, 'heroes/' . $imageSlug, $imageSizes);
 			copy($imageAddress, $siteDir . 'images/heroes/' . $imageSlug . '.' . $imageExtension);
 
@@ -121,6 +122,6 @@
 				'images'
 			]);
 
-			return \Basics\Handling::latestId('medias');
+			return $imageIdentifier;
 		}
 	}
