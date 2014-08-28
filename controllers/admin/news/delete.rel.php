@@ -4,4 +4,4 @@
 	if (empty($news->getNews()) OR !$news->deleteNews())
 		error();
 	else
-		header('Location: ' . $subDir . 'admin/news/');
+		header('Location: ' . $linksDir . 'admin/news/');

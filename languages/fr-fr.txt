@@ -68,6 +68,7 @@ remove_vote			= Enlever votre vote
 no_poll_sidebar		= Il n'y a aucun sondage pour le moment.
 bbcode_placeholder	= Vous pouvez utiliser le BBCode.
 com_hidden_lvl1		= Le contenu de ce commentaire a été caché.
+coms_per_page		= Commentaires par page
 register			= S'inscrire
 registration		= Inscription
 registered			= inscrit

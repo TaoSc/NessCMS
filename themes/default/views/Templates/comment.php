@@ -30,13 +30,16 @@
 					if ($comment['hidden'] == 1)
 						echo '<span class="text-danger">' . $clauses->get('com_hidden_lvl1') . '</span>';
 					else {
-						if ($hasVoted AND $currentMemberId) {
 ?>
-							<button type="button" class="btn btn-inverse btn-xs vote-btn pull-right" data-id="<?php echo $comment['id']; ?>" value="strip">
-								<?php echo $clauses->get('remove_vote'); ?>
-							</button>
+						<div class="btn-group btn-group-xs pull-right">
 <?php
-						}
+							if ($comment['removal_cond'])
+								echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '/delete' . '" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
+							if ($hasVoted AND $currentMemberId)
+								echo '<button type="button" class="btn btn-inverse" data-id="' . $comment['id'] . '" value="strip">' . $clauses->get('remove_vote') . '</button>';
+?>
+						</div>
+<?php
 						echo $comment['content'];
 					}
 ?>
@@ -55,7 +58,7 @@
 
 						<div class="btn-group">
 							<button type="button" class="btn btn-danger btn-sm vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $comment['id']; ?>" value="down">
-								<span class="glyphicon glyphicon-thumbs-down"></span> <?php echo $clauses->get('to_dislike'); ?>
+								<span class="glyphicon glyphicon-thumbs-down"></span> <?php echo $clauses->get('to_dislike'); ?> 
 								(<span class="votes-nbr"><?php echo $comment['dislikes']; ?></span>)								
 							</button>
 						</div>

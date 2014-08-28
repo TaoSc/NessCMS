@@ -3,14 +3,8 @@
 
 	class Handling {
 		static function getCategories($condition = '0 = 0') {
-			global $db;
+			$condition = 'type = \'category\' AND (' . $condition . ')';
 
-			$request = $db->query('SELECT id FROM categories WHERE ' . $condition . ' ORDER BY id');
-			$categoriesIds = $request->fetchAll(\PDO::FETCH_ASSOC);
-
-			$categories = [];
-			foreach ($categoriesIds as $categoryLoop)
-				$categories[] = (new Single($categoryLoop['id']))->getCategory();
-			return $categories;
+			return \Basics\Handling::getList($condition, 'tags', 'Categories', 'Category');
 		}
 	}

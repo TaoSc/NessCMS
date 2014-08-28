@@ -15,6 +15,12 @@
 			');
 			$request->execute([$id]);
 			$this->comment = $request->fetch(\PDO::FETCH_ASSOC);
+			if ($this->comment) {
+				global $currentMemberId, $rights;
+
+				$this->comment['author_id'] = (int) $this->comment['author_id'];
+				$this->comment['removal_cond'] = ($currentMemberId AND ($currentMemberId === $this->comment['author_id'] OR $rights['admin_access']));
+			}
 		}
 
 		function getComment($lineJump = true, $parsing = true) {
@@ -34,6 +40,7 @@
 				$this->comment['dislikes'] = \Votes\Handling::number($this->comment['id'], 'comments', -1);
 				$this->comment['popularity'] = $this->comment['likes'] - $this->comment['dislikes'];
 			}
+
 			return $this->comment;
 		}
 
@@ -50,15 +57,21 @@
 			}
 		}
 
-		function delComment() {
-			if ($this->comment) {
+		function deleteComment($realRemoval = true) {
+			if ($this->comment AND $this->comment['removal_cond']) {
 				global $db;
 
-				$request = $db->prepare('DELETE FROM comments WHERE id = ?');
-				$request->execute([$this->comment['id']]);
+				if ($realRemoval) {
+					$request = $db->prepare('DELETE FROM comments WHERE id = ?');
+					$request->execute([$this->comment['id']]);
 
-				$request = $db->prepare('UPDATE comments SET hidden = 2 WHERE parent_id = ?');
-				$request->execute([$this->comment['id']]);
+					$request = $db->prepare('UPDATE comments SET hidden = 2 WHERE parent_id = ?');
+					$request->execute([$this->comment['id']]);
+				}
+				else {
+					$request = $db->prepare('UPDATE comments SET hidden = 2 WHERE id = ? OR parent_id = ?');
+					$request->execute([$this->comment['id'], $this->comment['id']]);
+				}
 
 				return true;
 			}

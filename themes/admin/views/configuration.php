@@ -3,6 +3,13 @@
 		<legend><?php echo $clauses->get('system_conf'); ?></legend>
 
 		<div class="form-group">
+			<label class="col-xs-4 control-label" for="coms_per_page"><?php echo $clauses->get('coms_per_page'); ?></label>
+			<div class="col-xs-4">
+				<input name="coms_per_page" id="coms_per_page" type="number" class="form-control" value="<?php echo Basics\Site::parameter('coms_per_page'); ?>" required>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="col-xs-4 control-label" for="anonymous_coms"><?php echo $clauses->get('anonymous_coms'); ?></label>
 			<div class="col-xs-4">
 				<div class="checkbox">

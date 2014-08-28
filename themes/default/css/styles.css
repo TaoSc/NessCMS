@@ -115,6 +115,9 @@ div.small-user-box {
 	border: 1px solid #ebebeb;
 	position: relative;
 }
+div.small-user-box.subtle-margin {
+	margin-bottom: 10px;
+}
 div.small-user-box > img {
 	height: 50px;
 	float: left;
@@ -317,7 +320,7 @@ div.single-comment .content-itself {
 div.single-comment .content-itself.bg-warning {
 	background: #fcf8e3;
 }
-div.single-comment .content-itself button.vote-btn {
+div.single-comment .content-itself .btn-group {
 	margin-top: 5px;
 }
 div.single-comment .options-box {

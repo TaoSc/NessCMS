@@ -1,7 +1,7 @@
 <?php
 	if ($params[2] === '0' AND $rights['news_create'] AND $_SERVER['REQUEST_METHOD'] === 'POST') {
-		if ($newsId = \News\Single::create($_POST['category_id'], $_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['img'], null, null, isset($_POST['visible']) ? true : 0))
-			header('Location: ' . $subDir . 'admin/news/' . $newsId);
+		if ($newsId = \News\Single::create($_POST['category_id'], $_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['img'], null, null, isset($_POST['visible']) ? true : 0, isset($_POST['comments']) ? true : 0))
+			header('Location: ' . $linksDir . 'admin/news/' . $newsId);
 		else
 			error($clauses->get('news_create_fails'));
 	}
@@ -10,7 +10,7 @@
 		// $news = (new News\Single($params[2], false))->getNews();
 
 		// if ($news->setNews())
-			// header('Location: ' . $subDir . 'admin/news/' . $news['id']);
+			// header('Location: ' . $linksDir . 'admin/news/' . $news['id']);
 		// else
 			// error('news_edit_fails');
 	}
@@ -21,8 +21,8 @@
 			$create = false;
 			$news = (new News\Single($params[2], false))->getNews();
 			if ($news['visible'])
-				$btnsGroupMenu[] = ['link' => $subDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
-			$btnsGroupMenu[] = ['link' => $subDir . 'admin/news/' . $news['id'] . '/delete', 'name' => $clauses->get('delete'), 'type' => 'warning'];
+				$btnsGroupMenu[] = ['link' => $linksDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
+			$btnsGroupMenu[] = ['link' => $linksDir . 'admin/news/' . $news['id'] . '/delete', 'name' => $clauses->get('delete'), 'type' => 'warning'];
 		}
 		$categories = \Categories\Handling::getCategories();
 

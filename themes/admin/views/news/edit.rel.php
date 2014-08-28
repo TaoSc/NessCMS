@@ -31,7 +31,7 @@
 					foreach ($categories as $categoryLoop) {
 						echo '<option value="' .  $categoryLoop['id'] . '"';
 						if (!$create AND $news['category']['id'] === $categoryLoop['id']) echo ' selected';
-						echo '>' .  $categoryLoop['title'] . '</option>' . PHP_EOL;
+						echo '>' .  $categoryLoop['name'] . '</option>' . PHP_EOL;
 					}
 ?>
 				</select>
@@ -51,6 +51,18 @@
 				<div class="checkbox">
 					<label for="visible">
 						<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo 'checked'; ?>>
+						<?php echo $clauses->get('enable'); ?>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="comments"><?php echo $clauses->get('enable_comments'); ?></label>
+			<div class="col-xs-4">
+				<div class="checkbox">
+					<label for="comments">
+						<input type="checkbox" name="comments" id="comments" value="on"<?php if (!$create AND $news['comments']) echo 'checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>

@@ -51,8 +51,8 @@
 			$localMonths = [$clauses->get('january'), $clauses->get('february'), $clauses->get('march'), $clauses->get('april'),
 							$clauses->get('may'), $clauses->get('june'), $clauses->get('july'), $clauses->get('august'),
 							$clauses->get('september'), $clauses->get('october'), $clauses->get('november'), $clauses->get('december')];
-			$date = \DateTime::createFromFormat('Y-m-d', $date);
 
+			$date = \DateTime::createFromFormat('Y-m-d', $date);
 			$dayWord = $localDays[$date->format('w')];
 			if ($cutDays)
 				$dayWord = Strings::cropTxt($dayWord, 3, '.');

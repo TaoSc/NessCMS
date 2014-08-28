@@ -3,26 +3,13 @@
 
 	class Handling {
 		static function getComments($condition = '0 = 0', $languageCheck = false, $hidden = true, $ascending = false, $offsetLimit = false, $idsOnly = false, $lineJump = true) {
-			global $db, $language;
+			global $language;
 			if ($languageCheck)
 				$condition .= ' AND language = \'' . $language . '\'';
 			if ($hidden)
 				$condition .= ' AND hidden < 2';
-			$order = $ascending ? 'ASC' : 'DESC';
-			if ($offsetLimit)
-				$offsetLimit = ' LIMIT ' . $offsetLimit;
 
-			$request = $db->query('SELECT id FROM comments WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
-			$commentsIds = $request->fetchAll(\PDO::FETCH_ASSOC);
-
-			if ($idsOnly)
-				return $commentsIds;
-			else {
-				$comments = [];
-				foreach ($commentsIds as $commentLoop) 
-					$comments[] = (new Single($commentLoop['id']))->getComment($lineJump);
-				return $comments;
-			}
+			return \Basics\Handling::getList($condition, 'comments', 'Comments', 'Comment', $offsetLimit, $idsOnly, $ascending, $lineJump);
 		}
 
 		static function countComments($parentId, $postId, $postType, $languageCheck = true, $hidden = true) {
@@ -51,7 +38,7 @@
 			return $allCommentsNbr;
 		}
 
-		static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $order = false, $hidden = true, $commentsPerPage = 10) {
+		static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $order = false, $hidden = true, $commentsPerPage = false) {
 			global $siteDir, $linksDir, $clauses, $location, $language, $currentMemberId, $theme;
 			$basicCondition = 'post_id = ' . $postId . ' AND post_type = \'' . $postType . '\'';
 			$advancedCondition = null;
@@ -59,6 +46,8 @@
 				$advancedCondition .= ' AND language = \'' . $language . '\'';
 			if ($hidden)
 				$advancedCondition .= ' AND hidden < 2';
+			if (!$commentsPerPage)
+				$commentsPerPage = \Basics\Site::parameter('coms_per_page');
 
 			$rootCommentsNbr = \Basics\Handling::countEntrys('comments', $basicCondition . $advancedCondition . ' AND parent_id = 0');
 			$allCommentsNbr = Handling::countComments(0, $postId, $postType, $languageCheck, $hidden);

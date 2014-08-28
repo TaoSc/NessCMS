@@ -13,7 +13,7 @@
 			global $db;
 
 			$request = $db->prepare('
-				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time,
+				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time, comments,
 				DATE(modif_date) modif_date, TIME(modif_date) modif_time, views
 				FROM posts
 				WHERE id = ? AND type = ?' . ($visible ? ' AND visible = ' . $visible : null)
@@ -85,7 +85,7 @@
 			$request->execute([$viewsNbr, 'news', $postId]);
 		}
 
-		static function create($categoryId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $type = 'news', $parseSlug = true) {
+		static function create($categoryId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $commentsEnabled = true, $type = 'news', $parseSlug = true) {
 			if (!empty($categoryId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
 				global $language;
 				if (empty($slug))
@@ -101,8 +101,8 @@
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 
 					$request = $db->prepare('
-						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date)
-						VALUES (?, ?, ?, ?, ?, ?, NOW())
+						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments)
+						VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)
 					');
 					$request->execute([
 						$visible,
@@ -110,7 +110,8 @@
 						$categoryId,
 						$img,
 						json_encode([$currentMemberId]),
-						'normal'
+						'normal',
+						$commentsEnabled
 					]);
 
 					$postId = \Basics\Handling::latestId();

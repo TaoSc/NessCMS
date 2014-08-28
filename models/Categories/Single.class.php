@@ -5,26 +5,11 @@
 		private $category;
 
 		function __construct($id) {
-			global $db;
-
-			$request = $db->prepare('
-				SELECT id, author_id
-				FROM categories
-				WHERE id = ?
-			');
-			$request->execute([$id]);
-			$this->category = $request->fetch(\PDO::FETCH_ASSOC);
+			$this->category = new \Tags\Single($id, 'category');
 		}
 
 		function getCategory($lineJump = true) {
-			if ($this->category) {
-				global $clauses;
-
-				$this->category['slug'] = $clauses->getDB('categories', $this->category['id'], 'slug');
-				$this->category['title'] = $clauses->getDB('categories', $this->category['id'], 'title');
-			}
-
-			return $this->category;
+			return $this->category->getTag();
 		}
 
 		function getNews($offsetLimit = false) {
@@ -50,7 +35,7 @@
 				return false;
 		}*/
 
-		function delCateg() {
+		function deleteCateg() {
 			if ($this->category AND $this->category['id'] != 1) {
 				global $db;
 

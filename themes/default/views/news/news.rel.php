@@ -5,16 +5,21 @@
 		</div>
 
 		<div class="row">
-		<div class="col-lg-8">
-			<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
+			<div class="col-lg-8">
+				<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
 
-			<hr>
+				<hr>
 
-			<?php echo $news['content']; ?>
-		</div>
-		<div class="col-lg-4">
-			<?php Basics\Templates::smallUserBox($news['authors'][0], null); ?>
-		</div>
+				<?php echo $news['content']; ?>
+			</div>
+			<div class="col-lg-4">
+<?php
+				foreach ($news['authors'] as $memberLoop)
+					Basics\Templates::smallUserBox($memberLoop, 'subtle-margin');
+?>
+				<hr>
+				<?php echo $news['category']['name']; ?>
+			</div>
 		</div>
 
 		<div class="bottom-link">
@@ -35,8 +40,13 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-lg-12 subtle-line-top">
-		<?php Comments\Handling::view($news['id'], 'posts'); ?>
-	</div>
-</div>
+<?php
+	if ($news['comments']) {
+?>
+		<div class="row">
+			<div class="col-lg-12 subtle-line-top">
+				<?php Comments\Handling::view($news['id'], 'posts'); ?>
+			</div>
+		</div>
+<?php
+	}

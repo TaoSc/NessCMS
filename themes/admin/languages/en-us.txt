@@ -14,3 +14,4 @@ enable				= Enable
 disable				= Disable
 make_visible		= Make visible
 img_placeholder		= Type the URL of your image.
+enable_comments		= Enable comments

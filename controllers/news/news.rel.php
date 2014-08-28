@@ -16,7 +16,7 @@
 		else
 			$previousNews = $previousNews[0];
 
-		$nextNews = \News\Handling::getNews('id >' . $news['id'], true, true, '0, 1', 'ASC');
+		$nextNews = \News\Handling::getNews('id >' . $news['id'], true, true, '0, 1', true);
 		if (!$nextNews) {
 			$nextNews['slug'] = 'index';
 			$nextNews['title'] = $clauses->get('next');

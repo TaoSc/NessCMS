@@ -2,6 +2,26 @@
 	namespace Basics;
 
 	class Handling {
+		static function getList($condition = '0 = 0', $type = 'comments', $typePlural = 'Comments', $typeSingle = 'Comment', $offsetLimit = false, $idsOnly = false, $ascending = false, ...$extras) {
+			global $db, $language;
+			$order = $ascending ? 'ASC' : 'DESC';
+			if ($offsetLimit)
+				$offsetLimit = ' LIMIT ' . $offsetLimit;
+
+			$request = $db->query('SELECT id FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
+			$ids = $request->fetchAll(\PDO::FETCH_ASSOC);
+
+			if ($idsOnly)
+				return $ids;
+			else {
+				$className = '\\' . $typePlural . '\Single';
+				$array = [];
+				foreach ($ids as $element) 
+					$array[] = (new $className($element['id']))->{'get' . $typeSingle}(...$extras);
+				return array_filter($array);
+			}
+		}
+
 		static function ipAddress() {
 			$ip = $_SERVER['REMOTE_ADDR'];
 

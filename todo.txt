@@ -1,3 +1,6 @@
-NEWS :
+GLOBAL:
+- gather lot of things in a tags system
+- revisions system
+
+NEWS:
 - create pages for the news
-- tags

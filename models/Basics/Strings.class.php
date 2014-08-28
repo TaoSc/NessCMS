@@ -3,17 +3,11 @@
 
 	class Strings {
 		static function mb_ucfirst($string) {
-			$strlen = mb_strlen($string);
-			$firstChar = mb_substr($string, 0, 1);
-			$then = mb_substr($string, 1, $strlen - 1);
-			return mb_strtoupper($firstChar) . $then;
+			return mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1, mb_strlen($string) - 1);
 		}
 
 		static function mb_lcfirst($string) {
-			$strlen = mb_strlen($string);
-			$firstChar = mb_substr($string, 0, 1);
-			$then = mb_substr($string, 1, $strlen - 1);
-			return mb_strtolower($firstChar) . $then;
+			return mb_strtolower(mb_substr($string, 0, 1)) . mb_substr($string, 1, mb_strlen($string) - 1);
 		}
 
 		static function mb_str_split($string) {
@@ -95,8 +89,6 @@
 		}
 
 		static function BBCode($text) {
-			$parser = (new \JBBCode\Parser())->addCodeDefinitionSet(new \JBBCode\DefaultCodeDefinitionSet());
-
-			return $parser->parse($text)->getAsHtml();
+			return (new \JBBCode\Parser())->addCodeDefinitionSet(new \JBBCode\DefaultCodeDefinitionSet())->parse($text)->getAsHtml();
 		}
 	}

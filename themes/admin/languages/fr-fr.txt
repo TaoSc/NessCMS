@@ -14,3 +14,4 @@ enable				= Activer
 disable				= Désactiver
 make_visible		= Rendre visible
 img_placeholder		= Entrez l'URL de votre image.
+enable_comments		= Activer les commentaires

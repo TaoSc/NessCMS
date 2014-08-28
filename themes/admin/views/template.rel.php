@@ -13,6 +13,34 @@
 			body {
 				padding-top: 10px;
 			}
+
+			.btn-outline {
+				background-color: transparent;
+				color: inherit;
+				transition: all .5s;
+			}
+			.btn-primary.btn-outline {
+				color: #428bca;
+			}
+			.btn-success.btn-outline {
+				color: #5cb85c;
+			}
+			.btn-info.btn-outline {
+				color: #5bc0de;
+			}
+			.btn-warning.btn-outline {
+				color: #f0ad4e;
+			}
+			.btn-danger.btn-outline {
+				color: #d9534f;
+			}
+			.btn-primary.btn-outline:hover,
+			.btn-success.btn-outline:hover,
+			.btn-info.btn-outline:hover,
+			.btn-warning.btn-outline:hover,
+			.btn-danger.btn-outline:hover {
+				color: #fff;
+			}
 		</style>
 	</head>
 	<body>
@@ -64,10 +92,16 @@
 <?php
 						if (isset($btnsGroupMenu) AND !empty($btnsGroupMenu)) {
 ?>
-							<div class="btn-group btn-group-justified">
+							<div class="btn-group btn-group-justified btn-group-sm">
 <?php
-								foreach ($btnsGroupMenu as $btnsGroupElem)
-									echo '<a href="' . $btnsGroupElem['link'] . '" type="button" class="btn btn-' . (isset($btnsGroupElem['type']) ? $btnsGroupElem['type'] : 'link') . '">' . $btnsGroupElem['name'] . '</a>';
+								foreach ($btnsGroupMenu as $btnsGroupElem) {
+									echo '<a href="' . $btnsGroupElem['link'] . '" type="button" class="btn btn-';
+									if (isset($btnsGroupElem['type']))
+										echo $btnsGroupElem['type'];
+									else
+										echo 'primary btn-outline';
+									echo '">' . $btnsGroupElem['name'] . '</a>';
+								}
 ?>
 							</div>
 							<hr>

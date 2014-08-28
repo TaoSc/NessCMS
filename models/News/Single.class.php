@@ -6,8 +6,6 @@
 		private $languageCheck;
 
 		function __construct($id, $visible = true, $languageCheck = true) {
-			global $db;
-
 			$this->languageCheck = $languageCheck;
 			$this->news = new \Posts\Single($id, 'news', $visible, $languageCheck);
 		}
@@ -36,8 +34,8 @@
 				return false;
 		}
 
-		static function create($categoryId, $title, $subTitle, $content, $img, $tags = null, $slug = null, $visible = false) {
-			if ($newsId = \Posts\Single::create($categoryId, $title, $subTitle, $content, $img, $slug, $visible)) {
+		static function create($categoryId, $title, $subTitle, $content, $img, $tags = null, $slug = null, $visible = false, $commentsEnabled = true) {
+			if ($newsId = \Posts\Single::create($categoryId, $title, $subTitle, $content, $img, $slug, $visible, $commentsEnabled)) {
 				
 
 				return $newsId;

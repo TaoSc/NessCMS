@@ -11,6 +11,9 @@
 	elseif (($rights['news_create'] AND $rights['news_edit']) AND isset($params[3]) AND $params[1] === 'news' AND is_numeric($params[2]) AND $params[3] === 'delete' AND $foldersDepth === 3)
 		include $siteDir . 'controllers/admin/news/delete.rel.php';
 
+	elseif ($currentMemberId AND isset($params[3]) AND $params[1] === 'comments' AND is_numeric($params[2]) AND $params[3] === 'delete' AND $foldersDepth === 3)
+		include $siteDir . 'controllers/admin/comments/delete.rel.php';
+
 	else {
 		error();
 		$admin = false;
