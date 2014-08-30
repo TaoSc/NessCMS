@@ -77,7 +77,7 @@
 			return true;
 		}
 
-		static function registration($nickname, $email, $pwd1, $pwd2, $cookies, $admin) {
+		static function registration($nickname, $email, $pwd1, $pwd2, $cookies = false, $admin = false) {
 			$nickname = htmlspecialchars($nickname);
 			$slug = \Basics\Strings::slug($nickname);
 			if (self::check($nickname, $slug, null, null, $email, $pwd2, true, '0000-00-01', false) AND $pwd1 === $pwd2) {

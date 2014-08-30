@@ -15,9 +15,11 @@
 
 		$request = $db->query('UPDATE members SET id = 0 WHERE id = 1');
 
+		$topDir = Basics\Site::parameter('directory');
+		$siteName = Basics\Site::parameter('name');
 		$clauses = new Basics\Languages($language);
 
-		if (!Members\Handling::registration($_POST['nickname'], $_POST['email'], $_POST['pwd'], $_POST['pwd2'], false, true))
+		if (!Members\Handling::registration($_POST['nickname'], $_POST['email'], $_POST['pwd'], $_POST['pwd2'], true, true))
 			die('We were unable to create your account. <b>Please retry.</b>');
 
 		unlink(__FILE__);

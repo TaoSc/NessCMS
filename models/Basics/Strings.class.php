@@ -15,17 +15,17 @@
 		}
 
 		static function mb_strtr($string, $from, $to) {
-			return str_replace(Strings::mb_str_split($from), Strings::mb_str_split($to), $string);
+			return str_replace(self::mb_str_split($from), self::mb_str_split($to), $string);
 		}
 
 		static function stripAccents($string) {
-			return Strings::mb_strtr($string,
+			return self::mb_strtr($string,
 			'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
 			'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 		}
 
 		static function slug($string) {
-			$string = mb_strtolower(strip_tags(Strings::stripAccents($string)));
+			$string = mb_strtolower(strip_tags(self::stripAccents($string)));
 			$string = preg_replace('#[^a-z0-9]#', '-', $string);
 			$string = preg_replace('#-+#', '-', trim($string, '-'));
 
