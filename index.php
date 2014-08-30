@@ -36,26 +36,31 @@
 	$topDir = Basics\Site::parameter('directory');
 	$siteName = Basics\Site::parameter('name');
 
+	if (!$topDir) {
+		include $siteDir . 'install.php';
+		die();
+	}
+
 	// Gestion de la langue
-	if (!isset($_COOKIE['nesscms_lang'])) {
-		setcookie('nesscms_lang', Basics\Site::parameter('default_language'), time() + 63072000, $topDir, null, false, true);
+	if (!Basics\site::cookie('lang')) {
+		Basics\site::cookie('lang', Basics\Site::parameter('default_language'));
 		$language = Basics\Site::parameter('default_language');
 	}
 	else
-		$language = $_COOKIE['nesscms_lang'];
+		$language = Basics\site::cookie('lang');
 
 	// Gestion du membre
-	if (isset($_COOKIE['nesscms_name']) AND isset($_COOKIE['nesscms_password']) AND !isset($_SESSION['member']))
-		Members\Handling::login($_COOKIE['nesscms_name'], $_COOKIE['nesscms_password']);
-	if (empty($_SESSION['id']))
+	if (Basics\site::cookie('name') AND Basics\site::cookie('password') AND !Basics\site::session('member'))
+		Members\Handling::login(Basics\site::cookie('name'), Basics\site::cookie('password'));
+	if (empty(Basics\site::session('member_id')))
 		$currentMemberId = 0;
 	else
-		$currentMemberId = &$_SESSION['id'];
+		$currentMemberId = Basics\site::session('member_id');
 
 	// Gestion du chemin entré en paramètre
 	if (mb_substr_count($_SERVER['REQUEST_URI'], '//'))
 		die('Error while decoding the URI.');
-	if (isset($_GET['location'])) {
+	if (isset($_GET['location']) AND !empty($_GET['location'])) {
 		$location = $_GET['location'];
 		if (mb_substr($location, -1) === '/')
 			$location .= 'index';
@@ -127,9 +132,9 @@
 	$theme['dir'] = 'themes/' . $theme['dir'];
 	$clauses = new Basics\Languages($language);
 	if ($currentMemberId) {
-		if (!isset($_SESSION['member']))
-			$_SESSION['member'] = (new Members\Single($_SESSION['id']))->getMember(false);
-		$currentMember = &$_SESSION['member'];
+		if (!Basics\site::session('member'))
+			Basics\site::session('member', (new Members\Single(Basics\site::session('member_id')))->getMember(false));
+		$currentMember = Basics\site::session('member');
 		$rights = (new Members\Type($currentMember['type']['id']))->getRights();
 	}
 	else

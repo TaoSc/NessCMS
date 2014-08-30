@@ -29,6 +29,13 @@
 				<dd><?php echo Basics\Dates::age($member['birth']) . ' ' . $clauses->get('years_old'); ?></dd>
 <?php
 			}
+
+			if (!Basics\Site::parameter('private_emails')) {
+?>
+				<dt><?php echo $clauses->get('email'); ?></dt>
+				<dd><?php echo $member['email']; ?></dd>
+<?php
+			}
 ?>
 			<dt><?php echo $clauses->get('type'); ?></dt>
 			<dd><a href="<?php echo $linksDir . 'members/types/' . $member['type']['slug']; ?>"><?php echo $member['type']['name'] ?></a></dd>

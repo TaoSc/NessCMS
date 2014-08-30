@@ -5,9 +5,9 @@
 		</div>
 
 <?php
-		Basics\Templates::textList($finalPollsList);
-
-		if (!$finalPollsList)
+		if ($pollsList)
+			Basics\Templates::textList($pollsList);
+		else
 			echo $clauses->get('no_poll_sidebar');
 ?>
 		<div class="bottom-link">

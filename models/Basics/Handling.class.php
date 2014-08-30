@@ -2,7 +2,7 @@
 	namespace Basics;
 
 	class Handling {
-		static function getList($condition = '0 = 0', $type = 'comments', $typePlural = 'Comments', $typeSingle = 'Comment', $offsetLimit = false, $idsOnly = false, $ascending = false, ...$extras) {
+		static function getList($condition = 'TRUE', $type = 'comments', $typePlural = 'Comments', $typeSingle = 'Comment', $offsetLimit = false, $idsOnly = false, $ascending = false, $methodParams = null, ...$instanceParams) {
 			global $db, $language;
 			$order = $ascending ? 'ASC' : 'DESC';
 			if ($offsetLimit)
@@ -16,8 +16,8 @@
 			else {
 				$className = '\\' . $typePlural . '\Single';
 				$array = [];
-				foreach ($ids as $element) 
-					$array[] = (new $className($element['id']))->{'get' . $typeSingle}(...$extras);
+				foreach ($ids as $element)
+					$array[] = call_user_func_array([(new $className($element['id'], ...$instanceParams)), 'get' . $typeSingle], (array) $methodParams);
 				return array_filter($array);
 			}
 		}
@@ -55,7 +55,7 @@
 			return $tempArray;
 		}
 
-		static function countEntrys($table = 'posts', $conditions = '0 = 0') {
+		static function countEntries($table = 'posts', $conditions = 'TRUE') {
 			global $db;
 
 			$request = $db->query('SELECT COUNT(*) total FROM ' . $table . ' WHERE ' . $conditions);
@@ -64,17 +64,18 @@
 		}
 
 		static function idFromSlug($slug, $tableName = 'posts', $column =  'slug', $noLanguage = true) {
-			global $db;
-
 			if ($noLanguage !== true) {
 				global $clauses;
+
 				return $clauses->getDB($tableName, $slug, $column, $noLanguage, true, true);
 			}
 			else {
+				global $db;
+
 				$request = $db->prepare('SELECT id FROM ' . $tableName . ' WHERE ' . $column . ' = ?');
 				$request->execute([$slug]);
-				$datas = $request->fetch(\PDO::FETCH_ASSOC);
-				return $datas['id'];
+
+				return $request->fetch(\PDO::FETCH_ASSOC)['id'];
 			}
 		}
 
@@ -82,7 +83,7 @@
 			global $db;
 
 			$request = $db->query('SELECT ' . $select . ' FROM ' . $from . ' ORDER BY id DESC LIMIT 1');
-			$datas = $request->fetch(\PDO::FETCH_ASSOC);
-			return $datas[$select];
+
+			return $request->fetch(\PDO::FETCH_ASSOC)[$select];
 		}
 	}

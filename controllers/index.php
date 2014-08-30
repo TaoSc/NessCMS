@@ -1,8 +1,5 @@
 <?php
-	$poll = (new Polls\Single(Basics\Handling::latestId('polls')))->getPoll();
-
-	$news = \News\Handling::getNews('0 = 0', true, true, '0, 5');
-
+	$news = \News\Handling::getNews('TRUE', true, true, '0, 5');
 	foreach ($news as $key => $newsLoop) {
 		if ($newsLoop['priority'] === 'important')
 			$width = 750;
@@ -11,6 +8,32 @@
 
 		$news[$key]['img_address'] = \Basics\Templates::getImg('heroes/' . $newsLoop['img']['slug'], $newsLoop['img']['format'], $width, 100);
 	}
+
+	$poll = (new Polls\Single(Basics\Handling::latestId('polls')))->getPoll();
+
+	$posts = Posts\Handling::getPosts();
+
+	$featuredPosts = \Basics\Handling::twoDimSorting($posts, 'views');
+	$tempFeaturedPosts = [];
+	foreach ($featuredPosts as $postLoop)
+		$tempFeaturedPosts[] = ['label' => $postLoop['views'] . ' <span class="glyphicon glyphicon-eye-open"></span>',
+								'text' => $postLoop['title'],
+								'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
+	$featuredPosts = &$tempFeaturedPosts;
+
+	$mostCommentedPosts = \Basics\Handling::twoDimSorting($posts, 'comments');
+	$tempMostCommentedPosts = [];
+	foreach ($mostCommentedPosts as $postLoop)
+		$tempMostCommentedPosts[] = ['label' => $postLoop['comments'] . ' <span class="glyphicon glyphicon-comment"></span>',
+									 'text' => $postLoop['title'],
+									 'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
+	$mostCommentedPosts = &$tempMostCommentedPosts;
+
+	$mostRecentPosts = [];
+	foreach ($posts as $postLoop)
+		$mostRecentPosts[] = ['label' => Basics\Dates::sexyDate($postLoop['date'], true, true) . ' ' . $clauses->get('at') . ' ' . $postLoop['time'],
+								  'text' => $postLoop['title'],
+								  'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
 
 	$pageTitle = $clauses->get('home');
 	$viewPath = 'index';

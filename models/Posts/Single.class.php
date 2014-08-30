@@ -9,16 +9,21 @@
 			[750, 400]
 		];
 
-		function __construct($id, $type, $visible = true, $languageCheck = true) {
+		function __construct($id, $type = null, $visible = true, $languageCheck = true) {
 			global $db;
+			$condition = 'id = ?';
+			if ($type)
+				$condition .= ' AND type = \'' . $type . '\'';
+			if ($visible)
+				$condition .= ' AND visible = ' . $visible;
 
 			$request = $db->prepare('
 				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time, comments,
 				DATE(modif_date) modif_date, TIME(modif_date) modif_time, views
 				FROM posts
-				WHERE id = ? AND type = ?' . ($visible ? ' AND visible = ' . $visible : null)
+				WHERE ' . $condition
 			);
-			$request->execute([$id, $type]);
+			$request->execute([$id]);
 			$this->post = $request->fetch(\PDO::FETCH_ASSOC);
 
 			if (!empty($this->post) AND $languageCheck) {
@@ -34,6 +39,17 @@
 		function getPost() {
 			if ($this->post) {
 				global $clauses;
+
+				// $request = $db->prepare('SELECT language FROM languages_routing WHERE incoming_id = ? AND table_name = ? AND column_value = ? AND value = ?);
+				// $request->execute([$this->post['id'], 'posts', 'availability', 'default']);
+				// $this->post['default_language'] = $request->fetch(\PDO::FETCH_ASSOC)['language'];
+				// $this->post['default_language'] = $clauses->getDB('posts', $this->post['id'], 'availability', null);
+				// if (count($this->post['default_language']) > 1)
+					// $this->post['default_language'] = $this->post['default_language'][0];
+				// $this->post['default_language'] = $this->post['default_language'][\Basics\Handling::recursiveArraySearch('default', $this->post['default_language'])]['language'];
+
+				// if ($this->post['id'] == 1)
+					// die($this->post['default_language']);
 
 				$this->post['title'] = $clauses->getDB('posts', $this->post['id'], 'title');
 				$this->post['sub_title'] = $clauses->getDB('posts', $this->post['id'], 'sub_title');
@@ -93,7 +109,7 @@
 				if ($parseSlug)
 					$slug = \Basics\Strings::slug($slug);
 
-				if (\Basics\Handling::countEntrys('languages_routing', 'language = \'' . $language . '\' AND table_name = \'posts\' AND column_name = \'slug\' AND value = \'' . $slug . '\''))
+				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false))
 					return false;
 				else {
 					global $db, $currentMemberId;
@@ -115,7 +131,6 @@
 					]);
 
 					$postId = \Basics\Handling::latestId();
-					// \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false)
 
 					$request = $db->prepare('
 						INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value)
@@ -123,7 +138,7 @@
 						(?, ?, ?, \'posts\', \'sub_title\', ?),
 						(?, ?, ?, \'posts\', \'content\', ?),
 						(?, ?, ?, \'posts\', \'slug\', ?),
-						(?, ?, ?, \'posts\', \'availability\', 1)
+						(?, ?, ?, \'posts\', \'availability\', \'default\')
 					');
 					$request->execute([
 						\Basics\Strings::identifier(),

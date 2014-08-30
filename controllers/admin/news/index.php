@@ -1,5 +1,5 @@
 <?php
-	$news = \News\Handling::getNews('0 = 0', false, false);
+	$news = \News\Handling::getNews('TRUE', false, false);
 
 	$btnsGroupMenu = [['link' => $linksDir . 'admin/news/0', 'name' => $clauses->get('create_news')]];
 

@@ -2,7 +2,7 @@
 	namespace Members;
 
 	class Types {
-		static function getTypes($condition = '0 = 0') {
+		static function getTypes($condition = 'TRUE') {
 			global $db;
 
 			$request = $db->query('SELECT id FROM members_types WHERE ' . $condition . ' ORDER BY id');

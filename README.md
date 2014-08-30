@@ -16,7 +16,7 @@ On your web browser:
 1. Create a database and fill it in with the content of the “NessCMS.sql” file
 2. Fill in the “config.sample.inc.php” file with informations on your database
 3. Rename it “config.inc.php”
-4. That's it! (If you want to use the administration you must change the type of the first member from 3 to 1, then, log in with with the nickname and password “admin”).
+4. That's it! (If you want to use the administration you must change the type of the first member from 3 to 1, then, log in with both nickname and password “admin”).
 
 ## Configuration
 
@@ -53,7 +53,7 @@ Note that access to the above folders should be forbidden in all cases.
 ## Requirements
 
 * A web server (Apache2, nginx, etc…)
-* PHP 5.4+
+* PHP 5.6+
 * MySQL 5+
 
 ## License

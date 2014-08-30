@@ -5,8 +5,6 @@
 		static function crop($src, $dstUrl, $dstSizes = null) {
 			if (!isset(pathinfo($src)['extension']))
 				die('Error.');
-
-			global $siteDir;
 			ini_set('memory_limit', '-1');
 			set_time_limit(0);
 

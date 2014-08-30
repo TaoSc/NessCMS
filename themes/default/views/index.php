@@ -109,64 +109,13 @@
 		</ul>
 		<div class="tab-content well top-content">
 			<div class="tab-pane fade active in" id="views">
-				<span class="label label-default">1.102 <span class="glyphicon glyphicon-eye-open"></span></span>
-				<a href="#null">E3 2014 : The Sims 4 avaible in fall</a>
-				<hr>
-
-				<span class="label label-default">862 <span class="glyphicon glyphicon-eye-open"></span></span>
-				<a href="#null">E3 2014 : a beta for Fable Legends</a>
-				<hr>
-
-				<span class="label label-default">746 <span class="glyphicon glyphicon-eye-open"></span></span>
-				<a href="#null">E3 2014 : Evolve gameplay demo</a>
-				<hr>
-
-				<span class="label label-default">524 <span class="glyphicon glyphicon-eye-open"></span></span>
-				<a href="#null">Notch's new game</a>
-				<hr>
-
-				<span class="label label-default">517 <span class="glyphicon glyphicon-eye-open"></span></span>
-				<a href="#null">E3 2014 : Battlefield Hardline beta avaible</a>
+				<?php Basics\Templates::textList($featuredPosts); ?>
 			</div>
 			<div class="tab-pane fade" id="comments">
-				<span class="label label-default">67 <span class="glyphicon glyphicon-comment"></span></span>
-				<a href="#null">E3 2014 : Battlefield Hardline beta avaible</a>
-				<hr>
-
-				<span class="label label-default">58 <span class="glyphicon glyphicon-comment"></span></span>
-				<a href="#null">E3 2014 : a beta for Fable Legends</a>
-				<hr>
-
-				<span class="label label-default">42 <span class="glyphicon glyphicon-comment"></span></span>
-				<a href="#null">Notch's new game</a>
-				<hr>
-
-				<span class="label label-default">23 <span class="glyphicon glyphicon-comment"></span></span>
-				<a href="#null">E3 2014 : Evolve gameplay demo</a>
-				<hr>
-
-				<span class="label label-default">20 <span class="glyphicon glyphicon-comment"></span></span>
-				<a href="#null">E3 2014 : The Sims 4 avaible in fall</a>
+				<?php Basics\Templates::textList($mostCommentedPosts); ?>
 			</div>
 			<div class="tab-pane fade" id="date">
-				<span class="label label-default">18:26</span>
-				<a href="#null">E3 2014 : The Sims 4 avaible in fall</a>
-				<hr>
-
-				<span class="label label-default">17:34</span>
-				<a href="#null">E3 2014 : a beta for Fable Legends</a>
-				<hr>
-
-				<span class="label label-default">16:12</span>
-				<a href="#null">E3 2014 : Evolve gameplay demo</a>
-				<hr>
-
-				<span class="label label-default">12:06</span>
-				<a href="#null">Notch's new game</a>
-				<hr>
-
-				<span class="label label-default">9:35</span>
-				<a href="#null">E3 2014 : Battlefield Hardline beta avaible</a>
+				<?php Basics\Templates::textList($mostRecentPosts); ?>
 			</div>
 		</div>
 	</div>

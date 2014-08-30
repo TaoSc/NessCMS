@@ -34,6 +34,22 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-xs-4 control-label" for="default_language"><?php echo $clauses->get('default_language'); ?></label>
+			<div class="col-xs-4">
+				<select id="default_language" name="default_language" class="form-control">
+<?php
+					foreach ($languages as $languageLoop) {
+						echo '<option value="' .  $languageLoop['code'] . '"';
+						if (Basics\Site::parameter('default_language') === $languageLoop['code'])
+							echo ' selected';
+						echo '>' .  $languageLoop['name'] . '</option>' . PHP_EOL;
+					}
+?>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="col-xs-4 control-label" for="name"><?php echo $clauses->get('site_name'); ?></label>
 			<div class="col-xs-4">
 				<input name="name" id="name" type="text" class="form-control" value="<?php echo $siteName; ?>" required>
@@ -71,7 +87,8 @@
 <?php
 					foreach ($membersTypes as $typeLoop) {
 						echo '<option value="' .  $typeLoop['id'] . '"';
-						if (Basics\Site::parameter('default_users_type') === $typeLoop['id']) echo ' selected';
+						if (Basics\Site::parameter('default_users_type') === $typeLoop['id'])
+							echo ' selected';
 						echo '>' .  $typeLoop['name'] . '</option>' . PHP_EOL;
 					}
 ?>

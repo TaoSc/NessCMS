@@ -23,7 +23,7 @@
 ?>
 						</label>
 						<div class="col-lg-9">
-							<input id="email" name="email" type="text" class="form-control" required>
+							<input id="email" name="email" type="email" class="form-control" required>
 						</div>
 					</div>
 				</div>

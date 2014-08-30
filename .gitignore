@@ -1,6 +1,9 @@
 config.inc.php
 themes/default/fonts/Helvetica Neue/
 themes/default/images/backgrounds/
+images/heroes/mario-kart-8.jpg
+images/heroes/mario-kart-8-250x100.jpg
+images/heroes/mario-kart-8-750x100.jpg
 images/avatars/taos-100x100.jpg
 images/jpegtran.exe
 images/optipng.exe

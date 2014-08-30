@@ -1,6 +1,11 @@
 GLOBAL:
 - gather lot of things in a tags system
 - revisions system
+- make a great logo
+- fix bugs in Languages::getDB method
+
+LANGUAGES:
+- remove IDs
 
 NEWS:
 - create pages for the news

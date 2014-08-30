@@ -31,7 +31,7 @@
 
 		function setImage($newName, $newSlug, $newSize, $newDescription) {
 			if (!empty($newName) AND !empty($newSlug) AND $this->image) {
-				if (\Basics\Handling::countEntrys('images', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != ' . $this->image['id']))
+				if (\Basics\Handling::countEntries('images', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != ' . $this->image['id']))
 					return false;
 				else {
 					global $db;
@@ -101,7 +101,7 @@
 
 			$imageName = $imageName ?: $imageInfos['filename'];
 			$imageSlug = \Basics\Strings::slug($imageName);
-			if (\Basics\Handling::countEntrys('medias', 'type = \'images\' AND slug = \'' . $imageSlug . '\''))
+			if (\Basics\Handling::countEntries('medias', 'type = \'images\' AND slug = \'' . $imageSlug . '\''))
 				return false;;
 
 			$imageIdentifier = \Basics\Strings::identifier();

@@ -2,7 +2,7 @@
 	namespace Comments;
 
 	class Handling {
-		static function getComments($condition = '0 = 0', $languageCheck = false, $hidden = true, $ascending = false, $offsetLimit = false, $idsOnly = false, $lineJump = true) {
+		static function getComments($condition = 'TRUE', $languageCheck = false, $hidden = true, $ascending = false, $offsetLimit = false, $idsOnly = false, $lineJump = true) {
 			global $language;
 			if ($languageCheck)
 				$condition .= ' AND language = \'' . $language . '\'';
@@ -49,7 +49,7 @@
 			if (!$commentsPerPage)
 				$commentsPerPage = \Basics\Site::parameter('coms_per_page');
 
-			$rootCommentsNbr = \Basics\Handling::countEntrys('comments', $basicCondition . $advancedCondition . ' AND parent_id = 0');
+			$rootCommentsNbr = \Basics\Handling::countEntries('comments', $basicCondition . $advancedCondition . ' AND parent_id = 0');
 			$allCommentsNbr = Handling::countComments(0, $postId, $postType, $languageCheck, $hidden);
 
 			$pages = (int) ceil($rootCommentsNbr / $commentsPerPage) ?: 1;

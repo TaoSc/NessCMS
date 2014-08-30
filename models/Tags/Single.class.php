@@ -4,11 +4,11 @@
 	class Single {
 		private $tag;
 
-		function __construct($id, $type = 'tag') {
+		function __construct($id, $type = null) {
 			global $db;
 
-			$request = $db->prepare('SELECT id, author_id, type FROM tags WHERE id = ? AND type = ?');
-			$request->execute([$id, $type]);
+			$request = $db->prepare('SELECT id, author_id, type FROM tags WHERE id = ?' . ($type === null ? null : ' AND type = \'' . $type . '\''));
+			$request->execute([$id]);
 			$this->tag = $request->fetch(\PDO::FETCH_ASSOC);
 		}
 
@@ -62,10 +62,10 @@
 			return (new \Posts\Handling($offset, $limit, false, $condition))->getPosts();
 		}
 
-		/*
-		function setTag($newName, $newSlug, $newType) {
+		/*function setTag($newName, $newType) {
+			$newSlug = \Basics\Strings::slug($newName)
 			if (!empty($newName) AND !empty($newSlug) AND $newType AND $this->tag) {
-				if (\Basics\Management::countEntry('tags', 'slug = \'' . $newSlug . '\' AND id != ' . $this->tag['id']))
+				if (\Basics\Handling::countEntries('tags', 'slug = \'' .  . '\' AND id != ' . $this->tag['id']))
 					return false;
 				else {
 					global $db;
@@ -78,7 +78,7 @@
 			}
 			else
 				return false;
-		}
+		}*/
 
 		function deleteTag() {
 			if ($this->tag) {
@@ -87,28 +87,53 @@
 				$request = $db->prepare('DELETE FROM tags WHERE id = ?');
 				$request->execute([$this->tag['id']]);
 
+				$request = $db->prepare('DELETE FROM languages_routing WHERE table_name = ? AND incoming_id = ?');
+				$request->execute(['tags', $this->tag['id']]);
+
+				$request = $db->prepare('DELETE FROM tags_relation WHERE tag_id = ?');
+				$request->execute([$this->tag['id']]);
+
 				return true;
 			}
 			else
 				return false;
 		}
 
-		static function create($name, $slug, $type) {
+		static function create($name, $type) {
 			if (!empty($name) AND !empty($type)) {
-				$slug = \Basics\Strings::slug(empty($slug) ? $name : $slug);
+				$slug = \Basics\Strings::slug($name);
 
-				if (\Basics\Management::countEntry('tags', 'slug = \'' . $slug . '\'') != 0)
+				if (\Basics\Handling::idFromSlug($slug, 'tags', 'slug', false))
 					return false;
 				else {
-					global $db;
+					global $db, $currentMemberId, $language;
 
-					$request = $db->prepare('INSERT INTO tags(name, slug, type) VALUES(?, ?, ?)');
-					$request->execute([$name, $slug, $type]);
+					$request = $db->prepare('INSERT INTO tags(author_id, type) VALUES(?, ?)');
+					$request->execute([$currentMemberId, $type]);
 
-					return (new Single(\Basics\Management::idFromSlug($slug, 'tags')))->getTag(false)['id'];
+					$tagId = \Basics\Handling::latestId('tags');
+
+					$request = $db->prepare('
+						INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value)
+						VALUES (?, ?, ?, \'tags\', \'name\', ?),
+						(?, ?, ?, \'tags\', \'slug\', ?)
+					');
+					$request->execute([
+						\Basics\Strings::identifier(),
+						$language,
+						$tagId,
+						$name,
+
+						\Basics\Strings::identifier(),
+						$language,
+						$tagId,
+						$slug
+					]);
+
+					return $tagId;
 				}
 			}
 			else
 				return false;
-		}*/
+		}
 	}

@@ -14,9 +14,9 @@
 			if (!empty($this->poll)) {
 				global $currentMemberId;
 
-				$this->poll['total_votes'] = \Basics\Handling::countEntrys('polls_users', 'poll_id = ' . $this->poll['id']);
+				$this->poll['total_votes'] = \Basics\Handling::countEntries('polls_users', 'poll_id = ' . $this->poll['id']);
 				$this->poll['answers'] = json_decode($this->poll['answers'], true);
-				$this->poll['already_voted'] = (bool) \Basics\Handling::countEntrys('polls_users', 'poll_id = ' . $this->poll['id'] . ' AND (user_id = ' . $currentMemberId . ' OR (user_id = 0 AND ip = \'' . \Basics\Handling::ipAddress() . '\'))');
+				$this->poll['already_voted'] = (bool) \Basics\Handling::countEntries('polls_users', 'poll_id = ' . $this->poll['id'] . ' AND (user_id = ' . $currentMemberId . ' OR (user_id = 0 AND ip = \'' . \Basics\Handling::ipAddress() . '\'))');
 			}
 		}
 
@@ -30,7 +30,7 @@
 
 				foreach ($this->poll['answers'] as $key => $answerLoop) {
 					$this->poll['answers'][$key]['name'] = $clauses->getDB('polls_answers', $answerLoop['id'], 'name');
-					$this->poll['answers'][$key]['votes'] = $votes = \Basics\Handling::countEntrys('polls_users', 'poll_id = ' . $this->poll['id'] . ' AND answer_id = ' . $answerLoop['id']);
+					$this->poll['answers'][$key]['votes'] = $votes = \Basics\Handling::countEntries('polls_users', 'poll_id = ' . $this->poll['id'] . ' AND answer_id = ' . $answerLoop['id']);
 					$this->poll['answers'][$key]['votes_percents'] = $votes ? $votes / $this->poll['total_votes'] * 100 : 0;
 				}
 
