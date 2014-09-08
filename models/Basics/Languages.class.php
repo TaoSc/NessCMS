@@ -52,48 +52,6 @@
 			return 'return "' . addslashes($this->get($mark)) . '";';
 		}
 
-		function getDB($tableName, $index, $columnsName = '*', $originLanguageTemp = false, $errorRecovery = true, $getId = false) {
-			global $db;
-			if ($originLanguageTemp === false)
-				$originLanguage = $this->language['code'];
-			else
-				$originLanguage = $originLanguageTemp;
-			if ($getId === false) {
-				$from = 'incoming_id';
-				$to = 'value';
-			}
-			else {
-				$from = 'value';
-				$to = 'incoming_id';
-			}
-			$condition = 'table_name = ? AND ' . $from . ' = ?';
-			if ($originLanguage !== null)
-				$condition .= ' AND language = \'' . $originLanguage . '\'';
-			if ($columnsName !== '*')
-				$condition .= ' AND column_name = \'' . $columnsName . '\'';
-
-			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $condition);
-			$request->execute([$tableName, $index]);
-			$columns = $request->fetchAll(\PDO::FETCH_ASSOC);
-
-			if (empty($columns)) {
-				if ($originLanguageTemp === false AND $originLanguage !== Site::parameter('default_language') AND $errorRecovery)
-					return $this->getDB($tableName, $index, $columnsName, Site::parameter('default_language'));
-				else
-					return false;
-			}
-			// elseif ($originLanguage === null)
-				// return $columns;
-			elseif (count($columns) > 1) {
-				$newColumns = [];
-				foreach ($columns as $columnsElem)
-					$newColumns[$columnsElem['column_name']] = $columnsElem[$to];
-				return $newColumns;
-			}
-			else
-				return $columns[0][$to];
-		}
-
 		function getDB2($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $originLanguage = false) {
 			global $db;
 			if ($originLanguage === false)
@@ -133,20 +91,6 @@
 		}
 
 		static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
-			global $db;
-
-			$request = $db->query('SELECT code FROM languages WHERE ' . $condition . ' ORDER BY id');
-			$languagesCodes = $request->fetchAll(\PDO::FETCH_ASSOC);
-
-			if ($codesOnly)
-				return $languagesCodes;
-			else {
-				$languages = [];
-				foreach ($languagesCodes as $language)
-					$languages[] = (new Languages($language['code'], false))->getLanguage($originLanguage);
-				return $languages;
-			}
-
-			// return Handling::getList($condition, 'languages', 'Languages', 'Language');
+			return Handling::getList($condition, 'languages', __CLASS__, 'Language', false, $codesOnly, false, 'code', $originLanguage, false);
 		}
 	}
