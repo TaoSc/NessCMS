@@ -2,22 +2,22 @@
 	namespace Basics;
 
 	class Handling {
-		static function getList($condition = 'TRUE', $type = 'comments', $typePlural = 'Comments', $typeSingle = 'Comment', $offsetLimit = false, $idsOnly = false, $ascending = false, $methodParams = null, ...$instanceParams) {
+		static function getList($condition = 'TRUE', $type = 'comments', $namespaces = 'Comments', $accessor = 'Comment', $offsetLimit = false, $idsOnly = false, $ascending = false, $methodParams = null, ...$instanceParams) {
 			global $db, $language;
 			$order = $ascending ? 'ASC' : 'DESC';
 			if ($offsetLimit)
 				$offsetLimit = ' LIMIT ' . $offsetLimit;
 
-			$request = $db->query('SELECT id FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
+			$request = $db->query('SELECT ' . ($type == 'languages' ? 'code id' : 'id') . ' FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
 			$ids = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			if ($idsOnly)
 				return $ids;
 			else {
-				$className = '\\' . $typePlural . '\Single';
+				$className = '\\' . $namespaces . '\\' . ($type == 'languages' ? 'Languages' : 'Single');
 				$array = [];
 				foreach ($ids as $element)
-					$array[] = call_user_func_array([(new $className($element['id'], ...$instanceParams)), 'get' . $typeSingle], (array) $methodParams);
+					$array[] = call_user_func_array([(new $className($element['id'], ...$instanceParams)), 'get' . $accessor], (array) $methodParams);
 				return array_filter($array);
 			}
 		}

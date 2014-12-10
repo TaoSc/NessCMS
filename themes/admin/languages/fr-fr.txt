@@ -19,3 +19,4 @@ img_placeholder		= Entrez l'URL de votre image.
 enable_comments		= Activer les commentaires
 create_tag			= Créer un libellé
 edit_tag			= Modifier un libellé
+cache_enabled		= Activer le cache

@@ -199,7 +199,7 @@
 
 	// Gestion de l'affichage de la page et de l'écriture du cache
 	if (isset($viewPath)) {
-		$cachingCond = !$admin AND (!isset($caching) OR (isset($caching) AND $caching === true));
+		$cachingCond = (\Basics\Site::parameter('cache_enabled') AND (!isset($caching) OR (isset($caching) AND $caching === true)) AND !$admin);
 		if ($cachingCond) {
 			$memberCheck = !isset($memberCheck) ? true : $memberCheck;
 			ob_start();
@@ -208,6 +208,6 @@
 		$viewPath = $siteDir . $theme['dir'] . 'views/' . $viewPath . '.php';
 		include $siteDir . 'controllers/template.rel.php';
 
-		// if ($cachingCond)
-			// $cache->write($location, ob_get_flush(), $memberCheck);
+		if ($cachingCond)
+			$cache->write($location, ob_get_flush(), $memberCheck);
 	}

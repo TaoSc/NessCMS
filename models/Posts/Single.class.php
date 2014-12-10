@@ -40,16 +40,7 @@
 			if ($this->post) {
 				global $clauses;
 
-				// $request = $db->prepare('SELECT language FROM languages_routing WHERE incoming_id = ? AND table_name = ? AND column_value = ? AND value = ?);
-				// $request->execute([$this->post['id'], 'posts', 'availability', 'default']);
-				// $this->post['default_language'] = $request->fetch(\PDO::FETCH_ASSOC)['language'];
-				// $this->post['default_language'] = $clauses->getDB('posts', $this->post['id'], 'availability', null);
-				// if (count($this->post['default_language']) > 1)
-					// $this->post['default_language'] = $this->post['default_language'][0];
-				// $this->post['default_language'] = $this->post['default_language'][\Basics\Handling::recursiveArraySearch('default', $this->post['default_language'])]['language'];
-
-				// if ($this->post['id'] == 1)
-					// die($this->post['default_language']);
+				$this->post['default_language'] = $clauses->getDBLang('posts', 'availability', $this->post['id'], 'default');
 
 				$this->post['title'] = $clauses->getDB('posts', $this->post['id'], 'title');
 				$this->post['sub_title'] = $clauses->getDB('posts', $this->post['id'], 'sub_title');

@@ -5,7 +5,7 @@
 			<h1>
 <?php
 				echo $member['nickname'];
-				if (!Basics\Site::parameter('private_emails'))
+				if (!Basics\Site::parameter('private_emails') AND $member['email'])
 					echo '<a href="mailto:' . $member['email'] . '" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-envelope"></span> ' . $clauses->get('send_message') . '</a>';
 ?>
 			</h1>
@@ -30,7 +30,7 @@
 <?php
 			}
 
-			if (!Basics\Site::parameter('private_emails')) {
+			if (!Basics\Site::parameter('private_emails') AND $member['email']) {
 ?>
 				<dt><?php echo $clauses->get('email'); ?></dt>
 				<dd><?php echo $member['email']; ?></dd>

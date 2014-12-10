@@ -13,7 +13,7 @@
 			foreach ($tags as $key => $tagLoop) {
 ?>
 				<tr>
-					<td><a href="<?php echo $tagLoop['id']; ?>"><?php echo $tagLoop['name']; ?></a></td>
+					<td><a href="<?php echo $linksDir . 'admin/tags/' . $tagLoop['id']; ?>"><?php echo $tagLoop['name']; ?></a></td>
 					<td><?php echo $clauses->get($tagLoop['type']); ?></td>
 				</tr>
 <?php

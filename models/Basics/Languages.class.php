@@ -25,7 +25,7 @@
 		}
 
 		function getLanguage($originLanguage = false) {
-			$this->language = array_merge($this->language, $this->getDB('languages', $this->language['id'], '*', $originLanguage));
+			$this->language = array_merge($this->language, $this->getDBClean('languages', $this->language['id'], '*', true, false, $originLanguage));
 			$this->language['name'] = $this->language['lang_name'] . ' (' . $this->language['country_name'] . ')';
 
 			return $this->language;
@@ -94,10 +94,10 @@
 				return $columns[0][$to];
 		}
 
-		function getDB2($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $originLanguage = false) {
+		function getDBClean($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $targetLanguage = null) {
 			global $db;
-			if ($originLanguage === false)
-				$originLanguage = $this->language['code'];
+			if ($targetLanguage === null)
+				$targetLanguage = $this->language['code'];
 			if ($getId) {
 				$from = 'value';
 				$to = 'incoming_id';
@@ -106,19 +106,25 @@
 				$from = 'incoming_id';
 				$to = 'value';
 			}
-			$condition = 'table_name = ? AND ' . $from . ' = ?';
-			if ($originLanguage !== null)
-				$condition .= ' AND language = \'' . $originLanguage . '\'';
+			$conditions = 'table_name = ? AND ' . $from . ' = ?';
 			if ($columnsName !== '*')
-				$condition .= ' AND column_name = \'' . $columnsName . '\'';
+				$conditions .= ' AND column_name = \'' . $columnsName . '\'';
+			if ($targetLanguage !== false)
+				$conditions .= ' AND language = \'' . $targetLanguage . '\'';
 
-			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $condition);
+			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $conditions);
 			$request->execute([$tableName, $index]);
 			$columns = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			if (empty($columns)) {
-				if ($originLanguage !== Site::parameter('default_language') AND $errorRecovery)
-					return $this->getDB($tableName, $index, $columnsName, Site::parameter('default_language'));
+				if ($targetLanguage !== false AND $errorRecovery) {
+					if ($recoveredColumns = $this->getDBClean($tableName, $index, $columnsName, false, $getId, Site::parameter('default_language')))
+						return $recoveredColumns;
+					elseif ($recoveredColumns = $this->getDBClean($tableName, $index, $columnsName, false, $getId, false))
+						return $recoveredColumns;
+					else
+						return [$tableName . '[' . $index . '] ' . $columnsName];
+				}
 				else
 					return false;
 			}
@@ -132,21 +138,16 @@
 				return $columns[0][$to];
 		}
 
-		static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
+		function getDBLang($tableName, $columnName, $index, $value) {
 			global $db;
 
-			$request = $db->query('SELECT code FROM languages WHERE ' . $condition . ' ORDER BY id');
-			$languagesCodes = $request->fetchAll(\PDO::FETCH_ASSOC);
+			$request = $db->prepare('SELECT language FROM languages_routing WHERE table_name = ? AND column_name = ? AND incoming_id = ? AND value = ?');
+			$request->execute([$tableName, $columnName, $index, $value]);
 
-			if ($codesOnly)
-				return $languagesCodes;
-			else {
-				$languages = [];
-				foreach ($languagesCodes as $language)
-					$languages[] = (new Languages($language['code'], false))->getLanguage($originLanguage);
-				return $languages;
-			}
+			return $request->fetch(\PDO::FETCH_ASSOC)['language'];
+		}
 
-			// return Handling::getList($condition, 'languages', 'Languages', 'Language');
+		static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
+			return Handling::getList($condition, 'languages', 'Basics', 'Language', false, $codesOnly, false, [$originLanguage], false);
 		}
 	}

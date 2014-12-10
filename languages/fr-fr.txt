@@ -93,6 +93,7 @@ more				= Plus
 delete				= Supprimer
 polls_vote_fail		= Votre vote n'a pas été ajouté.<br>Sans doute avez vous déjà voté.
 create_poll			= Créer un sondage
+source_code			= Code source
 by					= par
 soon				= bientôt
 monday				= lundi

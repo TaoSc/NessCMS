@@ -147,7 +147,7 @@
 
 		<footer class="container">
 			<div class="col-lg-12 text-center">
-				2013 - <?php echo date('Y'); ?> <strong>Tao Schreiner</strong> - Licensed <a href="<?php echo $subDir . '/LICENSE'; ?>">GPL v3</a>.
+				2013 - <?php echo date('Y'); ?> <strong>Tao Schreiner</strong> - Licensed <a href="<?php echo $subDir . 'LICENSE'; ?>">GPL v3</a>.
 			</div>
 		</footer>
 <?php

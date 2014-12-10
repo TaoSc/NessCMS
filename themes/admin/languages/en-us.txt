@@ -19,3 +19,4 @@ img_placeholder		= Type the URL of your image.
 enable_comments		= Enable comments
 create_tag			= Create a tag
 edit_tag			= Edit a tag
+cache_enabled		= Enable caching

@@ -141,6 +141,7 @@ INSERT INTO `site` (`name`, `value`) VALUES
 ('directory', ?),
 ('private_emails', '1'),
 ('theme', 'default'),
+('cache_enabled', '0'),
 ('url_rewriting', '0');
 
 CREATE TABLE IF NOT EXISTS `tags` (

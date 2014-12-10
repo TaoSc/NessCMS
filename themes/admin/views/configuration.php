@@ -57,6 +57,18 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-xs-4 control-label" for="cache_enabled"><?php echo $clauses->get('cache_enabled'); ?></label>
+			<div class="col-xs-4">
+				<div class="checkbox">
+					<label for="cache_enabled">
+						<input type="checkbox" name="cache_enabled" id="cache_enabled" value="on"<?php if (Basics\Site::parameter('cache_enabled')) echo 'checked'; ?>>
+						<?php echo $clauses->get('enable'); ?>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="col-xs-4 control-label" for="private_emails"><?php echo $clauses->get('private_emails'); ?></label>
 			<div class="col-xs-4">
 				<div class="checkbox">

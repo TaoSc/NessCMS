@@ -5,6 +5,9 @@
 		Basics\Site::parameter('anonymous_coms', isset($_POST['anonymous_coms']) ? true : 0);
 		Basics\Site::parameter('anonymous_votes', isset($_POST['anonymous_votes']) ? true : 0);
 		Basics\Site::parameter('private_emails', isset($_POST['private_emails']) ? true : 0);
+		if (Basics\Site::parameter('cache_enabled') AND !isset($_POST['cache_enabled']))
+			$cache->clear();
+		Basics\Site::parameter('cache_enabled', isset($_POST['cache_enabled']) ? true : 0);
 		Basics\Site::parameter('url_rewriting', isset($_POST['url_rewriting']) ? true : 0);
 		if (isset($_POST['default_language']))
 			Basics\Site::parameter('default_language', $_POST['default_language']);

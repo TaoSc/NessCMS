@@ -93,6 +93,7 @@ more				= More
 delete				= Delete
 polls_vote_fail		= Your vote hasn't been added.<br>Likely you've already voted.
 create_poll			= Create a poll
+source_code			= Source code
 by					= by
 soon				= soon
 monday				= Monday
