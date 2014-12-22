@@ -18,8 +18,7 @@
 				$condition .= ' AND visible = ' . $visible;
 
 			$request = $db->prepare('
-				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time, comments,
-				DATE(modif_date) modif_date, TIME(modif_date) modif_time, views
+				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time, comments, views
 				FROM posts
 				WHERE ' . $condition
 			);
@@ -29,8 +28,8 @@
 			if (!empty($this->post) AND $languageCheck) {
 				global $clauses;
 
-				$this->post['availability'] = $clauses->getDB('posts', $this->post['id'], 'availability', false, false);
-				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug', false, false);
+				$this->post['availability'] = $clauses->getDB('posts', $this->post['id'], 'availability', false);
+				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug', false);
 				if (!$this->post['availability'] OR !$this->post['slug'])
 					$this->post = false;
 			}
@@ -46,8 +45,6 @@
 				$this->post['sub_title'] = $clauses->getDB('posts', $this->post['id'], 'sub_title');
 
 				$this->post['time'] = \Basics\Dates::sexyTime($this->post['time']);
-				if ($this->post['modif_date'])
-					$this->post['modif_time'] = \Basics\Dates::sexyTime($this->post['modif_time']);
 
 				$this->post['img'] = (new \Medias\Image($this->post['img_id']))->getImage();
 				$this->post['authors'] = [];
@@ -56,6 +53,19 @@
 			}
 
 			return $this->post;
+		}
+
+		function setPost($visible, $comments) {
+			if ($this->post) {
+				global $db;
+
+				$request = $db->prepare('UPDATE posts SET visible = ?, comments = ? WHERE id = ?');
+				$request->execute([$visible, $comments, $this->post['id']]);
+
+				return true;
+			}
+			else
+				return false;
 		}
 
 		function deletePost() {
@@ -94,7 +104,6 @@
 
 		static function create($categoryId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $commentsEnabled = true, $type = 'news', $parseSlug = true) {
 			if (!empty($categoryId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
-				global $language;
 				if (empty($slug))
 					$slug = $title;
 				if ($parseSlug)
@@ -123,7 +132,7 @@
 
 					$postId = \Basics\Handling::latestId();
 
-					$request = $db->prepare('
+					/*$request = $db->prepare('
 						INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value)
 						VALUES (?, ?, ?, \'posts\', \'title\', ?),
 						(?, ?, ?, \'posts\', \'sub_title\', ?),
@@ -155,7 +164,8 @@
 						\Basics\Strings::identifier(),
 						$language,
 						$postId
-					]);
+					]);*/
+					$clauses->setDB('posts', $postId, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', 'default']);
 
 					return $postId;
 				}

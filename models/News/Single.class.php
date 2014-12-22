@@ -24,6 +24,10 @@
 			return $newsItself;
 		}
 
+		function setNews(...$traversableContent) {
+			return $this->news->setPost(...$traversableContent);
+		}
+
 		function deleteNews() {
 			if ($this->news->deletePost()) {
 				

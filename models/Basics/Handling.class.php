@@ -67,7 +67,7 @@
 			if ($noLanguage !== true) {
 				global $clauses;
 
-				return $clauses->getDB($tableName, $slug, $column, $noLanguage, true, true);
+				return $clauses->getDB($tableName, $slug, $column, true, true, $noLanguage);
 			}
 			else {
 				global $db;

@@ -12,13 +12,13 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `language` varchar(5) NOT NULL,
   `post_date` datetime NOT NULL,
   `modif_date` datetime DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `languages` (
 `id` int(11) NOT NULL,
   `code` varchar(5) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=3;
 
 INSERT INTO `languages` (`id`, `code`, `enabled`) VALUES
 (1, 'fr-fr', 1),
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `last_name` varchar(255) DEFAULT NULL,
   `registration` datetime NOT NULL,
   `birth` date DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 INSERT INTO `members` (`id`, `type_id`, `nickname`, `slug`, `avatar`, `email`, `password`, `first_name`, `last_name`, `registration`, `birth`) VALUES
 (0, 3, 'Guest', 'guest', NULL, '', '', NULL, NULL, '2011-11-11 00:00:00', NULL);
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `polls` (
   `answers` varchar(255) NOT NULL,
   `poll_date` datetime NOT NULL,
   `author_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `polls_users` (
 `id` int(11) NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `polls_users` (
   `user_id` int(11) NOT NULL,
   `answer_id` int(11) NOT NULL,
   `ip` varchar(39) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `posts` (
 `id` int(11) NOT NULL,
@@ -122,9 +122,8 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `priority` varchar(50) NOT NULL DEFAULT 'normal',
   `post_date` datetime NOT NULL,
   `comments` tinyint(1) NOT NULL DEFAULT '1',
-  `modif_date` int(11) DEFAULT NULL,
   `views` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `site` (
   `name` char(100) NOT NULL,
@@ -148,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 `id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `type` varchar(255) NOT NULL DEFAULT 'tag'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=2;
 
 INSERT INTO `tags` (`id`, `author_id`, `type`) VALUES
 (1, 1, 'category');
@@ -168,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `votes` (
   `table_name` varchar(255) NOT NULL,
   `post_id` int(11) NOT NULL,
   `vote_date` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 ALTER TABLE `comments`
  ADD PRIMARY KEY (`id`);

@@ -25,7 +25,7 @@
 		}
 
 		function getLanguage($originLanguage = false) {
-			$this->language = array_merge($this->language, $this->getDBClean('languages', $this->language['id'], '*', true, false, $originLanguage));
+			$this->language = array_merge($this->language, $this->getDB('languages', $this->language['id'], '*', true, false, $originLanguage));
 			$this->language['name'] = $this->language['lang_name'] . ' (' . $this->language['country_name'] . ')';
 
 			return $this->language;
@@ -52,49 +52,7 @@
 			return 'return "' . addslashes($this->get($mark)) . '";';
 		}
 
-		function getDB($tableName, $index, $columnsName = '*', $originLanguageTemp = false, $errorRecovery = true, $getId = false) {
-			global $db;
-			if ($originLanguageTemp === false)
-				$originLanguage = $this->language['code'];
-			else
-				$originLanguage = $originLanguageTemp;
-			if ($getId === false) {
-				$from = 'incoming_id';
-				$to = 'value';
-			}
-			else {
-				$from = 'value';
-				$to = 'incoming_id';
-			}
-			$condition = 'table_name = ? AND ' . $from . ' = ?';
-			if ($originLanguage !== null)
-				$condition .= ' AND language = \'' . $originLanguage . '\'';
-			if ($columnsName !== '*')
-				$condition .= ' AND column_name = \'' . $columnsName . '\'';
-
-			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $condition);
-			$request->execute([$tableName, $index]);
-			$columns = $request->fetchAll(\PDO::FETCH_ASSOC);
-
-			if (empty($columns)) {
-				if ($originLanguageTemp === false AND $originLanguage !== Site::parameter('default_language') AND $errorRecovery)
-					return $this->getDB($tableName, $index, $columnsName, Site::parameter('default_language'));
-				else
-					return false;
-			}
-			// elseif ($originLanguage === null)
-				// return $columns;
-			elseif (count($columns) > 1) {
-				$newColumns = [];
-				foreach ($columns as $columnsElem)
-					$newColumns[$columnsElem['column_name']] = $columnsElem[$to];
-				return $newColumns;
-			}
-			else
-				return $columns[0][$to];
-		}
-
-		function getDBClean($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $targetLanguage = null) {
+		function getDB($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $targetLanguage = null) {
 			global $db;
 			if ($targetLanguage === null)
 				$targetLanguage = $this->language['code'];
@@ -118,12 +76,12 @@
 
 			if (empty($columns)) {
 				if ($targetLanguage !== false AND $errorRecovery) {
-					if ($recoveredColumns = $this->getDBClean($tableName, $index, $columnsName, false, $getId, Site::parameter('default_language')))
+					if ($recoveredColumns = $this->getDB($tableName, $index, $columnsName, false, $getId, Site::parameter('default_language')))
 						return $recoveredColumns;
-					elseif ($recoveredColumns = $this->getDBClean($tableName, $index, $columnsName, false, $getId, false))
+					elseif ($recoveredColumns = $this->getDB($tableName, $index, $columnsName, false, $getId, false))
 						return $recoveredColumns;
 					else
-						return [$tableName . '[' . $index . '] ' . $columnsName];
+						return false;// return [$tableName . '[' . $index . '] ' . $columnsName];
 				}
 				else
 					return false;
@@ -136,6 +94,26 @@
 			}
 			else
 				return $columns[0][$to];
+		}
+
+		function setDB($tableName, $index, ...$keyValuePairs) {
+			global $db, $language;
+
+			$SQLLoop = null;
+			$PDOExecute = [];
+			foreach ($keyValuePairs as $keyValue) {
+				$SQLLoop .= '(?, ?, ?, ?, ?, ?),';
+				$PDOExecute[] = \Basics\Strings::identifier();
+				$PDOExecute[] = $language;
+				$PDOExecute[] = $index;
+				$PDOExecute[] = $tableName;
+				$PDOExecute[] = $keyValue[0];
+				$PDOExecute[] = $keyValue[1];
+			}
+			$SQLLoop = trim($SQLLoop, ',');
+
+			$request = $db->prepare('INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value) VALUES ' . $SQLLoop);
+			$request->execute($PDOExecute);
 		}
 
 		function getDBLang($tableName, $columnName, $index, $value) {

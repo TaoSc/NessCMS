@@ -6,7 +6,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $subDir; ?>images/favicon.ico">
 		<title><?php echo $siteName; ?> | <?php echo $pageTitle . ' - ' . $clauses->get('admin'); ?></title>
 		<!--[if lt IE 9]>
-			<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<style>
@@ -119,7 +119,7 @@
 
 		<footer class="container">
 			<div class="col-lg-12 text-center">
-				<a href="//github.com/TaoSc/NessCMS"><?php echo $clauses->get('source_code'); ?></a> - Licensed <a href="<?php echo $linksDir; ?>LICENSE">GPL v3</a>.
+				<a href="//github.com/TaoSc/NessCMS"><?php echo $clauses->get('source_code'); ?></a> - Licensed <a href="<?php echo $subDir; ?>LICENSE">GPL v3</a>.
 			</div>
 		</footer>
 	</body>

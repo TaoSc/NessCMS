@@ -6,13 +6,13 @@
 			error($clauses->get('news_create_fails'));
 	}
 	elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		echo 'Soon!';
-		// $news = (new News\Single($params[2], false))->getNews();
+		$news = new News\Single($params[2], false);
+		// $newsContent = $news->getNews();
 
-		// if ($news->setNews())
-			// header('Location: ' . $linksDir . 'admin/news/' . $news['id']);
-		// else
-			// error('news_edit_fails');
+		if ($news->setNews(isset($_POST['visible']) ? true : 0, isset($_POST['comments']) ? true : 0))
+			header('Refresh: 0');
+		else
+			error('news_edit_fails');
 	}
 	else {
 		if ($params[2] === '0')

@@ -41,7 +41,7 @@
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="img"><?php echo $clauses->get('image'); ?></label>
 			<div class="col-xs-4">
-				<input name="img" id="img" type="url" class="form-control" placeholder="<?php echo $clauses->get('img_placeholder'); ?>" required>
+				<input name="img" id="img" type="url" class="form-control" placeholder="<?php echo $clauses->get('img_placeholder') . '"'; if ($params[2] === '0') echo ' required'; ?>>
 			</div>
 		</div>
 

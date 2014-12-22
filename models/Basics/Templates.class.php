@@ -5,12 +5,12 @@
 		static function basicHeaders() {
 			global $topDir, $subDir;
 
-			echo '<meta charset="utf-8">
-				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<link rel="stylesheet" type="text/css" href="' . $subDir . 'css/bootstrap.min.css">
-				<script>var topDir = ' . $topDir . ';</script>
-				<script src="' . $subDir . 'js/jquery.min.js"></script>
-				<script src="' . $subDir . 'js/bootstrap.min.js"></script>' . PHP_EOL;
+			echo '<meta charset="utf-8">', PHP_EOL,
+				 '<meta http-equiv="X-UA-Compatible" content="IE=edge">', PHP_EOL,
+				 '<link rel="stylesheet" type="text/css" href="' . $subDir . 'css/bootstrap.min.css">', PHP_EOL,
+				 '<script>var topDir = ' . $topDir . ';</script>', PHP_EOL,
+				 '<script src="' . $subDir . 'js/jquery.min.js"></script>', PHP_EOL,
+				 '<script src="' . $subDir . 'js/bootstrap.min.js"></script>' . PHP_EOL;
 		}
 
 		static function textList($array) {
