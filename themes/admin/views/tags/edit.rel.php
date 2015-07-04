@@ -10,7 +10,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="type"><?php echo $clauses->get('category'); ?></label>
+			<label class="col-xs-4 control-label" for="type"><?php echo $clauses->get('type'); ?></label>
 			<div class="col-xs-4">
 				<select id="type" name="type" class="form-control">
 <?php

@@ -55,12 +55,20 @@
 			return $this->post;
 		}
 
-		function setPost($visible, $comments) {
+		function setPost($categoryId, $img, $visible, $comments) {
 			if ($this->post) {
-				global $db;
+				global $db, $clauses;
+$title = null;
+				if (empty($title))
+					$title = $clauses->getDB('posts', $this->post['id'], 'title', true, false, \Basics\Site::parameter('default_language'));
 
-				$request = $db->prepare('UPDATE posts SET visible = ?, comments = ? WHERE id = ?');
-				$request->execute([$visible, $comments, $this->post['id']]);
+				if (empty($img))
+					$img = $this->post['img_id'];
+				else
+					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
+
+				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, comments = ? WHERE id = ?');
+				$request->execute([$categoryId, $img, $visible, $comments, $this->post['id']]);
 
 				return true;
 			}

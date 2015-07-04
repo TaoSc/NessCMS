@@ -52,10 +52,10 @@
 			return 'return "' . addslashes($this->get($mark)) . '";';
 		}
 
-		function getDB($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $targetLanguage = null) {
+		function getDB($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $hopedLanguage = null) {
 			global $db;
-			if ($targetLanguage === null)
-				$targetLanguage = $this->language['code'];
+			if ($hopedLanguage === null)
+				$hopedLanguage = $this->language['code'];
 			if ($getId) {
 				$from = 'value';
 				$to = 'incoming_id';
@@ -67,15 +67,15 @@
 			$conditions = 'table_name = ? AND ' . $from . ' = ?';
 			if ($columnsName !== '*')
 				$conditions .= ' AND column_name = \'' . $columnsName . '\'';
-			if ($targetLanguage !== false)
-				$conditions .= ' AND language = \'' . $targetLanguage . '\'';
+			if ($hopedLanguage !== false)
+				$conditions .= ' AND language = \'' . $hopedLanguage . '\'';
 
 			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $conditions);
 			$request->execute([$tableName, $index]);
 			$columns = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			if (empty($columns)) {
-				if ($targetLanguage !== false AND $errorRecovery) {
+				if ($hopedLanguage !== false AND $errorRecovery) {
 					if ($recoveredColumns = $this->getDB($tableName, $index, $columnsName, false, $getId, Site::parameter('default_language')))
 						return $recoveredColumns;
 					elseif ($recoveredColumns = $this->getDB($tableName, $index, $columnsName, false, $getId, false))

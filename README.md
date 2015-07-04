@@ -67,4 +67,4 @@ Licensed under the GPL v3 license.
 [jQuery](https://github.com/jquery/jquery) (MIT),
 [jQuery Color](https://github.com/jquery/jquery-color) (MIT),
 [Lazy Load Plugin for jQuery](https://github.com/tuupola/jquery_lazyload) (MIT),
-[jBBCode](https://github.com/jbowens/jBBCode) (MIT),
+[jBBCode](https://github.com/jbowens/jBBCode) (MIT).

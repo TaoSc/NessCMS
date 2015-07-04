@@ -67,7 +67,7 @@
 					<h3><?php echo $newsLoop['title']; ?></h3>
 					<h4><?php echo $newsLoop['sub_title']; ?>
 						<small>
-							— <?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?>
+							— <?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?> 
 							<span class="badge"><?php echo $newsLoop['comments_nbr']; ?> <span class="glyphicon glyphicon-comment"></span></span>
 						</small>
 					</h4>
