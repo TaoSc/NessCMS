@@ -96,15 +96,28 @@
 				return $columns[0][$to];
 		}
 
-		function setDB($tableName, $index, ...$keyValuePairs) {
-			global $db, $language;
+		function setDB($tableName, $index, $checkBeing = false, ...$keyValuePairs) {
+			global $db;
+
+			if ($checkBeing) {
+				foreach ($keyValuePairs as $key => $keyValue) {
+					$columnValue = $this->getDB($tableName, $index, $keyValue[0], false, false, $this->language['code']);
+
+					if ($columnValue !== false) {
+						$request = $db->prepare('UPDATE languages_routing SET value = ? WHERE language = ?  AND incoming_id = ? AND table_name = ? AND column_name = ?');
+						$request->execute([$keyValue[1], $this->language['code'], $index, $tableName, $keyValue[0]]);
+
+						unset($keyValuePairs[$key]);
+					}
+				}
+			}
 
 			$SQLLoop = null;
 			$PDOExecute = [];
 			foreach ($keyValuePairs as $keyValue) {
 				$SQLLoop .= '(?, ?, ?, ?, ?, ?),';
 				$PDOExecute[] = \Basics\Strings::identifier();
-				$PDOExecute[] = $language;
+				$PDOExecute[] = $this->language['code'];
 				$PDOExecute[] = $index;
 				$PDOExecute[] = $tableName;
 				$PDOExecute[] = $keyValue[0];

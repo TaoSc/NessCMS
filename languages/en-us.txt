@@ -30,6 +30,7 @@ polls				= Polls
 tags				= Tags
 image				= Image
 members				= Members
+modify				= Modify
 content				= Content
 pv_emails_sign_in	= won't be shown
 reg_date			= Registration date
@@ -77,7 +78,7 @@ send				= Send
 details				= details
 cookies_login		= Stay Connected
 cookies_login_info	= You need to accept the usage of cookies
-index_text			= <p>Find here all the news about video games and computing in general viewed by myself.</p><p>You can freely contribute to the website and give your opinion by simply <a href="{$linksDir}members/login">creating an account or logging in</a>.</p><p>If you have any suggestion that can helps making this site better, <a href= "mailto:taoschreiner@outlook.com">send me an e-mail</a>!</p>
+index_text			= <p>Find here all the news about video games and computing in general viewed by myself.</p><p>You can freely contribute to the website and give your opinion by simply <a href="{$linksDir}members/registration">creating an account</a> or <a href="{$linksDir}members/login">logging in</a>.</p><p>If you have any suggestion that can helps making this site better, <a href= "mailto:taoschreiner@outlook.com">send me an e-mail</a>!</p>
 registration_fail	= An error has occurred during your registration.<br><a href="{$linksDir}members/registration">Go back to the form</a>.
 error_home_btn		= Take me home!
 loading				= Loading…

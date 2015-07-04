@@ -50,8 +50,12 @@
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="visible">
-						<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo 'checked'; ?>>
+						<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
+					</label><br>
+					<label for="availability">
+						<input type="checkbox" name="availability" id="availability" value="<?php if ($news['default_language'] === $language) echo 'default" disabled'; else echo 'on"'; if (!$create AND $news['availability']) echo ' checked'; ?>>
+						<?php echo $clauses->get('enable_for_language'); ?>
 					</label>
 				</div>
 			</div>
@@ -62,7 +66,7 @@
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="comments">
-						<input type="checkbox" name="comments" id="comments" value="on"<?php if (!$create AND $news['comments']) echo 'checked'; ?>>
+						<input type="checkbox" name="comments" id="comments" value="on"<?php if (!$create AND $news['comments']) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>

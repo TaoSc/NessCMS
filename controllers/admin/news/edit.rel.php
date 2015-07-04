@@ -9,7 +9,7 @@
 		$news = new News\Single($params[2], false);
 		// $newsContent = $news->getNews();
 
-		if ($news->setNews($_POST['category_id'], $_POST['img'], isset($_POST['visible']) ? true : 0, isset($_POST['comments']) ? true : 0))
+		if ($news->setNews($_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['category_id'], $_POST['img'], isset($_POST['visible']) ? true : 0, isset($_POST['availability']) ? true : 0, isset($_POST['comments']) ? true : 0))
 			header('Refresh: 0');
 		else
 			error('news_edit_fails');

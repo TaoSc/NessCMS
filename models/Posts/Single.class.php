@@ -30,7 +30,7 @@
 
 				$this->post['availability'] = $clauses->getDB('posts', $this->post['id'], 'availability', false);
 				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug', false);
-				if (!$this->post['availability'] OR !$this->post['slug'])
+				if ((!$this->post['availability'] OR !$this->post['slug']) AND $visible != false)
 					$this->post = false;
 			}
 		}
@@ -55,12 +55,15 @@
 			return $this->post;
 		}
 
-		function setPost($categoryId, $img, $visible, $comments) {
-			if ($this->post) {
-				global $db, $clauses;
-$title = null;
-				if (empty($title))
-					$title = $clauses->getDB('posts', $this->post['id'], 'title', true, false, \Basics\Site::parameter('default_language'));
+		function setPost($title, $subTitle, $content, $categoryId, $img, $visible, $availability, $comments) {
+			if ($this->post AND !empty($categoryId) AND !empty($title) AND !empty($subTitle) AND !empty($content)) {
+				global $db, $clauses, $language;
+
+				$slug = \Basics\Strings::slug($title);
+				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') === $language)
+					$availability = 'default';
+
+				$clauses->setDB('posts', $this->post['id'], true, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', $availability]);
 
 				if (empty($img))
 					$img = $this->post['img_id'];
@@ -173,7 +176,7 @@ $title = null;
 						$language,
 						$postId
 					]);*/
-					$clauses->setDB('posts', $postId, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', 'default']);
+					$clauses->setDB('posts', $postId, false, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', 'default']);
 
 					return $postId;
 				}

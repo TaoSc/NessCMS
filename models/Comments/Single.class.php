@@ -20,6 +20,7 @@
 
 				$this->comment['author_id'] = (int) $this->comment['author_id'];
 				$this->comment['removal_cond'] = ($currentMemberId AND ($currentMemberId === $this->comment['author_id'] OR $rights['admin_access']));
+				$this->comment['edit_cond'] = ($currentMemberId AND (($currentMemberId === $this->comment['author_id'] AND $rights['admin_access']) OR $rights['admin_access']));
 			}
 		}
 

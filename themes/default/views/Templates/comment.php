@@ -35,6 +35,8 @@
 <?php
 							if ($comment['removal_cond'])
 								echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '/delete' . '" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
+							if ($comment['edit_cond'])
+								echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '' . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
 							if ($hasVoted AND $currentMemberId)
 								echo '<button type="button" class="btn btn-inverse" data-id="' . $comment['id'] . '" value="strip">' . $clauses->get('remove_vote') . '</button>';
 ?>

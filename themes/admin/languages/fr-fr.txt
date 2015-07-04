@@ -2,6 +2,7 @@ admin_index			= Vous êtes dans l'interface d'administration de votre site.
 create				= Créer
 create_news			= Créer une news
 edit_news			= Modifier une news
+enable_for_language	= Activer pour cette langue
 news_create_fails	= La création de cette news a échouée.
 news_edit_fails		= La modifiction de cette news a échouée.
 system_conf			= Configuration du système
