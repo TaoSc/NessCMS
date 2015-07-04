@@ -18,7 +18,22 @@
 					Basics\Templates::smallUserBox($memberLoop, 'subtle-margin');
 ?>
 				<hr>
-				<?php echo $news['category']['name']; ?>
+<?php
+				echo $news['category']['name'];
+
+				if ($rights['news_edit']) {
+?>
+					<hr>
+					<div class="btn-group btn-group-justified btn-group-sm">
+<?php
+						echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
+						if ($rights['news_create'])
+							echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '/delete" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
+?>
+					</div>
+<?php
+				}
+?>
 			</div>
 		</div>
 

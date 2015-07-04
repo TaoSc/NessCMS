@@ -123,7 +123,7 @@
 				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false))
 					return false;
 				else {
-					global $db, $currentMemberId;
+					global $db, $currentMemberId, $clauses;
 
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 

@@ -25,7 +25,16 @@
 		}
 
 		function setNews(...$traversableContent) {
-			return $this->news->setPost(...$traversableContent);
+			$editSucceed = $this->news->setPost(...$traversableContent);
+
+			if ($editSucceed AND \Basics\Site::parameter('cache_enabled')) {
+				global $cache;
+				$newsItself = $this->news->getPost();
+
+				$cache->delete('news/' . $newsItself['slug'], true);
+			}
+
+			return $editSucceed;
 		}
 
 		function deleteNews() {

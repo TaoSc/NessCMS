@@ -69,6 +69,8 @@
 			$files = glob($this->dirname . '*');
 			foreach ($files as $fileLoop)
 				unlink($fileLoop);
+
+			file_put_contents($this->dirname . 'index', null);
 		}
 
 		function getDirname() {

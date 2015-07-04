@@ -139,7 +139,7 @@
 	}
 	else
 		$rights = (new Members\Type(3))->getRights();
-	$siteVersion = 'dev';
+	$CMSVersion = 'dev';
 
 	// Gestion des erreurs
 	function error($errorMsg = 404, $showHomeBtn = true) {
