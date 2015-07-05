@@ -53,11 +53,32 @@
 						<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label><br>
-					<label for="availability">
-						<input type="checkbox" name="availability" id="availability" value="<?php if ($news['default_language'] === $language) echo 'default" disabled'; else echo 'on"'; if (!$create AND $news['availability']) echo ' checked'; ?>>
-						<?php echo $clauses->get('enable_for_language'); ?>
-					</label>
+<?php
+					if ($params[2] !== '0') {
+?>
+						<label for="availability">
+							<input type="checkbox" name="availability" id="availability" value="<?php if ($news['default_language'] === $language) echo 'default" disabled'; else echo 'on"'; if (!$create AND $news['availability']) echo ' checked'; ?>>
+							<?php echo $clauses->get('enable_for_language'); ?>
+						</label>
+<?php
+					}
+?>
 				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="priority"><?php echo $clauses->get('priority'); ?></label>
+			<div class="col-xs-4">
+				<select id="priority" name="priority" class="form-control">
+<?php
+					foreach (Posts\Single::$priorities as $priorityLoop) {
+						echo '<option value="' .  $priorityLoop . '"';
+						if (!$create AND $news['priority'] === $priorityLoop) echo ' selected';
+						echo '>' .  $clauses->get($priorityLoop) . '</option>' . PHP_EOL;
+					}
+?>
+				</select>
 			</div>
 		</div>
 

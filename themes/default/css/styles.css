@@ -33,7 +33,7 @@
 
 body {
 	padding-top: 50px;
-	background: #f1f1f1;
+	background: #F1F1F1;
 	text-rendering: optimizeLegibility;
 }
 body > div.container {
@@ -58,7 +58,7 @@ label.checkbox {
 	padding-top: 0px;
 }
 .subtle-line-top {
-	border-top: 1px solid #eee;
+	border-top: 1px solid #EEE;
 	padding-top: 10px;
 }
 .modal-dialog {
@@ -73,7 +73,7 @@ span.hotThumbLow {
 	top: 0px;
 	width: 0px;
 	height: 0px;
-	border-top: 40px solid #e67e22;
+	border-top: 40px solid #E67E22;
 	border-right: 40px solid transparent;
 	position: absolute;
 	float: left;
@@ -102,7 +102,7 @@ div.no-padding {
 div.bottom-link {
 	margin-top: 20px;
 	padding: 5px;
-	border-top: 1px solid #eee;
+	border-top: 1px solid #EEE;
 }
 
 a.small-user-box:hover {
@@ -110,9 +110,9 @@ a.small-user-box:hover {
 }
 div.small-user-box {
 	background: #fafafa;
-	box-shadow: 0px 0px 5px #eee;
+	box-shadow: 0px 0px 5px #EEE;
 	height: 50px;
-	border: 1px solid #ebebeb;
+	border: 1px solid #EBEBEB;
 	position: relative;
 }
 div.small-user-box.subtle-margin {
@@ -128,7 +128,7 @@ div.small-user-box > img {
 div.small-user-box > .user-name {
 	float: left;
 	color: black;
-	text-shadow: 2px 2px 5px #eee;
+	text-shadow: 2px 2px 5px #EEE;
 	margin: 5px;
 	margin-left: 4px;
 }
@@ -176,7 +176,7 @@ div.login-btn > a {
 }
 
 div#headlines-carousel {
-	box-shadow: 0px 0px 5px #eee;
+	box-shadow: 0px 0px 5px #EEE;
 }
 
 .jumbotron {
@@ -188,6 +188,7 @@ div#headlines-carousel {
 
 .news-list > .news {
 	margin-bottom: 10px;
+	background: #fafafa;
 }
 .news-list > .news .glyphicon-comment {
 	font-size: 10px;
@@ -196,18 +197,32 @@ div#headlines-carousel {
 	height: 22px;
 	overflow: hidden;
 }
+.news-list .low.news {
+	height: 70px;
+	overflow: hidden;
+	box-shadow: 0px 0px 5px #EEE;
+}
+.news-list .low.news h3 {
+	margin-top: 7px;
+	height: 25px;
+	font-size: 22px;
+	overflow: hidden;
+}
+.news-list .low.news h4 {
+	height: 19px;
+	font-size: 15px;
+}
 .news-list .normal.news {
 	height: 100px;
 	overflow: hidden;
-	background-color: #fafafa;
-	box-shadow: 0px 0px 5px #eee;
+	box-shadow: 0px 0px 5px #EEE;
 }
-.news-list .normal.news a {
+.news-list .normal.news a, .news-list .low.news a {
 	color: #5D5F5F;
 }
-.news-list .normal.news img {
+.news-list .normal.news img, .news-list .low.news img {
 	float: left;
-	background: #e3e3e3;
+	background: #E3E3E3;
 	margin-right: 10px;
 }
 .news-list .normal.news h3 {
@@ -218,8 +233,7 @@ div#headlines-carousel {
 .news-list .important.news {
 	text-shadow: 0px 1px 1px black;
 	height: 100px;
-	background: #fafafa;
-	box-shadow: 0px 0px 5px #eee;
+	box-shadow: 0px 0px 5px #EEE;
 }
 .news-list .important.news, .news-list .important.news h3 {
 	position: relative;
@@ -253,6 +267,9 @@ div#headlines-carousel {
 .news-list .important.news h4 {
 	position: relative;
 	top: 8px;
+}
+.news-list .important.news h4 small {
+	color: #E0E0E0;
 }
 
 .nav-tabs.top-content {

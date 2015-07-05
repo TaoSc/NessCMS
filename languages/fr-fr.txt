@@ -90,6 +90,11 @@ source_code			= Code source
 by					= par
 soon				= bientôt
 
+priority			= Priorité
+important			= Importante
+normal				= Normale
+low					= Basse
+
 error				= Erreur
 login_needed		= Vous devez être connecté pour accèder à cette page.
 login_fail			= Nous n'avons pas réussi à vous connecter.<br><a href="{$linksDir}members/login">Cliquez ici</a> pour le faire manuellement.

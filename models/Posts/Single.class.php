@@ -4,9 +4,15 @@
 	class Single {
 		private $post;
 		static $imgsSizes = [
+			[200, 70],
 			[250, 100],
 			[750, 100],
 			[750, 400]
+		];
+		static $priorities = [
+			'important',
+			'normal',
+			'low'
 		];
 
 		function __construct($id, $type = null, $visible = true, $languageCheck = true) {
@@ -55,10 +61,10 @@
 			return $this->post;
 		}
 
-		function setPost($title, $subTitle, $content, $categoryId, $img, $visible, $availability, $comments) {
+		function setPost($title, $subTitle, $content, $categoryId, $img, $visible, $availability, $priority, $comments) {
 			$slug = \Basics\Strings::slug($title);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
-			if ($this->post AND !empty($categoryId) AND !empty($slug) AND !empty($subTitle) AND !empty($content) AND (!$slugBeing OR $slugBeing === $this->post['id'])) {
+			if ($this->post AND !empty($categoryId) AND !empty($slug) AND !empty($subTitle) AND !empty($content) AND in_array($priority, Single::$priorities) AND (!$slugBeing OR $slugBeing === $this->post['id'])) {
 				global $db, $clauses, $language;
 
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') === $language)
@@ -71,8 +77,8 @@
 				else
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 
-				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, comments = ? WHERE id = ?');
-				$request->execute([$categoryId, $img, $visible, $comments, $this->post['id']]);
+				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ? WHERE id = ?');
+				$request->execute([$categoryId, $img, $visible, $priority, $comments, $this->post['id']]);
 
 				return true;
 			}

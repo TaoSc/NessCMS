@@ -6,11 +6,18 @@
 
 		<div class="row">
 			<div class="col-lg-8">
+				<?php if ($news['priority'] === 'important') echo '<span class="sprites hotThumbLow" style="left: initial;"></span>'; ?>
 				<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
 
 				<hr>
 
 				<?php echo $news['content']; ?>
+
+				<hr>
+
+<?php
+				echo $news['category']['name'];
+?>
 			</div>
 			<div class="col-lg-4">
 <?php
@@ -19,8 +26,6 @@
 ?>
 				<hr>
 <?php
-				echo $news['category']['name'];
-
 				if ($rights['news_edit']) {
 ?>
 					<hr>

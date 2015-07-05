@@ -90,6 +90,11 @@ source_code			= Source code
 by					= by
 soon				= soon
 
+priority			= Priority
+important			= Important
+normal				= Normal
+low					= Low
+
 error				= Error
 login_needed		= You must be logged in to view this page.
 login_fail			= We were unable to log you in.<br><a href="{$linksDir}members/login">Click here</a> to do it manually.
