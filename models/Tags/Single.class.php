@@ -62,23 +62,22 @@
 			return (new \Posts\Handling($offset, $limit, false, $condition))->getPosts();
 		}
 
-		/*function setTag($newName, $newType) {
-			$newSlug = \Basics\Strings::slug($newName)
-			if (!empty($newName) AND !empty($newSlug) AND $newType AND $this->tag) {
-				if (\Basics\Handling::countEntries('tags', 'slug = \'' .  . '\' AND id != ' . $this->tag['id']))
-					return false;
-				else {
-					global $db;
+		function setTag($name, $type) {
+			$slug = \Basics\Strings::slug($name);
+			$slugBeing = \Basics\Handling::idFromSlug($slug, 'tags', 'slug', false);
+			if (!empty($slug) AND $type AND (!$slugBeing OR $slugBeing === $this->tag['id']) AND $this->tag) {
+				global $db, $clauses;
 
-					$request = $db->prepare('UPDATE tags SET name = ?, slug = ?, type = ? WHERE id = ?');
-					$request->execute([$newName, $newSlug, $newType, $this->tag['id']]);
+				$clauses->setDB('tags', $this->tag['id'], true, ['name', $name], ['slug', $slug]);
 
-					return true;
-				}
+				$request = $db->prepare('UPDATE tags SET type = ? WHERE id = ?');
+				$request->execute([$type, $this->tag['id']]);
+
+				return true;
 			}
 			else
 				return false;
-		}*/
+		}
 
 		function deleteTag() {
 			if ($this->tag) {

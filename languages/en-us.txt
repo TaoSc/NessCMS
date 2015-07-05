@@ -1,9 +1,3 @@
-error				= Error
-login_needed		= You must be logged in to view this page.
-login_fail			= We were unable to log you in.<br><a href="{$linksDir}members/login">Click here</a> to do it manually.
-login_bad_pass		= A problem occurred while logging you in.<br>You have probably <i>mistyped your password</i>.<br><a href="{$linksDir}members/login">Click here to try again.</a>
-invalid_user		= Banned or nonexistent member.
-already_logged_in	= You're already logged in.
 lang_add			= Add your language
 login				= Login
 log_in				= Log in
@@ -79,8 +73,8 @@ details				= details
 cookies_login		= Stay Connected
 cookies_login_info	= You need to accept the usage of cookies
 index_text			= <p>Find here all the news about video games and computing in general viewed by myself.</p><p>You can freely contribute to the website and give your opinion by simply <a href="{$linksDir}members/registration">creating an account</a> or <a href="{$linksDir}members/login">logging in</a>.</p><p>If you have any suggestion that can helps making this site better, <a href= "mailto:taoschreiner@outlook.com">send me an e-mail</a>!</p>
-registration_fail	= An error has occurred during your registration.<br><a href="{$linksDir}members/registration">Go back to the form</a>.
 error_home_btn		= Take me home!
+error_previous_btn	= Previous page
 loading				= Loading…
 comment_lang_info	= wrote in 
 modify_profile		= Modify your profile
@@ -88,15 +82,24 @@ admin				= Administration
 report_bug			= Report a bug
 votes				= Votes
 participants		= Participants
-comment_fail		= Your comment couldn't be sent.
 show_more			= Show more…
 more				= More
 delete				= Delete
-polls_vote_fail		= Your vote hasn't been added.<br>Likely you've already voted.
 create_poll			= Create a poll
 source_code			= Source code
 by					= by
 soon				= soon
+
+error				= Error
+login_needed		= You must be logged in to view this page.
+login_fail			= We were unable to log you in.<br><a href="{$linksDir}members/login">Click here</a> to do it manually.
+login_bad_pass		= A problem occurred while logging you in.<br>You have probably <i>mistyped your password</i>.<br><a href="{$linksDir}members/login">Click here to try again.</a>
+invalid_user		= Banned or nonexistent member.
+already_logged_in	= You're already logged in.
+registration_fail	= An error has occurred during your registration.<br><a href="{$linksDir}members/registration">Go back to the form</a>.
+comment_fail		= Your comment couldn't be sent.
+polls_vote_fail		= Your vote hasn't been added.<br>Likely you've already voted.
+
 monday				= Monday
 tuesday				= Tuesday
 wednesday			= Wednesday

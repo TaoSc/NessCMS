@@ -49,7 +49,7 @@
 			</div>
 
 			<div class="row options-box">
-				<div class="col-xs-7">
+				<div class="col-xs-<?php if ($commentsTemplate AND (\Basics\Site::parameter('anonymous_coms') OR $currentMemberId)) echo '7'; else echo '12'; ?>">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
 							<button type="button" class="btn btn-success btn-sm vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $comment['id']; ?>" value="up">

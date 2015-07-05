@@ -56,10 +56,11 @@
 		}
 
 		function setPost($title, $subTitle, $content, $categoryId, $img, $visible, $availability, $comments) {
-			if ($this->post AND !empty($categoryId) AND !empty($title) AND !empty($subTitle) AND !empty($content)) {
+			$slug = \Basics\Strings::slug($title);
+			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
+			if ($this->post AND !empty($categoryId) AND !empty($slug) AND !empty($subTitle) AND !empty($content) AND (!$slugBeing OR $slugBeing === $this->post['id'])) {
 				global $db, $clauses, $language;
 
-				$slug = \Basics\Strings::slug($title);
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') === $language)
 					$availability = 'default';
 
@@ -111,6 +112,8 @@
 
 			$request = $db->prepare('UPDATE posts SET views = ? WHERE type = ? AND id = ?');
 			$request->execute([$viewsNbr, 'news', $postId]);
+
+			return true;
 		}
 
 		static function create($categoryId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $commentsEnabled = true, $type = 'news', $parseSlug = true) {

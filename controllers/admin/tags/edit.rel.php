@@ -6,12 +6,12 @@
 			error($clauses->get('tags_create_fails'));
 	}
 	elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$tag = (new Tags\Single($params[2]))->getTag();
+		$tag = new Tags\Single($params[2]);
 
-		if ($tag->setTag())
-			header('Location: ' . $linksDir . 'admin/tags/' . $tag['id']);
+		if ($tag->setTag($_POST['name'], $_POST['type']))
+			header('Refresh: 0');
 		else
-			error('tag_edit_fails');
+			error($clauses->get('tag_edit_fails'));
 	}
 	else {
 		if ($params[2] === '0')

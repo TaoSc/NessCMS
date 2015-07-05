@@ -8,7 +8,7 @@
 	$pollsList = &$tempPollsList;
 
 	if ($currentMemberId)
-		$createPollLink = 'admin/polls/edit/0';
+		$createPollLink = 'admin/polls/0';
 	else
 		$createPollLink = 'members/login/admin=2Fpolls=2F0';
 

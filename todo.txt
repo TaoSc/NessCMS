@@ -1,6 +1,7 @@
 GLOBAL:
 - gather lot of things in a tags system
 - revisions system
+- collaborative system
 - make a great logo
 
 LANGUAGES:
