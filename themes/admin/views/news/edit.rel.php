@@ -19,7 +19,7 @@
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="content"><?php echo $clauses->get('content'); ?></label>
 			<div class="col-xs-8">
-				<textarea id="content" name="content" class="form-control" rows="15" required><?php if (!$create) echo $news['content']; ?></textarea>
+				<textarea id="content" name="content" class="form-control tinymce" rows="15" required><?php if (!$create) echo $news['content']; ?></textarea>
 			</div>
 		</div>
 

@@ -10,7 +10,7 @@
 		</thead>
 		<tbody>
 <?php
-			foreach ($tags as $key => $tagLoop) {
+			foreach ($tags as $tagLoop) {
 ?>
 				<tr>
 					<td><a href="<?php echo $linksDir . 'admin/tags/' . $tagLoop['id']; ?>"><?php echo $tagLoop['name']; ?></a></td>

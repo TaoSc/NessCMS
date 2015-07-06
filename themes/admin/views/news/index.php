@@ -11,7 +11,7 @@
 		</thead>
 		<tbody>
 <?php
-			foreach ($news as $key => $newsLoop) {
+			foreach ($news as $newsLoop) {
 ?>
 				<tr>
 					<td><a href="<?php echo $linksDir . 'admin/news/' . $newsLoop['id']; ?>"><?php echo $newsLoop['title']; ?></a></td>

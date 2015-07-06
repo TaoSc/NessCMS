@@ -11,11 +11,11 @@
 	}
 	elseif (isset($_POST['nickname']) AND isset($_POST['email']) AND isset($_POST['pwd']) AND isset($_POST['pwd2']) AND isset($_POST['site_name'])) {
 		$request = $db->prepare(file_get_contents($siteDir . 'NessCMS.sql'));
-		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/')]);
+		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/') . '/']);
 
 		$request = $db->query('UPDATE members SET id = 0 WHERE id = 1');
 
-		$topDir = Basics\Site::parameter('directory');
+		$topDir = '/' . Basics\Site::parameter('directory') . '/';
 		$siteName = Basics\Site::parameter('name');
 		$clauses = new Basics\Languages($language);
 
@@ -145,7 +145,7 @@
 					</section>
 
 					<footer class="text-center">
-						2013 - 2014 <strong>Tao Schreiner</strong> - Licensed <a href="./LICENSE">GPL v3</a>.
+						2013 - 2015 <strong>Tao Schreiner</strong> - Licensed <a href="./LICENSE">GPL v3</a>.
 					</footer>
 				</div>
 			</div>

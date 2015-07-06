@@ -29,19 +29,16 @@
 			global $db;
 			$postsIds = (array) $postsIds;
 
-			foreach ($postsIds as $element) {
-				if (isset($condition))
-					$condition .= ' AND p.id != ' . $element;
-				else
-					$condition = 'AND p.id != ' . $element;
-			}
+			$condition = null;
+			foreach ($postsIds as $element)
+				$condition .= ' AND p.id != ' . $element;
 
 			$request = $db->prepare('
 				SELECT p.id
 				FROM posts p
 				INNER JOIN tags_relation r
-				ON p.id = r.post_id
-				WHERE r.tag_id = ? ' . (isset($condition) ? $condition : null) . ' AND r.post_type = ?
+				ON p.id = r.incoming_id
+				WHERE r.tag_id = ? ' . (isset($condition) ? $condition : null) . ' AND r.incoming_type = ?
 				ORDER BY p.id DESC LIMIT ' . $offset . ', ' . $limit
 			);
 			$request->bindParam(':offset', $offset, \PDO::PARAM_INT);
@@ -52,12 +49,9 @@
 			if (!$datas)
 				return [];
 
-			foreach ($datas as $key => $element) {
-				if ($key)
-					$condition .= ' OR p.id = ' . $element['id'];
-				else
-					$condition = 'p.id = ' . $element['id'];
-			}
+			foreach ($datas as $element)
+				$condition .= ' OR p.id = ' . $element['id'];
+			$condition = trim($condition, ' OR ');
 
 			return (new \Posts\Handling($offset, $limit, false, $condition))->getPosts();
 		}
@@ -105,29 +99,14 @@
 				if (\Basics\Handling::idFromSlug($slug, 'tags', 'slug', false))
 					return false;
 				else {
-					global $db, $currentMemberId, $language;
+					global $db, $currentMemberId, $clauses;
 
 					$request = $db->prepare('INSERT INTO tags(author_id, type) VALUES(?, ?)');
 					$request->execute([$currentMemberId, $type]);
 
 					$tagId = \Basics\Handling::latestId('tags');
 
-					$request = $db->prepare('
-						INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value)
-						VALUES (?, ?, ?, \'tags\', \'name\', ?),
-						(?, ?, ?, \'tags\', \'slug\', ?)
-					');
-					$request->execute([
-						\Basics\Strings::identifier(),
-						$language,
-						$tagId,
-						$name,
-
-						\Basics\Strings::identifier(),
-						$language,
-						$tagId,
-						$slug
-					]);
+					$clauses->setDB('tags', $tagId, false, ['name', $name], ['slug', $slug]);
 
 					return $tagId;
 				}
