@@ -4,6 +4,7 @@ login				= Login
 log_in				= Log in
 log_out				= Log out
 avatar				= Avatar
+views				= Views
 home				= Home
 news				= News
 reviews				= Reviews

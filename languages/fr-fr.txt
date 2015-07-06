@@ -4,6 +4,7 @@ login				= Connexion
 log_in				= Se connecter
 log_out				= Se déconnecter
 avatar				= Avatar
+views				= Vues
 home				= Accueil
 news				= News
 reviews				= Tests
