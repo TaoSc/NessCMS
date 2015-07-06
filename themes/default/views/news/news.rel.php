@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="page-header">
-			<h1><?php echo $news['title'] . ' <small>' . $news['sub_title'] . '</small>'; ?></h1>
+			<h1 class="news-title"><?php echo $news['title'] . '<br><small>' . $news['sub_title'] . '</small>'; ?></h1>
 		</div>
 
 		<div class="row">
@@ -12,34 +12,65 @@
 				<hr>
 
 				<?php echo $news['content']; ?>
-
-				<hr>
-
-<?php
-				echo $news['category']['name'];
-?>
 			</div>
+
 			<div class="col-lg-4">
+			<!--<div data-spy="affix" data-offset-top="192" data-offset-bottom="20" style="width: 360px;top: 71px;">-->
+				<div class="row">
+					<div class="col-xs-12">
 <?php
-				foreach ($news['authors'] as $memberLoop)
-					Basics\Templates::smallUserBox($memberLoop, 'subtle-margin');
+					foreach ($news['authors'] as $memberLoop)
+						Basics\Templates::smallUserBox($memberLoop, 'subtle-margin');
 ?>
+					</div>
+				</div>
+
 				<hr>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<a href="<?php echo $linksDir . 'tags/' . $news['category']['slug']; ?>" class="label label-primary">
+							<span class="glyphicon glyphicon-folder-open"></span> <?php echo $news['category']['name']; ?>
+						</a>
+					</div>
+				</div>
+
+				<hr>
+
+				<div class="row">
+					<div class="col-xs-6">
+						<button type="button" class="btn icon-btn rounded-btn btn-success btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" news themevalue="up">
+							<span class="glyphicon glyphicon-thumbs-up img-circle text-success"></span> <?php echo $clauses->get('to_like'); ?> 
+							(<span class="votes-nbr"><?php echo $news['likes']; ?></span>)								
+						</button>
+					</div>
+					<div class="col-xs-6">
+						<button type="button" class="btn icon-btn rounded-btn btn-danger btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="down">
+							<span class="glyphicon glyphicon-thumbs-down img-circle text-danger"></span> <?php echo $clauses->get('to_dislike'); ?> 
+							(<span class="votes-nbr"><?php echo $news['dislikes']; ?></span>)								
+						</button>
+					</div>
+				</div>
+
 <?php
 				if ($rights['news_edit']) {
 ?>
 					<hr>
-					<div class="btn-group btn-group-justified btn-group-sm">
+
+					<div class="row">
+						<div class="col-xs-12 btn-group btn-group-justified btn-group-sm">
 <?php
-						echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
-						if ($rights['news_create'])
-							echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '/delete" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
+							echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
+							if ($rights['news_create'])
+								echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '/delete" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
 ?>
+						</div>
 					</div>
 <?php
 				}
 ?>
 			</div>
+			<!--</div>-->
 		</div>
 
 		<div class="bottom-link">

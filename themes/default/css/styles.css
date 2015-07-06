@@ -42,8 +42,17 @@ body > div.container {
 	box-shadow: 0px -4px 10px grey;
 }
 
-.btn:not(.btn-link) {
+.btn:not(.btn-link, .btn-muted)  {
 	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.btn.rounded-btn {
+	padding: 1px 15px 3px 2px;
+	border-radius: 50px;
+}
+.btn.rounded-btn  > span.glyphicon {
+	padding:8px;
+	background:#ffffff;
+	margin-right:4px;
 }
 .page-header {
 	margin: 20px 0px;
@@ -194,8 +203,9 @@ div#headlines-carousel {
 	font-size: 10px;
 }
 .news-list > .news h4 {
-	height: 22px;
+	height: 23px;
 	overflow: hidden;
+	margin-bottom: 10px;
 }
 .news-list .low.news {
 	height: 70px;
@@ -209,8 +219,9 @@ div#headlines-carousel {
 	overflow: hidden;
 }
 .news-list .low.news h4 {
-	height: 19px;
+	height: 21px;
 	font-size: 15px;
+	margin-bottom: 7px;
 }
 .news-list .normal.news {
 	height: 100px;
@@ -279,7 +290,7 @@ div#headlines-carousel {
 	background: #f5f5f5;
 	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.05);
 }
-.nav-tabs.top-content .active > a:hover {
+.nav-tabs.top-content .active > a:hover, .nav-tabs.top-content .active > a:focus {
 	background: #f5f5f5;
 }
 .tab-content.top-content {

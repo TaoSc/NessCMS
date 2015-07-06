@@ -22,6 +22,9 @@
 		else
 			$nextNews = $nextNews[0];
 
+		$hasVoted = \Votes\Handling::did($news['id'], 'posts');
+		$voteBtnsCond = ($hasVoted OR (!$currentMemberId AND !Basics\Site::parameter('anonymous_votes')) OR !$news['visible']);
+
 		if (($currentMemberId AND \Basics\Handling::recursiveArraySearch($currentMemberId, $news['authors']) === false) OR !$currentMemberId)
 			Posts\Single::setViews($news['id']);
 

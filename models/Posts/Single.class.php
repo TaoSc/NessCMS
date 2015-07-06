@@ -3,6 +3,7 @@
 
 	class Single {
 		private $post;
+		private $languageCheck;
 		static $imgsSizes = [
 			[200, 70],
 			[250, 100],
@@ -17,6 +18,7 @@
 
 		function __construct($id, $type = null, $visible = true, $languageCheck = true) {
 			global $db;
+			$this->languageCheck = $languageCheck;
 			$condition = 'id = ?';
 			if ($type)
 				$condition .= ' AND type = \'' . $type . '\'';
@@ -56,6 +58,7 @@
 				$this->post['authors'] = [];
 				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)
 					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
+				$this->post['comments_nbr'] = \Comments\Handling::countComments(0, $this->post['id'], 'posts', $this->languageCheck);
 			}
 
 			return $this->post;

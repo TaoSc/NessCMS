@@ -3,10 +3,8 @@
 
 	class Single {
 		private $news;
-		private $languageCheck;
 
 		function __construct($id, $visible = true, $languageCheck = true) {
-			$this->languageCheck = $languageCheck;
 			$this->news = new \Posts\Single($id, 'news', $visible, $languageCheck);
 		}
 
@@ -18,7 +16,8 @@
 				$newsItself['content'] = $clauses->getDB('posts', $newsItself['id'], 'content');
 
 				$newsItself['category'] = (new \Categories\Single($newsItself['category_id']))->getCategory(false);
-				$newsItself['comments_nbr'] = \Comments\Handling::countComments(0, $newsItself['id'], 'posts', $this->languageCheck);
+				$newsItself['likes'] = \Votes\Handling::number($newsItself['id'], 'posts');
+				$newsItself['dislikes'] = \Votes\Handling::number($newsItself['id'], 'posts', -1);
 			}
 
 			return $newsItself;

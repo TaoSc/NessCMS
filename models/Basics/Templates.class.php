@@ -9,6 +9,7 @@
 				 '<meta http-equiv="X-UA-Compatible" content="IE=edge">', PHP_EOL,
 				 '<meta name="generator" content="NessCMS ' . $CMSVersion . '">', PHP_EOL,
 				 '<link rel="stylesheet" type="text/css" href="' . $subDir . 'css/bootstrap.min.css">', PHP_EOL,
+				// '<link rel="stylesheet" type="text/css" href="https://bootswatch.com/flatly/bootstrap.min.css">', PHP_EOL,
 				 '<script>var topDir = ' . $topDir . ';</script>', PHP_EOL,
 				 '<script src="' . $subDir . 'js/jquery.min.js"></script>', PHP_EOL,
 				 '<script src="' . $subDir . 'js/bootstrap.min.js"></script>' . PHP_EOL;

@@ -1,7 +1,5 @@
 $(function () {
-	$(function() {
-		$('img').lazyload({effect : 'fadeIn'});
-	});
+	$('img').lazyload({effect : 'fadeIn'});
 
 	$('body').on('hidden.bs.modal', '.modal', function () {
 		$(this).removeData('bs.modal');
@@ -60,14 +58,15 @@ $(function () {
 			return false;
 		});
 
-		$('#comments').parent().on('click', 'button.vote-btn', function () {
-			var commentId = $(this).attr('data-id'),
+		$('button.vote-btn').parent().on('click', 'button.vote-btn', function () {
+			var id = $(this).attr('data-id'),
+				type = $(this).attr('data-type'),
 				voteState = $(this).attr('value'),
-				posting = $.post(topDir + 'votes/comments/' + commentId, {'vote_state': voteState});
+				posting = $.post(topDir + 'votes/' + type + '/' + id, {'vote_state': voteState});
 
 			posting.done(function (datas) {
 				var decodedDatas = JSON.parse(datas);
-					btnSelector = 'button.vote-btn[data-id=' + commentId + ']';
+					btnSelector = 'button.vote-btn[data-id=' + id + ']';
 
 				if (voteState === 'strip')
 					$(btnSelector + '[value=' + voteState + ']').remove();

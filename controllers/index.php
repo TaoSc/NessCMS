@@ -26,10 +26,10 @@
 								'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
 	$featuredPosts = &$tempFeaturedPosts;
 
-	$mostCommentedPosts = \Basics\Handling::twoDimSorting($posts, 'comments');
+	$mostCommentedPosts = \Basics\Handling::twoDimSorting($posts, 'comments_nbr');
 	$tempMostCommentedPosts = [];
 	foreach ($mostCommentedPosts as $postLoop)
-		$tempMostCommentedPosts[] = ['label' => $postLoop['comments'] . ' <span class="glyphicon glyphicon-comment"></span>',
+		$tempMostCommentedPosts[] = ['label' => $postLoop['comments_nbr'] . ' <span class="glyphicon glyphicon-comment"></span>',
 									 'text' => $postLoop['title'],
 									 'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
 	$mostCommentedPosts = &$tempMostCommentedPosts;
