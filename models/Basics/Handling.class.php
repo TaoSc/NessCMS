@@ -18,7 +18,7 @@
 				$array = [];
 				foreach ($ids as $element)
 					$array[] = call_user_func_array([(new $className($element['id'], ...$instanceParams)), 'get' . $accessor], (array) $methodParams);
-				return array_filter($array);
+				return array_values(array_filter($array));
 			}
 		}
 

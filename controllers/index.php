@@ -16,6 +16,8 @@
 
 	$poll = (new Polls\Single(Basics\Handling::latestId('polls')))->getPoll();
 
+	$headlinesPosts = Posts\Handling::getPosts('priority = \'important\'');
+	$headlinesPostsNbr = count($headlinesPosts);
 	$posts = Posts\Handling::getPosts();
 
 	$featuredPosts = \Basics\Handling::twoDimSorting($posts, 'views');

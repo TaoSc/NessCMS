@@ -2,39 +2,32 @@
 	<div class="col-md-8">
 		<div id="headlines-carousel" class="carousel slide">
 			<ol class="carousel-indicators">
-				<li data-target="#headlines-carousel" data-slide-to="0" class="active"></li>
-				<li data-target="#headlines-carousel" data-slide-to="1"></li>
-				<li data-target="#headlines-carousel" data-slide-to="2"></li>
+<?php
+				for ($i = 0; $i < $headlinesPostsNbr; $i++) {
+					echo '<li data-target="#headlines-carousel" data-slide-to="' . $i . '"';
+					if ($i === 0)
+						echo ' class="active"';
+					echo '></li>';
+				}
+?>
 			</ol>
 
 			<div class="carousel-inner">
-				<div class="item active">
-					<a href="#null">
-						<img src="./images/heroes/mario-kart-8-750x400.jpg" alt="Headlines news image">
-						<div class="carousel-caption">
-							<h2>Mario Kart 8: a Wii U seller?</h2>
-							<h3>Well, let's review it!</h3>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#null">
-						<img src="./images/heroes/watch-dogs-750x400.jpg" alt="Headlines news image">
-						<div class="carousel-caption">
-							<h2>Watch Dogs now avaible</h2>
-							<h3>What has changed since E3 2012?</h3>
-						</div>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#null">
-						<img src="./images/heroes/xbox-one-750x400.jpg" alt="Headlines news image">
-						<div class="carousel-caption">
-							<h2>An Xbox One pack for 399$</h2>
-							<h3>You probably guessed it's without Kinect.</h3>
-						</div>
-					</a>
-				</div>
+<?php
+				foreach ($headlinesPosts as $key => $postLoop) {
+?>
+					<div class="item<?php if ($key === 0) echo ' active'; ?>">
+						<a href="<?php echo $linksDir . $postLoop['type'] . '/' . $postLoop['slug']; ?>">
+							<!--data-original--><img src="<?php echo \Basics\Templates::getImg('heroes/' . $postLoop['img']['slug'], $postLoop['img']['format'], 750, 400); ?>" alt="<?php echo $clauses->get('headlines_img') . ' (' . ($key + 1); ?>)">
+							<div class="carousel-caption">
+								<h2><?php echo $postLoop['title']; ?></h2>
+								<h3><?php echo $postLoop['sub_title']; ?></h3>
+							</div>
+						</a>
+					</div>
+<?php
+				}
+?>
 			</div>
 
 			<a class="left carousel-control" href="#headlines-carousel" data-slide="prev">

@@ -1,3 +1,4 @@
+headlines_img		= Image de une
 lang_add			= Ajouter votre langue
 login				= Connexion
 log_in				= Se connecter

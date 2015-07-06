@@ -1,3 +1,4 @@
+headlines_img		= Headlines image
 lang_add			= Add your language
 login				= Login
 log_in				= Log in
