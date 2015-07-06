@@ -1,4 +1,7 @@
 <div class="row">
+<?php
+	if ($headlinesPosts) {
+?>
 	<div class="col-md-8">
 		<div id="headlines-carousel" class="carousel slide">
 			<ol class="carousel-indicators">
@@ -18,7 +21,8 @@
 ?>
 					<div class="item<?php if ($key === 0) echo ' active'; ?>">
 						<a href="<?php echo $linksDir . $postLoop['type'] . '/' . $postLoop['slug']; ?>">
-							<!--data-original--><img src="<?php echo \Basics\Templates::getImg('heroes/' . $postLoop['img']['slug'], $postLoop['img']['format'], 750, 400); ?>" alt="<?php echo $clauses->get('headlines_img') . ' (' . ($key + 1); ?>)">
+							<!--data-original-->
+							<img src="<?php echo \Basics\Templates::getImg('heroes/' . $postLoop['img']['slug'], $postLoop['img']['format'], 750, 400) . '" alt="' . $clauses->get('headlines_img') . ' (' . ($key + 1); ?>)">
 							<div class="carousel-caption">
 								<h2><?php echo $postLoop['title']; ?></h2>
 								<h3><?php echo $postLoop['sub_title']; ?></h3>
@@ -40,6 +44,11 @@
 	</div>
 
 	<div class="col-md-4">
+<?php
+	}
+	else
+		echo '<div class="col-lg-12">';
+?>
 		<h1><?php echo $clauses->get('hey_folks'); ?></h1>
 		<?php echo stripslashes(eval($clauses->getMagic('index_text'))); ?>
 	</div>
