@@ -63,7 +63,7 @@
 			return (int) $request->fetch(\PDO::FETCH_ASSOC)['total'];
 		}
 
-		static function idFromSlug($slug, $tableName = 'posts', $column =  'slug', $noLanguage = true) {
+		static function idFromSlug($slug, $tableName = 'posts', $column = 'slug', $noLanguage = true) {
 			if ($noLanguage !== true) {
 				global $clauses;
 
