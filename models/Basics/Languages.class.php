@@ -90,10 +90,7 @@
 				$newColumns = [];
 				foreach ($columns as $columnsElem)
 					$newColumns[$columnsElem['column_name']] = $columnsElem[$to];
-				if (count($newColumns) <= 1)
-					return array_shift($newColumns);
-				else
-					return $newColumns;
+				return $newColumns;
 			}
 			else
 				return $columns[0][$to];

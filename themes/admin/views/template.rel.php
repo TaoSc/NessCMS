@@ -3,7 +3,7 @@
 	<head>
 		<?php \Basics\Templates::basicHeaders(); ?>
 		<script src="//tinymce.cachefly.net/4/tinymce.min.js"></script>
-		<script>tinymce.init({selector: 'textarea.tinymce', language_url : '<?php echo $subDir; ?>js/tinymce.<?php echo $language; ?>.js'});</script>
+		<script>tinymce.init({selector: 'textarea.tinymce', language_url : '<?php echo $linksDir; ?>js/tinymce.<?php echo $language; ?>.js'});</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $subDir; ?>images/favicon.ico">
 		<title><?php echo $siteName; ?> | <?php echo $pageTitle . ' - ' . $clauses->get('admin'); ?></title>
