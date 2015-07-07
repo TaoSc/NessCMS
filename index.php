@@ -1,12 +1,12 @@
 <?php
-	// Quelques configurations basiques
+	// Basic configurations
 	$siteDir = dirname(__FILE__) . '/';
 	$configFile = $siteDir . 'config.inc.php';
 	$ajaxCheck = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 	session_start();
 	mb_internal_encoding('UTF-8');
 
-	// Auto-chargement des classes
+	// Classes auto-loading
 	spl_autoload_register(function ($class) {
 		global $siteDir;
 
@@ -16,7 +16,7 @@
 			require $siteDir . 'models/' . $class . '.php';
 	});
 
-	// Vérifications du système
+	// SYstem installtion check
 	if (file_exists($configFile))
 		include $configFile;
 	else {
@@ -24,7 +24,7 @@
 		die();
 	}
 
-	// Connexion à la base de données
+	// DB connection
 	try {
 		$db = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
 	}
@@ -32,7 +32,7 @@
 		die('Error with <b>PHP Data Objects</b> : ' . $error->getMessage());
 	}
 
-	// Variables liées au site
+	// Variables related to the site
 	$topDir = Basics\Site::parameter('directory');
 	if ($topDir)
 		$topDir = '/' . $topDir;
@@ -43,7 +43,7 @@
 		die();
 	}
 
-	// Gestion de la langue
+	// Language management
 	if (!Basics\site::cookie('lang')) {
 		Basics\site::cookie('lang', Basics\Site::parameter('default_language'));
 		$language = Basics\Site::parameter('default_language');
@@ -51,7 +51,7 @@
 	else
 		$language = Basics\site::cookie('lang');
 
-	// Gestion du membre
+	// Connected member management
 	if (Basics\site::cookie('name') AND Basics\site::cookie('password') AND !Basics\site::session('member'))
 		Members\Handling::login(Basics\site::cookie('name'), Basics\site::cookie('password'));
 	if (empty(Basics\site::session('member_id')))
@@ -59,7 +59,7 @@
 	else
 		$currentMemberId = Basics\site::session('member_id');
 
-	// Gestion du chemin entré en paramètre
+	// Path handling
 	if (mb_substr_count($_SERVER['REQUEST_URI'], '//'))
 		die('Error while decoding the URI.');
 	if (isset($_GET['location']) AND !empty($_GET['location'])) {
@@ -95,7 +95,7 @@
 		$linksDir = $subDir . 'index.php?location=';
 	}
 
-	// Affichage du cache
+	// Buffer display
 	$cache = new Basics\Cache($siteDir . 'cache', 10);
 	if ($_SERVER['REQUEST_METHOD'] === 'GET' AND !$ajaxCheck) {
 		if ($cache->exist($location))
@@ -122,7 +122,7 @@
 		}
 	}
 
-	// Appels coûteux en terme de performance
+	// Expensive inclusions
 	if ($params[0] === 'admin' AND $foldersDepth !== 0) {
 		include $siteDir . 'themes/admin/theme.php';
 		$admin = true;
@@ -143,7 +143,7 @@
 		$rights = (new Members\Type(3))->getRights();
 	$CMSVersion = 'dev';
 
-	// Gestion des erreurs
+	// Errors management
 	function error($errorMsg = 404, $showHomeBtn = true) {
 		global $siteDir, $clauses, $theme, $language, $admin, $siteName, $location, $linksDir, $subDir, $currentMemberId, $rights, $currentMember;
 
@@ -165,7 +165,7 @@
 		die();
 	}
 
-	// Routage
+	// Routing
 	$controllerPath = $siteDir . 'controllers/' . $location . '.php';
 
 	if ($admin)
@@ -196,10 +196,13 @@
 	elseif ($params[0] === 'votes' AND isset($params[2]) AND $foldersDepth === 2)
 		include $siteDir . 'controllers/votes/ajax.rel.php';
 
+	elseif ($params[0] === 'tags' AND isset($params[1]) AND $foldersDepth === 1)
+		include $siteDir . 'controllers/tags/ajax.rel.php';
+
 	else
 		error();
 
-	// Gestion de l'affichage de la page et de l'écriture du cache
+	// Page's display management and cache writing
 	if (isset($viewPath)) {
 		$cachingCond = (\Basics\Site::parameter('cache_enabled') AND (!isset($caching) OR (isset($caching) AND $caching === true)) AND !$admin);
 		if ($cachingCond) {
