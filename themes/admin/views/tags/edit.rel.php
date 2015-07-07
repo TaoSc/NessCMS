@@ -14,10 +14,10 @@
 			<div class="col-xs-4">
 				<select id="type" name="type" class="form-control">
 <?php
-					foreach ($types as $tagTypeId => $tagTypeName) {
-						echo '<option value="' .  $tagTypeId . '"';
-						if (!$create AND $tag['type'] === $tagTypeId) echo ' selected';
-						echo '>' .  $tagTypeName . '</option>' . PHP_EOL;
+					foreach ($tagsTypes as $tagType) {
+						echo '<option value="' .  $tagType . '"';
+						if (!$create AND $tag['type'] === $tagType) echo ' selected';
+						echo '>' .  $clauses->get($tagType) . '</option>' . PHP_EOL;
 					}
 ?>
 				</select>

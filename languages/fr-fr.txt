@@ -11,7 +11,6 @@ reviews				= Tests
 forum				= Forum
 previous			= Précédent
 next				= Suivant
-category			= Catégorie
 search_placeholder	= Rechercher…
 config				= Configuration
 type				= Type
@@ -91,6 +90,14 @@ create_poll			= Créer un sondage
 source_code			= Code source
 by					= par
 soon				= bientôt
+
+tag					= Libellé
+game				= Jeu
+developer			= Développeur
+publisher			= Éditeur
+system				= Plateforme / OS
+genre				= Genre
+category			= Catégorie
 
 priority			= Priorité
 important			= Importante

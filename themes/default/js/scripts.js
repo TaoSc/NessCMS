@@ -21,13 +21,13 @@ $(function () {
 	});
 
 	if ($('.poll-template').html()) {
-		var get = $.get(topDir + 'polls/' + $('.poll-template').attr('data-poll-id'));
+		var get = $.get(linksDir + 'polls/' + $('.poll-template').attr('data-poll-id'));
 		get.done(function (datas) {
 			$('.poll-template').replaceWith(datas);
 		});
 
 		$('.poll-template').parent().on('click', 'input[name=poll_radios]', function () {
-			var posting = $.post(topDir + 'polls/' + $('.poll-template').attr('data-poll-id') + '/send', {'poll_radios': $('input[name=poll_radios]:checked').attr('value')});
+			var posting = $.post(linksDir + 'polls/' + $('.poll-template').attr('data-poll-id') + '/send', {'poll_radios': $('input[name=poll_radios]:checked').attr('value')});
 			posting.done(function (datas) {
 				var decodedDatas = JSON.parse(datas);
 
@@ -62,7 +62,7 @@ $(function () {
 			var id = $(this).attr('data-id'),
 				type = $(this).attr('data-type'),
 				voteState = $(this).attr('value'),
-				posting = $.post(topDir + 'votes/' + type + '/' + id, {'vote_state': voteState});
+				posting = $.post(linksDir + 'votes/' + type + '/' + id, {'vote_state': voteState});
 
 			posting.done(function (datas) {
 				var decodedDatas = JSON.parse(datas);

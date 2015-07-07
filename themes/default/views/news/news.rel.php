@@ -39,7 +39,7 @@
 
 				<div class="row">
 					<div class="col-xs-6">
-						<button type="button" class="btn icon-btn rounded-btn btn-success btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" news themevalue="up">
+						<button type="button" class="btn icon-btn rounded-btn btn-success btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="up">
 							<span class="glyphicon glyphicon-thumbs-up img-circle text-success"></span> <?php echo $clauses->get('to_like'); ?> 
 							(<span class="votes-nbr"><?php echo $news['likes']; ?></span>)								
 						</button>

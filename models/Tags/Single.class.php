@@ -3,6 +3,15 @@
 
 	class Single {
 		private $tag;
+		static $types = [
+			'tag',
+			'game',
+			'developer',
+			'publisher',
+			'system',
+			'genre',
+			'category'
+		];
 
 		function __construct($id, $type = null) {
 			global $db;
