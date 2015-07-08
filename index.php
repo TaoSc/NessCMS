@@ -16,7 +16,7 @@
 			require $siteDir . 'models/' . $class . '.php';
 	});
 
-	// SYstem installtion check
+	// System installtion check
 	if (file_exists($configFile))
 		include $configFile;
 	else {
@@ -24,7 +24,7 @@
 		die();
 	}
 
-	// DB connection
+	// Database connection
 	try {
 		$db = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
 	}

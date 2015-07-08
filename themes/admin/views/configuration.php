@@ -26,7 +26,7 @@
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="anonymous_votes">
-						<input type="checkbox" name="anonymous_votes" id="anonymous_votes" value="on"<?php if (Basics\Site::parameter('anonymous_votes')) echo 'checked'; ?>>
+						<input type="checkbox" name="anonymous_votes" id="anonymous_votes" value="on"<?php if (Basics\Site::parameter('anonymous_votes')) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>
@@ -61,7 +61,7 @@
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="cache_enabled">
-						<input type="checkbox" name="cache_enabled" id="cache_enabled" value="on"<?php if (Basics\Site::parameter('cache_enabled')) echo 'checked'; ?>>
+						<input type="checkbox" name="cache_enabled" id="cache_enabled" value="on"<?php if (Basics\Site::parameter('cache_enabled')) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>
@@ -73,7 +73,7 @@
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="private_emails">
-						<input type="checkbox" name="private_emails" id="private_emails" value="on"<?php if (Basics\Site::parameter('private_emails')) echo 'checked'; ?>>
+						<input type="checkbox" name="private_emails" id="private_emails" value="on"<?php if (Basics\Site::parameter('private_emails')) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>
@@ -85,7 +85,7 @@
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="url_rewriting">
-						<input type="checkbox" name="url_rewriting" id="url_rewriting" value="on"<?php if (Basics\Site::parameter('url_rewriting')) echo 'checked'; ?>>
+						<input type="checkbox" name="url_rewriting" id="url_rewriting" value="on"<?php if (Basics\Site::parameter('url_rewriting')) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>
