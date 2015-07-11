@@ -39,8 +39,8 @@
 	$mostRecentPosts = [];
 	foreach ($posts as $postLoop)
 		$mostRecentPosts[] = ['label' => Basics\Dates::sexyDate($postLoop['date'], true, true) . ' ' . $clauses->get('at') . ' ' . $postLoop['time'],
-								  'text' => $postLoop['title'],
-								  'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
+							  'text' => $postLoop['title'],
+							  'link' => $linksDir . $postLoop['type'] . '/' . $postLoop['slug'] . '" title="' . $postLoop['sub_title']];
 
 	$pageTitle = $clauses->get('home');
 	$viewPath = 'index';

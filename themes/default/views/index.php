@@ -67,7 +67,7 @@
 					<img data-original="<?php echo $newsLoop['img_address']; ?>" alt="<?php echo $clauses->get('img_thumb'); ?>">
 					<?php if ($newsLoop['priority'] === 'important') echo '<div class="mask"></div>'; ?>
 					<h3><?php echo $newsLoop['title']; ?></h3>
-					<h4><?php echo $newsLoop['sub_title']; ?>
+					<h4><?php echo $newsLoop['sub_title']; ?> 
 						<small>
 							— <?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?> 
 							<span class="badge"><?php echo $newsLoop['comments_nbr']; ?> <span class="glyphicon glyphicon-comment"></span></span>

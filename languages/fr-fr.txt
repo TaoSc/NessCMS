@@ -87,6 +87,7 @@ show_more			= Voir plus…
 more				= Plus
 delete				= Supprimer
 create_poll			= Créer un sondage
+create_news			= Créer une news
 source_code			= Code source
 by					= par
 soon				= bientôt

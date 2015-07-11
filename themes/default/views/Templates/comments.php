@@ -59,7 +59,7 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label" for="content"><?php echo $clauses->get('content'); ?></label>
 							<div class="col-md-10">
-								<textarea class="form-control" id="content" name="content" placeholder="<?php echo $clauses->get('bbcode_placeholder'); ?>"></textarea>
+								<textarea class="form-control" id="content" name="content" placeholder="<?php echo $clauses->get('bbcode_placeholder'); ?>" required></textarea>
 							</div>
 						</div>
 
