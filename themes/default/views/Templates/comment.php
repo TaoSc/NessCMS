@@ -26,24 +26,21 @@
 
 			<div class="row content-itself<?php if ($comment['hidden'] == 1) echo ' bg-warning'; ?>">
 				<div class="col-lg-12">
+					<div class="btn-group btn-group-xs pull-right">
 <?php
-					if ($comment['hidden'] == 1)
+						if ($comment['removal_cond'])
+							echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '/delete' . '" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
+						if ($comment['edit_cond'])
+							echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '' . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
+						if ($hasVoted AND $currentMemberId AND !$comment['hidden'])
+							echo '<button type="button" class="btn btn-inverse vote-btn" data-id="' . $comment['id'] . '" data-type="comments" value="strip">' . $clauses->get('remove_vote') . '</button>';
+?>
+					</div>
+<?php
+					if ($comment['hidden'])
 						echo '<span class="text-danger">' . $clauses->get('com_hidden_lvl1') . '</span>';
-					else {
-?>
-						<div class="btn-group btn-group-xs pull-right">
-<?php
-							if ($comment['removal_cond'])
-								echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '/delete' . '" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
-							if ($comment['edit_cond'])
-								echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '' . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
-							if ($hasVoted AND $currentMemberId)
-								echo '<button type="button" class="btn btn-inverse vote-btn" data-id="' . $comment['id'] . '" data-type="comments" value="strip">' . $clauses->get('remove_vote') . '</button>';
-?>
-						</div>
-<?php
+					else
 						echo $comment['content'];
-					}
 ?>
 				</div>
 			</div>

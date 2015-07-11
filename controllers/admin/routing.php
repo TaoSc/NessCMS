@@ -20,6 +20,8 @@
 	elseif ($rights['admin_access'] AND isset($params[3]) AND $params[1] === 'tags' AND is_numeric($params[2]) AND $params[3] === 'delete' AND $foldersDepth === 3)
 		include $siteDir . 'controllers/admin/tags/delete.rel.php';
 
+	elseif ($currentMemberId AND isset($params[2]) AND $params[1] === 'comments' AND is_numeric($params[2]) AND $foldersDepth === 2)
+		include $siteDir . 'controllers/admin/comments/edit.rel.php';
 	elseif ($currentMemberId AND isset($params[3]) AND $params[1] === 'comments' AND is_numeric($params[2]) AND $params[3] === 'delete' AND $foldersDepth === 3)
 		include $siteDir . 'controllers/admin/comments/delete.rel.php';
 

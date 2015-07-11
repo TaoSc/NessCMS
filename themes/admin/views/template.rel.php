@@ -72,22 +72,28 @@
 
 		<div class="container side-collapse-container">
 			<section>
-				<div class="row">
-					<div class="col-lg-12">
-						<ul class="nav nav-pills nav-justified">
 <?php
-							foreach ($navigation as $item) {
-								echo '<li';
-									if ($item['link'] === $location)
-										echo ' class="active"';
-								echo '><a href="' . $linksDir . $item['link'] . '">' . $item['caption'] . '</a></li>' . PHP_EOL;
-							}
+				if ($rights['admin_access']) {
 ?>
-						</ul>
+					<div class="row">
+						<div class="col-lg-12">
+							<ul class="nav nav-pills nav-justified">
+<?php
+								foreach ($navigation as $item) {
+									echo '<li';
+										if ($item['link'] === $location)
+											echo ' class="active"';
+									echo '><a href="' . $linksDir . $item['link'] . '">' . $item['caption'] . '</a></li>' . PHP_EOL;
+								}
+?>
+							</ul>
+						</div>
 					</div>
-				</div>
 
-				<hr>
+					<hr>
+<?php
+				}
+?>
 
 				<div class="row">
 					<div class="col-lg-12">

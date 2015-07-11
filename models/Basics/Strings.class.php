@@ -41,6 +41,7 @@
 					break;
 			}
 
+			$finalString = trim($finalString);
 			if (mb_strlen($string) > $length)
 				$finalString .= $end;
 

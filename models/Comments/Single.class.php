@@ -19,8 +19,8 @@
 				global $currentMemberId, $rights;
 
 				$this->comment['author_id'] = (int) $this->comment['author_id'];
-				$this->comment['removal_cond'] = ($currentMemberId AND ($currentMemberId === $this->comment['author_id'] OR $rights['admin_access']));
-				$this->comment['edit_cond'] = ($currentMemberId AND (($currentMemberId === $this->comment['author_id'] AND $rights['admin_access']) OR $rights['admin_access']));
+				$this->comment['removal_cond'] = 
+				$this->comment['edit_cond'] = ($currentMemberId AND (($currentMemberId === $this->comment['author_id'] AND $rights['comment_edit'] AND $this->comment['hidden'] != 2) OR $rights['comment_moderate']));
 			}
 		}
 
@@ -45,17 +45,18 @@
 			return $this->comment;
 		}
 
-		function setComment($newContent, $newVisible = true) {
-			if (empty($newContent) OR !$this->comment)
-				return false;
-			else {
+		function setComment($content, $hidden = false) {
+			if ($this->comment AND !empty($content) AND !empty($content) AND $this->comment['edit_cond']) {
 				global $db;
+				$hidden = (int) $hidden;
 
 				$request = $db->prepare('UPDATE comments SET content = ?, hidden = ? WHERE id = ?');
-				$request->execute([$newContent, $newVisible, $this->comment['id']]);
+				$request->execute([$content, $hidden, $this->comment['id']]);
 
 				return true;
 			}
+			else
+				return false;
 		}
 
 		function deleteComment($realRemoval = true) {
@@ -82,6 +83,7 @@
 
 		static function createComment($parentId, $postId, $postType, $content) {
 			global $currentMemberId;
+			$parentId = (int) $parentId;
 
 			if ((\Basics\Site::parameter('anonymous_coms') OR $currentMemberId) AND !empty($content)) {
 				global $db, $language;
