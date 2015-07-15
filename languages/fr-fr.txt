@@ -37,7 +37,6 @@ latest_news			= Dernières actualités
 answer				= Répondre
 hey_folks			= Salut les gens !
 img_thumb			= Miniature d'une news
-no_news				= Aucune news pour le moment
 years_old			= ans
 last_modified		= dernière modification : 
 to_like				= Aimer
@@ -61,7 +60,6 @@ coms_order_op2		= Le plus ancien en premier
 coms_order_op3		= Trier par popularité
 age					= Âge
 remove_vote			= Enlever votre vote
-no_poll_sidebar		= Il n'y a aucun sondage pour le moment.
 bbcode_placeholder	= Vous pouvez utiliser le BBCode.
 com_hidden_lvl1		= Le contenu de ce commentaire a été caché.
 coms_per_page		= Commentaires par page
@@ -93,6 +91,10 @@ create_news			= Créer une news
 source_code			= Code source
 by					= par
 soon				= bientôt
+
+no_news				= Aucunes news pour le moment.
+no_tags				= Aucuns libellés pour le moment.
+no_polls			= Il n'y a aucun sondage pour le moment.
 
 tag					= Libellé
 game				= Jeu

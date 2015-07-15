@@ -46,8 +46,8 @@
 				return false;
 		}
 
-		static function create($categoryId, $title, $subTitle, $content, $img, $tags = null, $slug = null, $visible = false, $commentsEnabled = true) {
-			if ($newsId = \Posts\Single::create($categoryId, $title, $subTitle, $content, $img, $slug, $visible, $commentsEnabled)) {
+		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true) {
+			if ($newsId = \Posts\Single::create($title, $subTitle, $content, $categoryId, $tagsIds, $img, $slug, $visible, $priority, $commentsEnabled)) {
 				
 
 				return $newsId;

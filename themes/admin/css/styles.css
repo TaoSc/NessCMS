@@ -1,0 +1,55 @@
+body {
+	padding-top: 10px;
+}
+
+.btn-outline {
+	background-color: transparent;
+	color: inherit;
+	transition: all .5s;
+}
+.btn-primary.btn-outline {
+	color: #428bca;
+}
+.btn-success.btn-outline {
+	color: #5cb85c;
+}
+.btn-info.btn-outline {
+	color: #5bc0de;
+}
+.btn-warning.btn-outline {
+	color: #f0ad4e;
+}
+.btn-danger.btn-outline {
+	color: #d9534f;
+}
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+	color: #fff;
+}
+
+input.tt-input, input.tt-hint {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	// border-right: 3px solid #DCE4EC;
+}
+input.tt-hint {
+	color: grey;
+}
+.tt-menu {
+	min-width: 100%;
+	border: 1px solid black;
+	border-top: none;
+	background: white;
+	border-radius: 0px 0px 5px 5px;
+	padding: 5px 0px;
+}
+.tt-suggestion {
+	cursor: pointer;
+	padding: 4px;
+}
+.tt-suggestion:hover {
+	background: #DBDBDB;
+}

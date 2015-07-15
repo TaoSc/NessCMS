@@ -1,6 +1,6 @@
 <form class="form-horizontal col-lg-12" method="post" action="">
 	<fieldset class="col-lg-offset-1 col-lg-10">
-		<legend><?php echo $clauses->get($params[2] === '0' ? 'create_tag' : 'edit_tag'); ?></legend>
+		<legend><?php echo $clauses->get($create ? 'create_tag' : 'edit_tag'); ?></legend>
 
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="name"><?php echo $clauses->get('name'); ?></label>

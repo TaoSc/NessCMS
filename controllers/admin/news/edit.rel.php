@@ -1,6 +1,6 @@
 <?php
 	if ($params[2] === '0' AND $rights['news_create'] AND $_SERVER['REQUEST_METHOD'] === 'POST') {
-		if ($newsId = \News\Single::create($_POST['category_id'], $_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['img'], null, null, isset($_POST['visible']) ? true : 0, isset($_POST['comments']) ? true : 0))
+		if ($newsId = \News\Single::create($_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['category_id'], $_POST['tags'], $_POST['img'], null, isset($_POST['visible']) ? true : 0, $_POST['priority'], isset($_POST['comments']) ? true : 0))
 			header('Location: ' . $linksDir . 'admin/news/' . $newsId);
 		else
 			error($clauses->get('news_create_fails'));
@@ -8,7 +8,7 @@
 	elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$news = new News\Single($params[2], false);
 
-		if ($news->setNews($_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['category_id'], $_POST['img'], isset($_POST['visible']) ? true : 0, isset($_POST['availability']) ? true : 0, $_POST['priority'], isset($_POST['comments']) ? true : 0))
+		if ($news->setNews($_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['category_id'], $_POST['tags'], $_POST['img'], isset($_POST['visible']) ? true : 0, isset($_POST['availability']) ? true : 0, $_POST['priority'], isset($_POST['comments']) ? true : 0))
 			header('Refresh: 0');
 		else
 			error($clauses->get('news_edit_fails'));
@@ -19,13 +19,25 @@
 		else {
 			$create = false;
 			$news = (new News\Single($params[2], false))->getNews();
-			if ($news['visible'])
-				$btnsGroupMenu[] = ['link' => $linksDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
-			if ($news['views'])
-				$btnsGroupMenu[] = ['link' => $linksDir . 'admin/news/' . $news['id'] . '/reset-views', 'name' => $clauses->get('reset_views'), 'type' => 'warning'];
-			$btnsGroupMenu[] = ['link' => $linksDir . 'admin/news/' . $news['id'] . '/delete', 'name' => $clauses->get('delete'), 'type' => 'warning'];
+
+			if (!empty($news)) {
+				if ($news['visible'])
+					$btnsGroupMenu[] = ['link' => $linksDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
+				if ($news['views'])
+					$btnsGroupMenu[] = ['link' => $linksDir . 'admin/news/' . $news['id'] . '/reset-views', 'name' => $clauses->get('reset_views'), 'type' => 'warning'];
+				$btnsGroupMenu[] = ['link' => $linksDir . 'admin/news/' . $news['id'] . '/delete', 'name' => $clauses->get('delete'), 'type' => 'warning'];
+
+				$tagsIds = $news['raw_tags'];
+				$tempTagsIds = [];
+				foreach ($tagsIds as $tagLoop)
+					$tempTagsIds[] = (int) $tagLoop['id'];
+				$tagsIds = &$tempTagsIds;
+			}
 		}
+
 		$categories = \Categories\Handling::getCategories();
+		$tagsTypes = Tags\Single::$types;
+		$firstTagsType = array_values($tagsTypes)[0];
 
 		if (empty($news) AND !$create)
 			error();

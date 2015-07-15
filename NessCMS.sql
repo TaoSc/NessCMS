@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `languages` (
 `id` int(11) NOT NULL,
   `code` varchar(5) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=3;
 
 INSERT INTO `languages` (`id`, `code`, `enabled`) VALUES
 (1, 'fr-fr', 1),
@@ -173,7 +173,7 @@ ALTER TABLE `comments`
  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `languages`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `code` (`code`);
+ ADD PRIMARY KEY (`code`), ADD UNIQUE KEY `id` (`id`);
 
 ALTER TABLE `languages_routing`
  ADD PRIMARY KEY (`id`);
@@ -200,6 +200,9 @@ ALTER TABLE `site`
  ADD UNIQUE KEY `name` (`name`);
 
 ALTER TABLE `tags`
+ ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `tags_relation`
  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `votes`

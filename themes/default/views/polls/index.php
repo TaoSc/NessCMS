@@ -8,7 +8,7 @@
 		if ($pollsList)
 			Basics\Templates::textList($pollsList);
 		else
-			echo $clauses->get('no_poll_sidebar');
+			echo $clauses->get('no_polls');
 ?>
 		<div class="bottom-link">
 			<a href="<?php echo $linksDir . $createPollLink; ?>">» <?php echo $clauses->get('create_poll'); ?></a>

@@ -3,6 +3,7 @@ GLOBAL:
 - revisions system
 - collaborative system
 - make a great logo
+- logo modification through the admin
 
 LANGUAGES:
 - remove IDs

@@ -8,13 +8,13 @@
 			if ($offsetLimit)
 				$offsetLimit = ' LIMIT ' . $offsetLimit;
 
-			$request = $db->query('SELECT ' . ($type == 'languages' ? 'code id' : 'id') . ' FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
+			$request = $db->query('SELECT ' . ($type === 'languages' ? 'code id' : 'id') . ' FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
 			$ids = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			if ($idsOnly)
 				return $ids;
 			else {
-				$className = '\\' . $namespaces . '\\' . ($type == 'languages' ? 'Languages' : 'Single');
+				$className = '\\' . $namespaces . '\\' . ($type === 'languages' ? 'Languages' : 'Single');
 				$array = [];
 				foreach ($ids as $element)
 					$array[] = call_user_func_array([(new $className($element['id'], ...$instanceParams)), 'get' . $accessor], (array) $methodParams);

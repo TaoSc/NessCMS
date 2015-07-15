@@ -37,7 +37,6 @@ latest_news			= Latest news
 answer				= Answer
 hey_folks			= Hey folks!
 img_thumb			= News thumbnail
-no_news				= No news currently.
 years_old			= years old
 last_modified		= last modified: 
 to_like				= Like
@@ -61,7 +60,6 @@ coms_order_op2		= The oldest first
 coms_order_op3		= Sort by popularity
 age					= Age
 remove_vote			= Remove your vote
-no_poll_sidebar		= There are no polls currently.
 bbcode_placeholder	= You can use BBCode.
 com_hidden_lvl1		= The content of this comment has been hidden.
 coms_per_page		= Comments per page
@@ -93,6 +91,10 @@ create_news			= Create a news
 source_code			= Source code
 by					= by
 soon				= soon
+
+no_news				= No news currently.
+no_tags				= No tags currently.
+no_polls			= There are no polls currently.
 
 tag					= Tag
 game				= Game

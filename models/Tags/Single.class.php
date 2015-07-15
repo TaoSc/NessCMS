@@ -34,7 +34,7 @@
 			return $this->tag;
 		}
 
-		function getPosts($offset = 0, $limit = 9999, $postsIds = null) {
+		function getPosts($offset = 0, $limit = 9999, $postsIds = null, $visible = true) {
 			global $db;
 			$postsIds = (array) $postsIds;
 
@@ -59,15 +59,16 @@
 				return [];
 
 			foreach ($datas as $element)
-				$condition .= ' OR p.id = ' . $element['id'];
+				$condition .= ' OR id = ' . $element['id'];
 			$condition = trim($condition, ' OR ');
 
-			return (new \Posts\Handling($offset, $limit, false, $condition))->getPosts();
+			return \Posts\Handling::getPosts($condition, $visible, true, $offset . ', ' . $limit);
 		}
 
 		function setTag($name, $type) {
 			$slug = \Basics\Strings::slug($name);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'tags', 'slug', false);
+
 			if (!empty($slug) AND $type AND (!$slugBeing OR $slugBeing === $this->tag['id']) AND $this->tag) {
 				global $db, $clauses;
 

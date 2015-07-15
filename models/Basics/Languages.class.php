@@ -119,7 +119,7 @@
 			$PDOExecute = [];
 			foreach ($keyValuePairs as $keyValue) {
 				$SQLLoop .= '(?, ?, ?, ?, ?, ?),';
-				$PDOExecute[] = \Basics\Strings::identifier();
+				$PDOExecute[] = Strings::identifier();
 				$PDOExecute[] = $this->language['code'];
 				$PDOExecute[] = $index;
 				$PDOExecute[] = $tableName;

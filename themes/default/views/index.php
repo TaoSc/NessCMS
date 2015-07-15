@@ -99,7 +99,7 @@
 <?php
 			}
 			else
-				echo $clauses->get('no_poll_sidebar');
+				echo $clauses->get('no_polls');
 ?>
 		</div>
 

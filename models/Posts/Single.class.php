@@ -33,13 +33,26 @@
 			$request->execute([$id]);
 			$this->post = $request->fetch(\PDO::FETCH_ASSOC);
 
-			if (!empty($this->post) AND $languageCheck) {
+			if (!empty($this->post)/* AND $languageCheck*/) {
 				global $clauses;
 
 				$this->post['availability'] = $clauses->getDB('posts', $this->post['id'], 'availability', false);
 				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug', false);
+
 				if ((!$this->post['availability'] OR !$this->post['slug']) AND $visible != false)
 					$this->post = false;
+				else {
+					$request = $db->prepare('
+						SELECT t.id id
+						FROM tags t
+						INNER JOIN tags_relation r
+						ON r.tag_id = t.id
+						WHERE r.incoming_id = ? AND r.incoming_type = ?
+						ORDER BY r.id
+					');
+					$request->execute([$this->post['id'], 'posts']);
+					$this->post['raw_tags'] = $request->fetchAll(\PDO::FETCH_ASSOC);
+				}
 			}
 		}
 
@@ -59,15 +72,27 @@
 				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)
 					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
 				$this->post['comments_nbr'] = \Comments\Handling::countComments(0, $this->post['id'], 'posts', $this->languageCheck);
+
+				if ($this->post['raw_tags']) {
+					$condition = null;
+					foreach ($this->post['raw_tags'] as $element)
+						$condition .= ' OR id = ' . $element['id'];
+					$condition = trim($condition, ' OR ');
+					$this->post['tags'] = \Tags\Handling::getTags($condition);
+				}
+				else
+					$this->post['tags'] = [];
 			}
 
 			return $this->post;
 		}
 
-		function setPost($title, $subTitle, $content, $categoryId, $img, $visible, $availability, $priority, $comments) {
+		function setPost($title, $subTitle, $content, $categoryId, $tagsIds, $img, $visible, $availability, $priority, $comments) {
 			$slug = \Basics\Strings::slug($title);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
-			if ($this->post AND !empty($categoryId) AND !empty($slug) AND !empty($subTitle) AND !empty($content) AND in_array($priority, Single::$priorities) AND (!$slugBeing OR $slugBeing === $this->post['id'])) {
+			$tagsIds = json_decode($tagsIds);
+
+			if ($this->post AND !empty($slug) AND (!$slugBeing OR $slugBeing === $this->post['id']) AND !empty($subTitle) AND !empty($content) AND !empty($categoryId) AND in_array($priority, Single::$priorities)) {
 				global $db, $clauses, $language;
 
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') === $language)
@@ -79,6 +104,26 @@
 					$img = $this->post['img_id'];
 				else
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
+
+				$oldTagsIds = $this->post['raw_tags'];
+				$tempOldTagsIds = [];
+				foreach ($oldTagsIds as $tagLoop)
+					$tempOldTagsIds[] = (int) $tagLoop['id'];
+				$oldTagsIds = &$tempOldTagsIds;
+
+				if (empty($tagsIds) OR $tagsIds !== $oldTagsIds) {
+					$request = $db->prepare('DELETE FROM tags_relation WHERE incoming_id = ? AND incoming_type = ?');
+					$request->execute([$this->post['id'], 'posts']);
+				}
+				if (!empty($tagsIds) AND $tagsIds !== $oldTagsIds) {
+					foreach ($tagsIds as $tagLoop) {
+						// if (!\Basics\Management::countEntry('tags', 'name = \'' . addslashes($tagLoop) . '\''))
+							// $tagId = \Tags\Single::create($tagLoop, null, 'tag');
+
+						$request = $db->prepare('INSERT INTO tags_relation(id, tag_id, incoming_id, incoming_type) VALUES(?, ?, ?, \'posts\')');
+						$request->execute([\Basics\Strings::identifier(), $tagLoop, $this->post['id']]);
+					}
+				}
 
 				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ? WHERE id = ?');
 				$request->execute([$categoryId, $img, $visible, $priority, $comments, $this->post['id']]);
@@ -107,32 +152,32 @@
 				return false;
 		}
 
-		static function setViews($postId, $reset = false) {
+		static function setViews($postId, $reset = false, $type = 'news') {
 			global $db;
 
 			if ($reset)
 				$viewsNbr = 0;
 			else {
 				$request = $db->prepare('SELECT views FROM posts WHERE type = ? AND id = ?');
-				$request->execute(['news', $postId]);
+				$request->execute([$type, $postId]);
 
 				$viewsNbr = ++$request->fetch(\PDO::FETCH_ASSOC)['views'];
 			}
 
 			$request = $db->prepare('UPDATE posts SET views = ? WHERE type = ? AND id = ?');
-			$request->execute([$viewsNbr, 'news', $postId]);
+			$request->execute([$viewsNbr, $type, $postId]);
 
 			return true;
 		}
 
-		static function create($categoryId, $title, $subTitle, $content, $img, $slug = null, $visible = false, $commentsEnabled = true, $type = 'news', $parseSlug = true) {
-			if (!empty($categoryId) AND !empty($title) AND !empty($subTitle) AND !empty($content) AND !empty($img)) {
+		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true, $type = 'news', $parseSlug = true) {
+			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND in_array($priority, Single::$priorities)) {
 				if (empty($slug))
 					$slug = $title;
 				if ($parseSlug)
 					$slug = \Basics\Strings::slug($slug);
 
-				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false))
+				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false) OR !$slug)
 					return false;
 				else {
 					global $db, $currentMemberId, $clauses;
@@ -149,45 +194,12 @@
 						$categoryId,
 						$img,
 						json_encode([$currentMemberId]),
-						'normal',
+						$priority,
 						$commentsEnabled
 					]);
 
 					$postId = \Basics\Handling::latestId();
 
-					/*$request = $db->prepare('
-						INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value)
-						VALUES (?, ?, ?, \'posts\', \'title\', ?),
-						(?, ?, ?, \'posts\', \'sub_title\', ?),
-						(?, ?, ?, \'posts\', \'content\', ?),
-						(?, ?, ?, \'posts\', \'slug\', ?),
-						(?, ?, ?, \'posts\', \'availability\', \'default\')
-					');
-					$request->execute([
-						\Basics\Strings::identifier(),
-						$language,
-						$postId,
-						$title,
-
-						\Basics\Strings::identifier(),
-						$language,
-						$postId,
-						$subTitle,
-
-						\Basics\Strings::identifier(),
-						$language,
-						$postId,
-						$content,
-
-						\Basics\Strings::identifier(),
-						$language,
-						$postId,
-						$slug,
-
-						\Basics\Strings::identifier(),
-						$language,
-						$postId
-					]);*/
 					$clauses->setDB('posts', $postId, false, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', 'default']);
 
 					return $postId;

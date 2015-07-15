@@ -2,8 +2,6 @@
 <html>
 	<head>
 		<?php \Basics\Templates::basicHeaders(); ?>
-		<script src="//tinymce.cachefly.net/4/tinymce.min.js"></script>
-		<script>tinymce.init({selector: 'textarea.tinymce', language_url : '<?php echo $subDir; ?>js/tinymce.<?php echo $language; ?>.js'});</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $subDir; ?>images/favicon.ico">
 		<title><?php echo $siteName; ?> | <?php echo $pageTitle . ' - ' . $clauses->get('admin'); ?></title>
@@ -11,39 +9,11 @@
 			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<style>
-			body {
-				padding-top: 10px;
-			}
-
-			.btn-outline {
-				background-color: transparent;
-				color: inherit;
-				transition: all .5s;
-			}
-			.btn-primary.btn-outline {
-				color: #428bca;
-			}
-			.btn-success.btn-outline {
-				color: #5cb85c;
-			}
-			.btn-info.btn-outline {
-				color: #5bc0de;
-			}
-			.btn-warning.btn-outline {
-				color: #f0ad4e;
-			}
-			.btn-danger.btn-outline {
-				color: #d9534f;
-			}
-			.btn-primary.btn-outline:hover,
-			.btn-success.btn-outline:hover,
-			.btn-info.btn-outline:hover,
-			.btn-warning.btn-outline:hover,
-			.btn-danger.btn-outline:hover {
-				color: #fff;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="<?php echo $subDir . $theme['dir']; ?>css/styles.css">
+		<script src="//tinymce.cachefly.net/4/tinymce.min.js"></script>
+		<script src="<?php echo $subDir; ?>js/typeahead.min.js"></script>
+		<script>tinymce.init({selector: 'textarea.tinymce', language_url : '<?php echo $subDir; ?>js/tinymce.<?php echo $language; ?>.js'});</script>
+		<script src="<?php echo $subDir . $theme['dir']; ?>js/scripts.js"></script>
 	</head>
 	<body>
 		<header class="container">
