@@ -1,14 +1,3 @@
-config.inc.php
-themes/default/fonts/Helvetica Neue/
-themes/default/images/backgrounds/
-images/heroes/mario-kart-8.jpg
-images/heroes/mario-kart-8-250x100.jpg
-images/heroes/mario-kart-8-750x100.jpg
-images/avatars/taos-100x100.jpg
-images/jpegtran.exe
-images/optipng.exe
-images/optimize.cmd
-
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -46,6 +35,17 @@ Icon
 .Spotlight-V100
 .Trashes
 
+config.inc.php
+themes/default/css/styles.helvetica-neue.css
+themes/default/fonts/Helvetica Neue/
+themes/default/images/backgrounds/
+images/jpegtran.exe
+images/optipng.exe
+images/optimize.cmd
+images/avatars/taos-100x100.jpg
+images/heroes/mario-kart-8.jpg
+images/heroes/mario-kart-8-250x100.jpg
+images/heroes/mario-kart-8-750x100.jpg
 images/heroes/the-legend-of-zelda-wii-u-250x100.png
 images/heroes/mario-kart-8-mise-a-jour-en-vue-250x100.jpg
 images/heroes/the-legend-of-zelda-skyward-sword-en-hd-750x100.png
@@ -59,9 +59,13 @@ images/heroes/the-legend-of-zelda-wii-u-750x100.png
 images/heroes/mario-kart-8-mise-a-jour-en-vue-750x400.jpg
 images/heroes/the-legend-of-zelda-skyward-sword-en-hd-750x400.png
 images/heroes/the-legend-of-zelda-skyward-sword-en-hd-200x70.png
-themes/default/css/styles.helvetica-neue.css
 images/heroes/super-mario-3d-world-est-disponible-200x70.jpg
 images/heroes/super-mario-3d-world-est-disponible-750x100.jpg
 images/heroes/super-mario-3d-world-est-disponible-250x100.jpg
 images/heroes/super-mario-3d-world-est-disponible.jpg
 images/heroes/super-mario-3d-world-est-disponible-750x400.jpg
+images/heroes/super-mario-3d-world-est-disponible-200x70.png
+images/heroes/super-mario-3d-world-est-disponible-750x400.png
+images/heroes/super-mario-3d-world-est-disponible-250x100.png
+images/heroes/super-mario-3d-world-est-disponible-750x100.png
+images/heroes/super-mario-3d-world-est-disponible.png

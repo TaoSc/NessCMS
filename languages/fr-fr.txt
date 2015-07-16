@@ -86,6 +86,7 @@ more				= Plus
 delete				= Supprimer
 hidden				= Caché
 visible				= Visible
+visibility			= Visibilité
 create_poll			= Créer un sondage
 create_news			= Créer une news
 source_code			= Code source

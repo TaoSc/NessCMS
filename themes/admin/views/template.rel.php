@@ -12,7 +12,16 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $subDir . $theme['dir']; ?>css/styles.css">
 		<script src="//tinymce.cachefly.net/4/tinymce.min.js"></script>
 		<script src="<?php echo $subDir; ?>js/typeahead.min.js"></script>
-		<script>tinymce.init({selector: 'textarea.tinymce', language_url : '<?php echo $subDir; ?>js/tinymce.<?php echo $language; ?>.js'});</script>
+		<script>
+			tinymce.init({
+				selector: 'textarea.tinymce',
+				language_url : '<?php echo $subDir; ?>js/tinymce.<?php echo $language; ?>.js'
+			});
+
+			function tagAddFailed() {
+				alert('<?php echo $clauses->get('tag_already_chosen'); ?>');
+			}
+		</script>
 		<script src="<?php echo $subDir . $theme['dir']; ?>js/scripts.js"></script>
 	</head>
 	<body>

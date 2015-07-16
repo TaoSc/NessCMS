@@ -4,26 +4,32 @@
 			<h3><?php echo $clauses->get('comments'); ?> <span class="label label-default comments-nbr"><?php echo $allCommentsNbr;?></span></h3>
 		</div>
 		<div class="col-sm-9 comments-toolbox">
-			<ul class="pagination pagination-sm pull-left">
 <?php
-				echo '<li';
-				if ($actualPage - 1 === 0)
-					echo ' class="disabled"';
-				echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage - 1) . '/' . (int) $languageCheck . '/' . (int) $order . '">«</a></li>';
-
-				for ($i = 1; $i <= $pages; $i++) {
-					echo '<li';
-					if ($actualPage == $i)
-						echo ' class="active"';
-					echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $i . '/' . (int) $languageCheck . '/' . (int) $order . '">' . $i . '</a></li>';
-				}
-
-				echo '<li';
-				if ($actualPage + 1 > $pages)
-					echo ' class="disabled"';
-				echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage + 1) . '/' . (int) $languageCheck . '/' . (int) $order . '">»</a></li>';
+			if ($pages > 1) {
 ?>
-			</ul>
+				<ul class="pagination pagination-sm pull-left">
+<?php
+					echo '<li';
+					if ($actualPage - 1 === 0)
+						echo ' class="disabled"';
+					echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage - 1) . '/' . (int) $languageCheck . '/' . (int) $order . '">«</a></li>';
+
+					for ($i = 1; $i <= $pages; $i++) {
+						echo '<li';
+						if ($actualPage == $i)
+							echo ' class="active"';
+						echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . $i . '/' . (int) $languageCheck . '/' . (int) $order . '">' . $i . '</a></li>';
+					}
+
+					echo '<li';
+					if ($actualPage + 1 > $pages)
+						echo ' class="disabled"';
+					echo '><a href="' . $linksDir . 'comments/' . $postType . '/' . $postId . '/' . ($actualPage + 1) . '/' . (int) $languageCheck . '/' . (int) $order . '">»</a></li>';
+?>
+				</ul>
+<?php
+			}
+?>
 
 			<div class="btn-group pull-left coms-dropdowns">
 				<button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"><?php echo $clauses->get('lang_options'); ?> <span class="caret"></span></button>

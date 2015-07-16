@@ -1,9 +1,3 @@
-<script>
-function tagAddFailed() {
-	alert('<?php echo $clauses->get('tag_already_chosen'); ?>');
-}
-</script>
-
 <form class="form-horizontal col-lg-12" method="post" action="">
 	<fieldset class="col-lg-offset-1 col-lg-10">
 		<legend><?php echo $clauses->get($create ? 'create_news' : 'edit_news'); ?></legend>
@@ -25,7 +19,7 @@ function tagAddFailed() {
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="content"><?php echo $clauses->get('content'); ?></label>
 			<div class="col-xs-8">
-				<textarea id="content" name="content" class="form-control<?php if (!$create) echo ' tinymce'; ?>" rows="15" required><?php if (!$create) echo $news['content']; ?></textarea>
+				<textarea id="content" name="content" class="form-control tinymce" rows="15"><?php if (!$create) echo $news['content']; ?></textarea>
 			</div>
 		</div>
 
@@ -73,10 +67,7 @@ function tagAddFailed() {
 				if (!$create) {
 					foreach ($news['tags'] as $tagLoop) {
 ?>
-						<span class="tag-label" data-id="<?php echo $tagLoop['id']; ?>">
-							<span class="label label-primary"><span class="glyphicon glyphicon-tag"></span> <?php echo $tagLoop['name']; ?></span>
-							<a class="btn btn-xs icon-btn btn-muted btn-remove" href="#remove"><span class="glyphicon btn-glyphicon glyphicon-remove text-danger"></span></a>
-						</span>
+						<span class="tag-label" data-id="<?php echo $tagLoop['id']; ?>"><span class="label label-primary"><span class="glyphicon glyphicon-tag small"></span> <?php echo $tagLoop['name']; ?></span><a class="btn btn-xs icon-btn btn-muted btn-remove" href="#remove"><span class="glyphicon glyphicon-remove text-danger small"></span></a></span>
 <?php
 					}
 				}
@@ -92,7 +83,7 @@ function tagAddFailed() {
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="visible"><?php echo $clauses->get('make_visible'); ?></label>
+			<label class="col-xs-4 control-label" for="visible"><?php echo $clauses->get('visibility'); ?></label>
 			<div class="col-xs-4">
 				<div class="checkbox">
 					<label for="visible">

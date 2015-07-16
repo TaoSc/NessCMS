@@ -48,8 +48,8 @@ $(function () {
 			tagsList = tagDropdown.find('input[name=tags]'),
 			tempTagsList = JSON.parse(tagsList.val()),
 			tagLabel = '<span class="tag-label" data-id="' + tagId.val() + '">' +
-							'<span class="label label-primary"><span class="glyphicon glyphicon-tag"></span> ' + tagName.val() + '</span>' +
-							'<a class="btn btn-xs icon-btn btn-muted btn-remove" href="#remove"><span class="glyphicon btn-glyphicon glyphicon-remove text-danger"></span></a>' +
+							'<span class="label label-primary"><span class="glyphicon glyphicon-tag small"></span> ' + tagName.val() + '</span>' +
+							'<a class="btn btn-xs icon-btn btn-muted btn-remove" href="#remove"><span class="glyphicon glyphicon-remove text-danger small"></span></a>' +
 						'</span>';
 
 		if (include(tempTagsList, parseInt(tagId.val())))

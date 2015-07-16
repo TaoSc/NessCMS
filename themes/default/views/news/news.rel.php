@@ -29,9 +29,20 @@
 
 				<div class="row">
 					<div class="col-xs-12">
-						<a href="<?php echo $linksDir . 'tags/' . $news['category']['slug']; ?>" class="label label-primary">
-							<span class="glyphicon glyphicon-folder-open"></span> <?php echo $news['category']['name']; ?>
-						</a>
+						<?php Basics\Templates::dateTime($news['date'], $news['time']); ?>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<a href="<?php echo $linksDir . 'tags/' . $news['category']['slug']; ?>" class="label label-primary"><span class="glyphicon glyphicon-folder-open small"></span> <?php echo $news['category']['name']; ?></a>
+<?php
+						foreach ($news['tags'] as $tagLoop) {
+?>
+							<a href="<?php echo $linksDir . 'tags/' . $tagLoop['slug']; ?>" class="label label-primary"><span class="glyphicon glyphicon-tag small"></span> <?php echo $tagLoop['name']; ?></a>
+<?php
+						}
+?>
 					</div>
 				</div>
 

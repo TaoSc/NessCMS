@@ -13,7 +13,6 @@ url_rewriting		= URLs propres (réécriture d'URL)
 default_users_type	= Type par défaut des membres
 enable				= Activer
 disable				= Désactiver
-make_visible		= Rendre visible
 img_placeholder		= Entrez l'URL de votre image.
 enable_comments		= Activer les commentaires
 act_as_deleted		= Agit comme supprimé

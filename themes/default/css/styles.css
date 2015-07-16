@@ -323,6 +323,7 @@ div.single-comment .content-itself .btn-group {
 }
 div.single-comment .options-box {
 	margin-top: 5px;
+	margin-bottom: 5px;
 }
 div.single-comment .options-box > div:nth-of-type(2) {
 	padding-left: 0px;

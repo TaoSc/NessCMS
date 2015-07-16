@@ -34,12 +34,18 @@
 ?>
 			</div>
 
-			<a class="left carousel-control" href="#headlines-carousel" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left"></span>
-			</a>
-			<a class="right carousel-control" href="#headlines-carousel" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-			</a>
+<?php
+			if ($headlinesPostsNbr > 1) {
+?>
+				<a class="left carousel-control" href="#headlines-carousel" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</a>
+				<a class="right carousel-control" href="#headlines-carousel" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+<?php
+			}
+?>
 		</div>
 	</div>
 
@@ -103,22 +109,28 @@
 ?>
 		</div>
 
-		<h2><?php echo $clauses->get('featured_content'); ?></h2>
-		<ul class="nav nav-tabs top-content">
-			<li class="active"><a href="#views" data-toggle="tab"><?php echo $clauses->get('most_read'); ?></a></li>
-			<li><a href="#comments" data-toggle="tab"><?php echo $clauses->get('most_comment'); ?></a></li>
-			<li><a href="#date" data-toggle="tab"><?php echo $clauses->get('latest_featured'); ?></a></li>
-		</ul>
-		<div class="tab-content well top-content">
-			<div class="tab-pane fade active in" id="views">
-				<?php Basics\Templates::textList($featuredPosts); ?>
+<?php
+		if ($posts) {
+?>
+			<h2><?php echo $clauses->get('featured_content'); ?></h2>
+			<ul class="nav nav-tabs top-content">
+				<li class="active"><a href="#views" data-toggle="tab"><?php echo $clauses->get('most_read'); ?></a></li>
+				<li><a href="#comments" data-toggle="tab"><?php echo $clauses->get('most_comment'); ?></a></li>
+				<li><a href="#date" data-toggle="tab"><?php echo $clauses->get('latest_featured'); ?></a></li>
+			</ul>
+			<div class="tab-content well top-content">
+				<div class="tab-pane fade active in" id="views">
+					<?php Basics\Templates::textList($featuredPosts); ?>
+				</div>
+				<div class="tab-pane fade" id="comments">
+					<?php Basics\Templates::textList($mostCommentedPosts); ?>
+				</div>
+				<div class="tab-pane fade" id="date">
+					<?php Basics\Templates::textList($mostRecentPosts); ?>
+				</div>
 			</div>
-			<div class="tab-pane fade" id="comments">
-				<?php Basics\Templates::textList($mostCommentedPosts); ?>
-			</div>
-			<div class="tab-pane fade" id="date">
-				<?php Basics\Templates::textList($mostRecentPosts); ?>
-			</div>
-		</div>
+<?php
+		}
+?>
 	</div>
 </div>

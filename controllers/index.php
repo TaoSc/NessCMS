@@ -18,7 +18,7 @@
 
 	$headlinesPosts = Posts\Handling::getPosts('priority = \'important\'');
 	$headlinesPostsNbr = count($headlinesPosts);
-	$posts = Posts\Handling::getPosts();
+	$posts = Posts\Handling::getPosts('TRUE', true, true, 10);
 
 	$featuredPosts = \Basics\Handling::twoDimSorting($posts, 'views');
 	$tempFeaturedPosts = [];

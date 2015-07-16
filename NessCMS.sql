@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS `members_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `members_types` (`id`, `rights`) VALUES
-(1, '{"admin_access":1,"config_edit":1,"news_create":1,"news_edit":1}'),
-(2, '{"admin_access":0,"config_edit":0,"news_create":0,"news_edit":0}'),
-(3, '{"admin_access":0,"config_edit":0,"news_create":0,"news_edit":0}');
+(1, '{"admin_access":1,"config_edit":1,"news_create":1,"news_edit":1,"comment_edit":1,"comment_moderate":1}'),
+(2, '{"admin_access":0,"config_edit":0,"news_create":0,"news_edit":0,"comment_edit":1,"comment_moderate":0}'),
+(3, '{"admin_access":0,"config_edit":0,"news_create":0,"news_edit":0,"comment_edit":0,"comment_moderate":0}');
 
 CREATE TABLE IF NOT EXISTS `polls` (
 `id` int(11) NOT NULL,

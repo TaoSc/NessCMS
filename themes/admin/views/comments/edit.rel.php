@@ -12,12 +12,12 @@
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="date"><?php echo $clauses->get('date'); ?></label>
 			<div class="col-xs-4">
-				<span class="form-control" disabled><?php echo Basics\Templates::dateTime($comment['date'], $comment['time']); ?></span>
+				<span class="form-control" disabled><?php Basics\Templates::dateTime($comment['date'], $comment['time']); ?></span>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="hidden"><?php echo $clauses->get('hidden'); ?></label>
+			<label class="col-xs-4 control-label" for="hidden"><?php echo $clauses->get('visibility'); ?></label>
 			<div class="col-xs-4">
 				<select id="hidden" name="hidden" class="form-control">
 <?php
