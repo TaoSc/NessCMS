@@ -37,6 +37,7 @@
 
 		$categories = \Categories\Handling::getCategories();
 		$tagsTypes = Tags\Single::$types;
+		array_pop($tagsTypes); // to remove the "catagories" type from the list
 		$firstTagsType = array_values($tagsTypes)[0];
 
 		if (empty($news) AND !$create)

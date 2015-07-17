@@ -90,9 +90,8 @@
 		function setPost($title, $subTitle, $content, $categoryId, $tagsIds, $img, $visible, $availability, $priority, $comments) {
 			$slug = \Basics\Strings::slug($title);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
-			$tagsIds = json_decode($tagsIds);
 
-			if ($this->post AND !empty($slug) AND (!$slugBeing OR $slugBeing === $this->post['id']) AND !empty($subTitle) AND !empty($content) AND !empty($categoryId) AND in_array($priority, Single::$priorities)) {
+			if ($this->post AND !empty($slug) AND (!$slugBeing OR $slugBeing === $this->post['id']) AND !empty($subTitle) AND !empty($content) AND !empty($categoryId) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
 				global $db, $clauses, $language;
 
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') === $language)
@@ -105,25 +104,7 @@
 				else
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 
-				$oldTagsIds = $this->post['raw_tags'];
-				$tempOldTagsIds = [];
-				foreach ($oldTagsIds as $tagLoop)
-					$tempOldTagsIds[] = (int) $tagLoop['id'];
-				$oldTagsIds = &$tempOldTagsIds;
-
-				if (empty($tagsIds) OR $tagsIds !== $oldTagsIds) {
-					$request = $db->prepare('DELETE FROM tags_relation WHERE incoming_id = ? AND incoming_type = ?');
-					$request->execute([$this->post['id'], 'posts']);
-				}
-				if (!empty($tagsIds) AND $tagsIds !== $oldTagsIds) {
-					foreach ($tagsIds as $tagLoop) {
-						// if (!\Basics\Management::countEntry('tags', 'name = \'' . addslashes($tagLoop) . '\''))
-							// $tagId = \Tags\Single::create($tagLoop, null, 'tag');
-
-						$request = $db->prepare('INSERT INTO tags_relation(id, tag_id, incoming_id, incoming_type) VALUES(?, ?, ?, \'posts\')');
-						$request->execute([\Basics\Strings::identifier(), $tagLoop, $this->post['id']]);
-					}
-				}
+				\Tags\Handling::createRelation($this->post['raw_tags'], json_decode($tagsIds), $this->post['id'], 'posts');
 
 				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ? WHERE id = ?');
 				$request->execute([$categoryId, $img, $visible, $priority, $comments, $this->post['id']]);
@@ -142,6 +123,9 @@
 				$request->execute([$this->post['type'], $this->post['id']]);
 
 				$request = $db->prepare('DELETE FROM languages_routing WHERE table_name = ? AND incoming_id = ?');
+				$request->execute(['posts', $this->post['id']]);
+
+				$request = $db->prepare('DELETE FROM tags_relation WHERE incoming_type = ? AND incoming_id = ?');
 				$request->execute(['posts', $this->post['id']]);
 
 				(new \Medias\Image($this->post['img_id']))->deleteImage();
@@ -171,7 +155,7 @@
 		}
 
 		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true, $type = 'news', $parseSlug = true) {
-			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND in_array($priority, Single::$priorities)) {
+			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
 				if (empty($slug))
 					$slug = $title;
 				if ($parseSlug)
@@ -188,18 +172,11 @@
 						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments)
 						VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)
 					');
-					$request->execute([
-						$visible,
-						$type,
-						$categoryId,
-						$img,
-						json_encode([$currentMemberId]),
-						$priority,
-						$commentsEnabled
-					]);
+					$request->execute([$visible, $type, $categoryId, $img, json_encode([$currentMemberId]), $priority, $commentsEnabled]);
 
 					$postId = \Basics\Handling::latestId();
 
+					\Tags\Handling::createRelation([], json_decode($tagsIds), $postId, 'posts');
 					$clauses->setDB('posts', $postId, false, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', 'default']);
 
 					return $postId;

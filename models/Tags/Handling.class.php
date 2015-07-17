@@ -11,6 +11,28 @@
 			// return $datas;
 		}
 
+		static function createRelation($oldTagsIds, $tagsIds, $incomingId, $incomingType) {
+			global $db;
+			$tempOldTagsIds = [];
+			foreach ($oldTagsIds as $tagLoop)
+				$tempOldTagsIds[] = (int) $tagLoop['id'];
+			$oldTagsIds = &$tempOldTagsIds;
+
+			if (empty($tagsIds) OR $tagsIds !== $oldTagsIds) {
+				$request = $db->prepare('DELETE FROM tags_relation WHERE incoming_id = ? AND incoming_type = ?');
+				$request->execute([$incomingId, $incomingType]);
+			}
+			if (!empty($tagsIds) AND $tagsIds !== $oldTagsIds) {
+				foreach ($tagsIds as $tagLoop) {
+					// if (!\Basics\Management::countEntry('tags', 'name = \'' . addslashes($tagLoop) . '\''))
+						// $tagId = \Tags\Single::create($tagLoop, null, 'tag');
+
+					$request = $db->prepare('INSERT INTO tags_relation(id, tag_id, incoming_id, incoming_type) VALUES(?, ?, ?, ?)');
+					$request->execute([\Basics\Strings::identifier(), $tagLoop, $incomingId, $incomingType]);
+				}
+			}
+		}
+
 		static function tagAndGame($getGame = true, $id, $tagType = 'game') {
 			global $db;
 

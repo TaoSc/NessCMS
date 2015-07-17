@@ -38,8 +38,6 @@
 
 		function deleteNews() {
 			if ($this->news->deletePost()) {
-				
-
 				return true;
 			}
 			else
@@ -48,8 +46,6 @@
 
 		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true) {
 			if ($newsId = \Posts\Single::create($title, $subTitle, $content, $categoryId, $tagsIds, $img, $slug, $visible, $priority, $commentsEnabled)) {
-				
-
 				return $newsId;
 			}
 			else

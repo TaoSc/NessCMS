@@ -1,5 +1,5 @@
 <?php
-	$news = \News\Handling::getNews('TRUE', true, true, '0, 5');
+	$news = \News\Handling::getNews('TRUE', true, true, 5);
 	foreach ($news as $key => $newsLoop) {
 		$height = 100;
 		if ($newsLoop['priority'] === 'important')
