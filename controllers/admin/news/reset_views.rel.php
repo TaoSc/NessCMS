@@ -4,4 +4,4 @@
 	if (empty($news) OR !Posts\Single::setViews($news['id'], true))
 		error();
 	else
-		header('Location: ' . $linksDir . 'admin/news/' . $params[2]);
+		header('Location: ' . $_SERVER['HTTP_REFERER']);

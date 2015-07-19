@@ -1,6 +1,5 @@
 <?php
 	// $backgroundImage = ' style="background-image: url(\'' . $subDir . 'images/backgrounds/' . mt_rand(2, 21) . '.jpg\');"';
-
 	$actualLang = $clauses->getLanguage();
 	$languagesList = Basics\Languages::getLanguages('code != \'' . $actualLang['code'] . '\' AND enabled = true', $actualLang['code']);
 

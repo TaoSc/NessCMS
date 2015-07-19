@@ -17,6 +17,7 @@
 			foreach ($oldTagsIds as $tagLoop)
 				$tempOldTagsIds[] = (int) $tagLoop['id'];
 			$oldTagsIds = &$tempOldTagsIds;
+			$tagsIds = array_unique($tagsIds);
 
 			if (empty($tagsIds) OR $tagsIds !== $oldTagsIds) {
 				$request = $db->prepare('DELETE FROM tags_relation WHERE incoming_id = ? AND incoming_type = ?');
@@ -24,11 +25,15 @@
 			}
 			if (!empty($tagsIds) AND $tagsIds !== $oldTagsIds) {
 				foreach ($tagsIds as $tagLoop) {
-					// if (!\Basics\Management::countEntry('tags', 'name = \'' . addslashes($tagLoop) . '\''))
-						// $tagId = \Tags\Single::create($tagLoop, null, 'tag');
+					// Single::create($tagLoop, null, 'tag');
+					$tempTag = (new Single($tagLoop))->getTag();
 
-					$request = $db->prepare('INSERT INTO tags_relation(id, tag_id, incoming_id, incoming_type) VALUES(?, ?, ?, ?)');
-					$request->execute([\Basics\Strings::identifier(), $tagLoop, $incomingId, $incomingType]);
+					if ($tempTag AND $tempTag['type'] !== 'category') {
+						$request = $db->prepare('INSERT INTO tags_relation(id, tag_id, incoming_id, incoming_type) VALUES(?, ?, ?, ?)');
+						$request->execute([\Basics\Strings::identifier(), $tagLoop, $incomingId, $incomingType]);
+					}
+					else
+						trigger_error('Link\'s creation has failed. The tag may not exist.');
 				}
 			}
 		}

@@ -26,10 +26,12 @@
 					<div class="form-group">
 						<label class="col-lg-3" for="cookies"><?php echo $clauses->get('cookies_login'); ?></label>
 						<div class="col-lg-9">
-							<label class="checkbox" for="cookies">
-								<input type="checkbox" name="cookies" id="cookies" value="on" checked>
-								<span class="hel-neue-light">* <?php echo $clauses->get('cookies_login_info'); ?></span>
-							</label>
+							<div class="checkbox">
+								<label for="cookies">
+									<input type="checkbox" name="cookies" id="cookies" value="on" checked>
+									<span class="hel-neue-light">* <?php echo $clauses->get('cookies_login_info'); ?></span>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>

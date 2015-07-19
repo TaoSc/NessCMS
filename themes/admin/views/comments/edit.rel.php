@@ -5,7 +5,7 @@
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="content"><?php echo $clauses->get('content'); ?></label>
 			<div class="col-xs-8">
-				<textarea id="content" name="content" class="form-control" rows="15" required><?php echo $comment['content']; ?></textarea>
+				<textarea id="content" name="content" class="form-control" rows="15" placeholder="<?php echo $clauses->get('bbcode_placeholder'); ?>" required><?php echo $comment['content']; ?></textarea>
 			</div>
 		</div>
 
@@ -30,7 +30,6 @@
 				</select>
 			</div>
 		</div>
-
 
 		<div class="form-group">
 			<div class="col-xs-offset-4" style="padding-left: 15px;">

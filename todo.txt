@@ -8,5 +8,8 @@ GLOBAL:
 LANGUAGES:
 - remove IDs
 
+TEMPLATES:
+- froms template
+
 NEWS:
 - create pages for the news

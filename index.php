@@ -6,7 +6,7 @@
 	session_start();
 	mb_internal_encoding('UTF-8');
 
-	// Classes auto-loading
+	// Classes' auto-loading
 	spl_autoload_register(function ($class) {
 		global $siteDir;
 
@@ -16,7 +16,7 @@
 			require $siteDir . 'models/' . $class . '.php';
 	});
 
-	// System installtion check
+	// System installation check
 	if (file_exists($configFile))
 		include $configFile;
 	else {

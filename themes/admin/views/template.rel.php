@@ -60,7 +60,7 @@
 <?php
 								foreach ($navigation as $item) {
 									echo '<li';
-										if ($item['link'] === $location)
+										if ('admin/' . $params[1] === str_replace('/index', null, $item['link']) OR ($item['link'] === 'admin/index' AND $params[1] === 'index'))
 											echo ' class="active"';
 									echo '><a href="' . $linksDir . $item['link'] . '">' . $item['caption'] . '</a></li>' . PHP_EOL;
 								}
