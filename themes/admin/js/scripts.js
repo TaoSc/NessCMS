@@ -99,5 +99,6 @@ $(function () {
 	$(document).on('click', '.btn-add', addTag);
 	$(document).on('click', '.btn-remove', removeTag);
 	$(document).on('click', '.dropdown-menu.tags-types a', selectTagType);
+	$('[data-toggle="tooltip"]').tooltip();
 	var typeAhead = new AutoComplete($('input[name=tag-type-temp]').val());
 });

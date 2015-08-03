@@ -2,8 +2,8 @@
 	namespace Posts;
 
 	class Single {
-		private $post;
-		private $languageCheck;
+		protected $post;
+		protected $languageCheck;
 		static $imgsSizes = [
 			[200, 70],
 			[250, 100],
@@ -161,7 +161,7 @@
 				if ($parseSlug)
 					$slug = \Basics\Strings::slug($slug);
 
-				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false) OR !$slug)
+				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false) OR empty($slug))
 					return false;
 				else {
 					global $db, $currentMemberId, $clauses;

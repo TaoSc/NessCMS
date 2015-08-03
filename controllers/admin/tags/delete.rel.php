@@ -1,7 +1,10 @@
 <?php
 	$tag = new Tags\Single($params[2]);
+	$tagContent = $tag->getTag();
+	if ($tagContent['type'] === 'category')
+		$tag = new Categories\Single($params[2]);
 
-	if (empty($tag->getTag()) OR !$tag->deleteTag())
+	if (empty($tagContent) OR !$tag->deleteTag())
 		error();
 	else
 		header('Location: ' . $linksDir . 'admin/tags/');

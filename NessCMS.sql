@@ -90,7 +90,7 @@ INSERT INTO `members` (`id`, `type_id`, `nickname`, `slug`, `avatar`, `email`, `
 CREATE TABLE IF NOT EXISTS `members_types` (
   `id` int(11) NOT NULL,
   `rights` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=3;
 
 INSERT INTO `members_types` (`id`, `rights`) VALUES
 (1, '{"admin_access":1,"config_edit":1,"news_create":1,"news_edit":1,"comment_edit":1,"comment_moderate":1}'),
@@ -214,6 +214,8 @@ ALTER TABLE `languages`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `members`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+ALTER TABLE `members_types`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `polls`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 ALTER TABLE `polls_users`

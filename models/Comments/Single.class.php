@@ -2,7 +2,7 @@
 	namespace Comments;
 
 	class Single {
-		private $comment;
+		protected $comment;
 
 		function __construct($id) {
 			global $db;
@@ -81,7 +81,7 @@
 				return false;
 		}
 
-		static function createComment($parentId, $postId, $postType, $content) {
+		static function create($parentId, $postId, $postType, $content) {
 			global $currentMemberId;
 			$parentId = (int) $parentId;
 

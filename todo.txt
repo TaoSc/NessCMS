@@ -9,7 +9,10 @@ LANGUAGES:
 - remove IDs
 
 TEMPLATES:
-- froms template
+- forms' template
 
 NEWS:
 - create pages for the news
+
+MEMBERS:
+- clean up the rights system in the source code!!

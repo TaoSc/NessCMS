@@ -2,7 +2,7 @@
 	namespace Tags;
 
 	class Single {
-		private $tag;
+		protected $tag;
 		static $types = [
 			'tag',
 			'game',
@@ -84,7 +84,7 @@
 		}
 
 		function deleteTag() {
-			if ($this->tag) {
+			if ($this->tag AND $this->tag['id'] != 1) {
 				global $db;
 
 				$request = $db->prepare('DELETE FROM tags WHERE id = ?');
