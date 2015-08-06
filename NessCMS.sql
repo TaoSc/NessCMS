@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `priority` varchar(50) NOT NULL DEFAULT 'normal',
   `post_date` datetime NOT NULL,
   `comments` tinyint(1) NOT NULL DEFAULT '1',
+  `votes` tinyint(1) NOT NULL DEFAULT '1',
   `views` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 

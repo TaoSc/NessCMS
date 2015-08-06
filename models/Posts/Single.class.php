@@ -26,7 +26,8 @@
 				$condition .= ' AND visible = ' . $visible;
 
 			$request = $db->prepare('
-				SELECT id, visible, type, category_id, img img_id, authors_ids, priority, DATE(post_date) date, TIME(post_date) time, comments, views
+				SELECT id, visible, type, category_id, img img_id, authors_ids,
+				priority, DATE(post_date) date, TIME(post_date) time, comments, votes, views
 				FROM posts
 				WHERE ' . $condition
 			);
@@ -52,6 +53,7 @@
 					');
 					$request->execute([$this->post['id'], 'posts']);
 					$this->post['raw_tags'] = $request->fetchAll(\PDO::FETCH_ASSOC);
+					$this->post['authors_ids'] = json_decode($this->post['authors_ids'], true);
 				}
 			}
 		}
@@ -69,7 +71,7 @@
 
 				$this->post['img'] = (new \Medias\Image($this->post['img_id']))->getImage();
 				$this->post['authors'] = [];
-				foreach (json_decode($this->post['authors_ids'], true) as $memberLoop)
+				foreach ($this->post['authors_ids'] as $memberLoop)
 					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
 				$this->post['comments_nbr'] = \Comments\Handling::countComments(0, $this->post['id'], 'posts', $this->languageCheck);
 
@@ -87,7 +89,7 @@
 			return $this->post;
 		}
 
-		function setPost($title, $subTitle, $content, $categoryId, $tagsIds, $img, $visible, $availability, $priority, $comments) {
+		function setPost($title, $subTitle, $content, $categoryId, $tagsIds, $img, $visible, $availability, $priority, $comments, $votes) {
 			$slug = \Basics\Strings::slug($title);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
 
@@ -106,8 +108,8 @@
 
 				\Tags\Handling::createRelation($this->post['raw_tags'], json_decode($tagsIds), $this->post['id'], 'posts');
 
-				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ? WHERE id = ?');
-				$request->execute([$categoryId, $img, $visible, $priority, $comments, $this->post['id']]);
+				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ?, votes = ? WHERE id = ?');
+				$request->execute([$categoryId, $img, (int) $visible, $priority, $comments, $votes, $this->post['id']]);
 
 				return true;
 			}
@@ -158,7 +160,7 @@
 				return false;
 		}
 
-		static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true, $type = 'news', $parseSlug = true) {
+		static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, $type = 'news', $parseSlug = true) {
 			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
 				if (empty($slug))
 					$slug = $title;
@@ -173,10 +175,10 @@
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 
 					$request = $db->prepare('
-						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments)
+						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments, votes)
 						VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)
 					');
-					$request->execute([$visible, $type, $categoryId, $img, json_encode([$currentMemberId]), $priority, $commentsEnabled]);
+					$request->execute([(int) $visible, $type, $categoryId, $img, json_encode([$currentMemberId]), $priority, $comments, $votes]);
 
 					$postId = \Basics\Handling::latestId();
 

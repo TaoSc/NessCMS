@@ -4,6 +4,7 @@ GLOBAL:
 - collaborative system
 - make a great logo
 - logo modification through the admin
+- thematic color
 
 LANGUAGES:
 - remove IDs

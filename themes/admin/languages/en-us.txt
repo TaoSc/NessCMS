@@ -15,12 +15,15 @@ enable				= Enable
 disable				= Disable
 img_placeholder		= Type the URL of your image.
 enable_comments		= Enable comments
+enable_votes		= Enable votes
 act_as_deleted		= Act as deleted
 create_tag			= Create a tag
 edit_tag			= Edit a tag
 cache_enabled		= Enable caching
+reset_views			= Reset total views
+tag_already_chosen	= This tag has already been chosen.
 news_create_fails	= The creation of this news has failed.
 news_edit_fails		= The edit of this news has failed.
 comment_edit_fails	= The edit of this comment has failed.
 reset_views			= Reset total views
-tag_already_chosen	= This tag has already been chosen.
+tag_already_chosen	= This tag has already been chosen.unauthorized_removal = This item can't be deleted.

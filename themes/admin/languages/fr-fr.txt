@@ -15,12 +15,15 @@ enable				= Activer
 disable				= Désactiver
 img_placeholder		= Entrez l'URL de votre image.
 enable_comments		= Activer les commentaires
+enable_votes		= Activer les votes
 act_as_deleted		= Agit comme supprimé
 create_tag			= Créer un libellé
 edit_tag			= Modifier un libellé
 cache_enabled		= Activer le cache
+reset_views			= Réinitialiser le nombre de vues
+tag_already_chosen	= Ce libellé a déjà été choisi.
 news_create_fails	= La création de cette news a échouée.
 news_edit_fails		= La modifiction de cette news a échouée.
 comment_edit_fails	= La modifiction de ce commentaire a échouée.
 reset_views			= Réinitialiser le nombre de vues
-tag_already_chosen	= Ce libellé a déjà été choisi.
+tag_already_chosen	= Ce libellé a déjà été choisi.unauthorized_removal = Cet élément ne peut pas être supprimé.

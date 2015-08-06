@@ -83,10 +83,13 @@
 		static function plural($word, $quantity) {
 			global $clauses;
 
-			if ((int) $quantity === 1 AND array_search($word, explode(',', $clauses->get('plural_exceptions'))) === false)
-				return $quantity . ' ' . mb_substr($word, 0, -1);
-			else
+			if (((int) $quantity === 1 OR $quantity === false) AND !in_array(mb_strtolower($word), explode(',', mb_strtolower($clauses->get('plural_exceptions')))))
+				$word = mb_substr($word, 0, -1);
+
+			if ($quantity !== false)
 				return $quantity . ' ' . $word;
+			else
+				return $word;
 		}
 
 		static function BBCode($text) {

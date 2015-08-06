@@ -4,8 +4,8 @@
 		<h4 class="user-name"><?php echo $member['nickname']; ?></h4>
 		<span class="user-infos">
 <?php
-			echo mb_substr($member['type']['name'], 0, -1) . ' · ' . $clauses->get('registered') . ' ' .
-				Basics\Dates::relativeTime($member['registration']['date'], $member['registration']['time']);
+			echo Basics\Strings::plural($member['type']['name'], false) . ' · ' . $clauses->get('registered') . ' ' .
+				 Basics\Dates::relativeTime($member['registration']['date'], $member['registration']['time']);
 ?>
 		</span>
 	</div>

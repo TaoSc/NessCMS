@@ -82,33 +82,39 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-xs-4 control-label" for="visible"><?php echo $clauses->get('visibility'); ?></label>
-			<div class="col-xs-4">
 <?php
-				if ($rights['news_publish']) {
+		if ($rights['news_publish'] OR !$create) {
 ?>
-					<div class="checkbox">
-						<label for="visible">
-							<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo ' checked'; ?>>
-							<?php echo $clauses->get('enable'); ?>
-						</label>
-					</div>
+			<div class="form-group">
+				<label class="col-xs-4 control-label" for="visible"><?php echo $clauses->get('visibility'); ?></label>
+				<div class="col-xs-4">
 <?php
-				}
-				if (!$create) {
+					if ($rights['news_publish']) {
 ?>
-					<div class="checkbox">
-						<label for="availability">
-							<input type="checkbox" name="availability" id="availability" value="<?php if ($news['default_language'] === $language) echo 'default" disabled'; else echo 'on"'; if (!$create AND $news['availability']) echo ' checked'; ?>>
-							<?php echo $clauses->get('enable_for_language'); ?>
-						</label>
-					</div>
+						<div class="checkbox">
+							<label for="visible">
+								<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo ' checked'; ?>>
+								<?php echo $clauses->get('enable'); ?>
+							</label>
+						</div>
 <?php
-				}
+					}
+					if (!$create) {
 ?>
+						<div class="checkbox">
+							<label for="availability">
+								<input type="checkbox" name="availability" id="availability" value="<?php if ($news['default_language'] === $language) echo 'default" disabled'; else echo 'on"'; if (!$create AND $news['availability']) echo ' checked'; ?>>
+								<?php echo $clauses->get('enable_for_language'); ?>
+							</label>
+						</div>
+<?php
+					}
+?>
+				</div>
 			</div>
-		</div>
+<?php
+		}
+?>
 
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="priority"><?php echo $clauses->get('priority'); ?></label>
@@ -131,6 +137,18 @@
 				<div class="checkbox">
 					<label for="comments">
 						<input type="checkbox" name="comments" id="comments" value="on"<?php if (!$create AND $news['comments']) echo ' checked'; ?>>
+						<?php echo $clauses->get('enable'); ?>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-4 control-label" for="votes"><?php echo $clauses->get('enable_votes'); ?></label>
+			<div class="col-xs-4">
+				<div class="checkbox">
+					<label for="votes">
+						<input type="checkbox" name="votes" id="votes" value="on"<?php if (!$create AND $news['votes']) echo ' checked'; ?>>
 						<?php echo $clauses->get('enable'); ?>
 					</label>
 				</div>

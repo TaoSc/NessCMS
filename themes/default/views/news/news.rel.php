@@ -46,33 +46,38 @@
 					</div>
 				</div>
 
-				<hr>
-
-				<div class="row">
-					<div class="col-xs-6">
-						<button type="button" class="btn icon-btn rounded-btn btn-success btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="up">
-							<span class="glyphicon glyphicon-thumbs-up img-circle text-success"></span> <?php echo $clauses->get('to_like'); ?> 
-							(<span class="votes-nbr"><?php echo $news['likes']; ?></span>)								
-						</button>
-					</div>
-					<div class="col-xs-6">
-						<button type="button" class="btn icon-btn rounded-btn btn-danger btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="down">
-							<span class="glyphicon glyphicon-thumbs-down img-circle text-danger"></span> <?php echo $clauses->get('to_dislike'); ?> 
-							(<span class="votes-nbr"><?php echo $news['dislikes']; ?></span>)								
-						</button>
-					</div>
-				</div>
-
 <?php
-				if ($rights['news_edit']) {
+				if ($news['votes']) {
+?>
+					<hr>
+
+					<div class="row">
+						<div class="col-xs-6">
+							<button type="button" class="btn icon-btn rounded-btn btn-success btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="up">
+								<span class="glyphicon glyphicon-thumbs-up img-circle text-success"></span> <?php echo $clauses->get('to_like'); ?> 
+								(<span class="votes-nbr"><?php echo $news['likes']; ?></span>)								
+							</button>
+						</div>
+						<div class="col-xs-6">
+							<button type="button" class="btn icon-btn rounded-btn btn-danger btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="down">
+								<span class="glyphicon glyphicon-thumbs-down img-circle text-danger"></span> <?php echo $clauses->get('to_dislike'); ?> 
+								(<span class="votes-nbr"><?php echo $news['dislikes']; ?></span>)								
+							</button>
+						</div>
+					</div>
+<?php
+				}
+
+				if ($news['edit_cond'] OR $news['removal_cond']) {
 ?>
 					<hr>
 
 					<div class="row">
 						<div class="col-xs-12 btn-group btn-group-justified btn-group-sm">
 <?php
-							echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
-							if ($rights['news_create'])
+							if ($news['edit_cond'])
+								echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
+							if ($news['removal_cond'])
 								echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '/delete" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
 ?>
 						</div>

@@ -2,7 +2,7 @@
 	// Basic configurations
 	$siteDir = dirname(__FILE__) . '/';
 	$configFile = $siteDir . 'config.inc.php';
-	$ajaxCheck = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+	$ajaxCheck = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && mb_strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 	session_start();
 	mb_internal_encoding('UTF-8');
 

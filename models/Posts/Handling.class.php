@@ -13,7 +13,7 @@
 
 			$array = [];
 			foreach ($posts as $element) {
-				$postType = ucfirst($element['type']);
+				$postType = \Basics\Strings::mb_ucfirst($element['type']);
 				$className = '\\' . $postType . '\\Single';
 				$array[] = call_user_func([(new $className($element['id'], $visible, $languageCheck)), 'get' . $postType]);
 			}

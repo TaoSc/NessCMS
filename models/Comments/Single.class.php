@@ -15,6 +15,7 @@
 			');
 			$request->execute([$id]);
 			$this->comment = $request->fetch(\PDO::FETCH_ASSOC);
+
 			if ($this->comment) {
 				global $currentMemberId, $rights;
 
