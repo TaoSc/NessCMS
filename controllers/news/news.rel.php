@@ -1,5 +1,6 @@
 <?php
-	$news = (new News\Single(Basics\Handling::idFromSlug($params[1], 'posts', 'slug', false)))->getNews();
+	$newsObject = new News\Single(Basics\Handling::idFromSlug($params[1], 'posts', 'slug', false));
+	$news = $newsObject->getNews();
 
 	if (empty($news))
 		error();
@@ -26,7 +27,7 @@
 		$voteBtnsCond = ($hasVoted OR (!$currentMemberId AND !Basics\Site::parameter('anonymous_votes')) OR !$news['visible']);
 
 		if (($currentMemberId AND \Basics\Handling::recursiveArraySearch($currentMemberId, $news['authors']) === false) OR !$currentMemberId)
-			Posts\Single::setViews($news['id']);
+			$newsObject->setViews();
 
 		$pageTitle = $news['title'] . ' - ' . $clauses->get('news');
 		$viewPath = 'news/news.rel';

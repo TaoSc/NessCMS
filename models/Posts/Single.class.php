@@ -1,7 +1,7 @@
 <?php
 	namespace Posts;
 
-	class Single {
+	abstract class Single {
 		protected $post;
 		protected $languageCheck;
 		static $imgsSizes = [
@@ -136,25 +136,29 @@
 				return false;
 		}
 
-		static function setViews($postId, $reset = false, $type = 'news') {
-			global $db;
+		function setViews($reset = false, $type = 'news') {
+			if ($this->post) {
+				global $db;
 
-			if ($reset)
-				$viewsNbr = 0;
-			else {
-				$request = $db->prepare('SELECT views FROM posts WHERE type = ? AND id = ?');
-				$request->execute([$type, $postId]);
+				if ($reset)
+					$viewsNbr = 0;
+				else {
+					$request = $db->prepare('SELECT views FROM posts WHERE type = ? AND id = ?');
+					$request->execute([$type, $this->post['id']]);
 
-				$viewsNbr = ++$request->fetch(\PDO::FETCH_ASSOC)['views'];
+					$viewsNbr = ++$request->fetch(\PDO::FETCH_ASSOC)['views'];
+				}
+
+				$request = $db->prepare('UPDATE posts SET views = ? WHERE type = ? AND id = ?');
+				$request->execute([$viewsNbr, $type, $this->post['id']]);
+
+				return true;
 			}
-
-			$request = $db->prepare('UPDATE posts SET views = ? WHERE type = ? AND id = ?');
-			$request->execute([$viewsNbr, $type, $postId]);
-
-			return true;
+			else
+				return false;
 		}
 
-		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true, $type = 'news', $parseSlug = true) {
+		static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true, $type = 'news', $parseSlug = true) {
 			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
 				if (empty($slug))
 					$slug = $title;

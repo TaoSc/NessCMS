@@ -107,11 +107,11 @@
 				return false;
 		}
 
-		function delMember() {
+		function deleteMember() {
 			if ($this->member) {
 				global $db;
 
-				$this->delAvatar();
+				$this->deleteAvatar();
 
 				$request = $db->prepare('DELETE FROM members WHERE id = ?');
 				$request->execute([$this->member['id']]);
@@ -134,7 +134,7 @@
 				return false;
 		}
 
-		function delAvatar() {
+		function deleteAvatar() {
 			if ($this->member) {
 				global $db, $siteDir, $cache;
 

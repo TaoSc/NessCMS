@@ -30,7 +30,7 @@
 <?php
 					foreach ($categories as $categoryLoop) {
 						echo '<option value="' .  $categoryLoop['id'] . '"';
-						if (!$create AND $news['category']['id'] === $categoryLoop['id']) echo ' selected';
+						if ((!$create AND $news['category']['id'] === $categoryLoop['id']) OR ($create AND $categoryLoop['id'] == 1)) echo ' selected';
 						echo '>' .  $categoryLoop['name'] . '</option>' . PHP_EOL;
 					}
 ?>
@@ -85,22 +85,28 @@
 		<div class="form-group">
 			<label class="col-xs-4 control-label" for="visible"><?php echo $clauses->get('visibility'); ?></label>
 			<div class="col-xs-4">
-				<div class="checkbox">
-					<label for="visible">
-						<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo ' checked'; ?>>
-						<?php echo $clauses->get('enable'); ?>
-					</label>
 <?php
-					if (!$create) {
+				if ($rights['news_publish']) {
 ?>
-						<br><label for="availability">
+					<div class="checkbox">
+						<label for="visible">
+							<input type="checkbox" name="visible" id="visible" value="on"<?php if (!$create AND $news['visible']) echo ' checked'; ?>>
+							<?php echo $clauses->get('enable'); ?>
+						</label>
+					</div>
+<?php
+				}
+				if (!$create) {
+?>
+					<div class="checkbox">
+						<label for="availability">
 							<input type="checkbox" name="availability" id="availability" value="<?php if ($news['default_language'] === $language) echo 'default" disabled'; else echo 'on"'; if (!$create AND $news['availability']) echo ' checked'; ?>>
 							<?php echo $clauses->get('enable_for_language'); ?>
 						</label>
+					</div>
 <?php
-					}
+				}
 ?>
-				</div>
 			</div>
 		</div>
 
@@ -109,7 +115,7 @@
 			<div class="col-xs-4">
 				<select id="priority" name="priority" class="form-control">
 <?php
-					foreach (Posts\Single::$priorities as $priorityLoop) {
+					foreach ($postsPriorities as $priorityLoop) {
 						echo '<option value="' .  $priorityLoop . '"';
 						if (!$create AND $news['priority'] === $priorityLoop) echo ' selected';
 						echo '>' .  $clauses->get($priorityLoop) . '</option>' . PHP_EOL;

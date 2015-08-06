@@ -10,7 +10,7 @@
 		}
 
 		function getCategory(...$params) {
-			return $this->getTag(...$params);
+			return parent::getTag(...$params);
 		}
 
 		function getNews($offsetLimit = false) {
@@ -18,15 +18,15 @@
 		}
 
 		function deleteTag() {
-			$inheritedDeletion = parent::deleteTag();
+			$inheritedMethod = parent::deleteTag();
 
-			if ($inheritedDeletion) {
+			if ($inheritedMethod) {
 				global $db;
 
 				$request = $db->prepare('UPDATE posts SET category_id = 1 WHERE category_id = ?');
 				$request->execute([$this->category['id']]);
 			}
 
-			return $inheritedDeletion;
+			return $inheritedMethod;
 		}
 	}

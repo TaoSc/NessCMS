@@ -38,6 +38,35 @@ $(function () {
 		});
 	}
 
+	$('button.vote-btn').parent().on('click', 'button.vote-btn', function () {
+		var id = $(this).attr('data-id'),
+			type = $(this).attr('data-type'),
+			voteState = $(this).attr('value'),
+			posting = $.post(linksDir + 'votes/' + type + '/' + id, {'vote_state': voteState});
+
+		posting.done(function (datas) {
+			var decodedDatas = JSON.parse(datas);
+				btnSelector = 'button.vote-btn[data-id=' + id + '][data-type=' + type + ']'; // Not perfect but it works indeed
+
+			if (voteState === 'strip')
+				$(btnSelector + '[value=' + voteState + ']').remove();
+
+			$(btnSelector).each(function () {
+				var btnState = $(this).attr('value');
+
+				if (btnState !== 'strip') {
+					$('span.votes-nbr', this).text(decodedDatas[btnState]);
+
+					$(this).prop('disabled', function (index, value) {
+						return !value;
+					});
+				}
+			});
+		});
+
+		return false;
+	});
+
 	if ($('#comments').html()) {
 		var commentCreateLabel = $('label[for=content]').text(),
 			commentsLocation = $('input#location').attr('value'),
@@ -54,35 +83,6 @@ $(function () {
 					$('.comments-list img').lazyload({effect : 'fadeIn'});
 				});
 			}
-
-			return false;
-		});
-
-		$('button.vote-btn').parent().on('click', 'button.vote-btn', function () {
-			var id = $(this).attr('data-id'),
-				type = $(this).attr('data-type'),
-				voteState = $(this).attr('value'),
-				posting = $.post(linksDir + 'votes/' + type + '/' + id, {'vote_state': voteState});
-
-			posting.done(function (datas) {
-				var decodedDatas = JSON.parse(datas);
-					btnSelector = 'button.vote-btn[data-id=' + id + ']';
-
-				if (voteState === 'strip')
-					$(btnSelector + '[value=' + voteState + ']').remove();
-
-				$(btnSelector).each(function () {
-					var btnState = $(this).attr('value');
-
-					if (btnState !== 'strip') {
-						$('span.votes-nbr', this).text(decodedDatas[btnState]);
-
-						$(this).prop('disabled', function (index, value) {
-							return !value;
-						});
-					}
-				});
-			});
 
 			return false;
 		});

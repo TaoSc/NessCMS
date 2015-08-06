@@ -37,6 +37,7 @@
 
 		$categories = \Categories\Handling::getCategories();
 		$tagsTypes = Tags\Single::$types;
+		$postsPriorities = News\Single::$priorities;
 		array_pop($tagsTypes); // to remove the "catagories" type from the list
 		$firstTagsType = array_values($tagsTypes)[0];
 

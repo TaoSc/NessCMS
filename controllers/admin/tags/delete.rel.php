@@ -5,6 +5,6 @@
 		$tag = new Categories\Single($params[2]);
 
 	if (empty($tagContent) OR !$tag->deleteTag())
-		error();
+		error($clauses->get('unauthorized_removal'));
 	else
 		header('Location: ' . $linksDir . 'admin/tags/');

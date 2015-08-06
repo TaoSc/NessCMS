@@ -1,54 +1,45 @@
 <?php
 	namespace News;
 
-	class Single {
-		private $news;
+	class Single extends \Posts\Single {
+		protected $news;
 
 		function __construct($id, $visible = true, $languageCheck = true) {
-			$this->news = new \Posts\Single($id, 'news', $visible, $languageCheck);
+			parent::__construct($id, 'news', $visible, $languageCheck);
+			$this->news = &$this->post;
 		}
 
 		function getNews() {
-			$newsItself = $this->news->getPost();
-			if ($newsItself) {
+			if (parent::getPost()) {
 				global $clauses;
 
-				$newsItself['content'] = $clauses->getDB('posts', $newsItself['id'], 'content');
+				$this->news['content'] = $clauses->getDB('posts', $this->news['id'], 'content');
 
-				$newsItself['category'] = (new \Categories\Single($newsItself['category_id']))->getCategory(false);
-				$newsItself['likes'] = \Votes\Handling::number($newsItself['id'], 'posts');
-				$newsItself['dislikes'] = \Votes\Handling::number($newsItself['id'], 'posts', -1);
+				$this->news['category'] = (new \Categories\Single($this->news['category_id']))->getCategory(false);
+				$this->news['likes'] = \Votes\Handling::number($this->news['id'], 'posts');
+				$this->news['dislikes'] = \Votes\Handling::number($this->news['id'], 'posts', -1);
 			}
 
-			return $newsItself;
+			return $this->news;
 		}
 
 		function setNews(...$traversableContent) {
-			$editSucceed = $this->news->setPost(...$traversableContent);
+			$editSucceed = parent::setPost(...$traversableContent);
 
 			if ($editSucceed AND \Basics\Site::parameter('cache_enabled')) {
 				global $cache;
-				$newsItself = $this->news->getPost();
 
-				$cache->delete('news/' . $newsItself['slug'], true);
+				$cache->delete('news/' . $this->news['slug'], true);
 			}
 
 			return $editSucceed;
 		}
 
 		function deleteNews() {
-			if ($this->news->deletePost()) {
-				return true;
-			}
-			else
-				return false;
+			return parent::deletePost();
 		}
 
 		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $commentsEnabled = true) {
-			if ($newsId = \Posts\Single::create($title, $subTitle, $content, $categoryId, $tagsIds, $img, $slug, $visible, $priority, $commentsEnabled)) {
-				return $newsId;
-			}
-			else
-				return false;
+			return parent::createAbstract($title, $subTitle, $content, $categoryId, $tagsIds, $img, $slug, $visible, $priority, $commentsEnabled);
 		}
 	}
