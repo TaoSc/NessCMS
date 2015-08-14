@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-xs-offset-<?php echo (1 + $comment['recursivity']) . ' col-xs-' . (10 - $comment['recursivity']); ?> no-padding single-comment<?php if ($commentAnswers AND $comment['recursivity'] === 0) echo ' less-margin'; ?>">
+	<div class="col-xs-offset-<?php echo (1 + $comment['recursivity']) . ' col-xs-' . (10 - $comment['recursivity']); ?> no-padding single-comment<?php if ($commentAnswers AND $comment['recursivity'] === 0) echo ' less-margin'; ?>" id="comment-<?php echo $comment['id']; ?>">
 		<div class="col-xs-2 no-padding user-box text-center">
 			<a href="<?php echo $linksDir . 'members/' . $comment['author']['slug'] . '/'; ?>">
 				<img data-original="<?php echo Basics\Templates::getImg('avatars/' . $comment['author']['avatar_slug'], $comment['author']['avatar'], 100, 100); ?>" alt="<?php echo $clauses->get('avatar'); ?>" class="img-circle img-responsive">

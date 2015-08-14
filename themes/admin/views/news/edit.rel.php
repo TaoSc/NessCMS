@@ -3,29 +3,29 @@
 		<legend><?php echo $clauses->get($create ? 'create_news' : 'edit_news'); ?></legend>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="title"><?php echo $clauses->get('title'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="title"><?php echo $clauses->get('title'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<input name="title" id="title" type="text" class="form-control" value="<?php if (!$create) echo $news['title']; ?>" required>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="sub_title"><?php echo $clauses->get('sub_title'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="sub_title"><?php echo $clauses->get('sub_title'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<input name="sub_title" id="sub_title" type="text" class="form-control" value="<?php if (!$create) echo $news['sub_title']; ?>" required>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="content"><?php echo $clauses->get('content'); ?></label>
-			<div class="col-xs-8">
+			<label class="col-md-4 col-xs-3 control-label" for="content"><?php echo $clauses->get('content'); ?></label>
+			<div class="col-md-8 col-xs-9">
 				<textarea id="content" name="content" class="form-control tinymce" rows="15"><?php if (!$create) echo $news['content']; ?></textarea>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="category_id"><?php echo $clauses->get('category'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="category_id"><?php echo $clauses->get('category'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<select id="category_id" name="category_id" class="form-control">
 <?php
 					foreach ($categories as $categoryLoop) {
@@ -39,8 +39,8 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="tags"><?php echo $clauses->get('tags'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="tags"><?php echo $clauses->get('tags'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<div class="input-group">
 					<div class="input-group-btn input-group-select">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -62,7 +62,7 @@
 					</span>
 				</div>
 			</div>
-			<div class="col-xs-offset-4 col-xs-8 tags-chosen">
+			<div class="col-md-offset-4 col-xs-offset-3 col-md-4 col-xs-9 tags-chosen">
 <?php
 				if (!$create) {
 					foreach ($news['tags'] as $tagLoop) {
@@ -76,8 +76,8 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="img"><?php echo $clauses->get('image'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="img"><?php echo $clauses->get('image'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<input name="img" id="img" type="url" class="form-control" placeholder="<?php echo $clauses->get('img_placeholder') . '"'; if ($create) echo ' required'; ?>>
 			</div>
 		</div>
@@ -86,8 +86,8 @@
 		if ($rights['news_publish'] OR !$create) {
 ?>
 			<div class="form-group">
-				<label class="col-xs-4 control-label" for="visible"><?php echo $clauses->get('visibility'); ?></label>
-				<div class="col-xs-4">
+				<label class="col-md-4 col-xs-3 control-label" for="visible"><?php echo $clauses->get('visibility'); ?></label>
+				<div class="col-md-4 col-xs-9">
 <?php
 					if ($rights['news_publish']) {
 ?>
@@ -117,8 +117,8 @@
 ?>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="priority"><?php echo $clauses->get('priority'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="priority"><?php echo $clauses->get('priority'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<select id="priority" name="priority" class="form-control">
 <?php
 					foreach ($postsPriorities as $priorityLoop) {
@@ -132,8 +132,8 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="comments"><?php echo $clauses->get('enable_comments'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="comments"><?php echo $clauses->get('enable_comments'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<div class="checkbox">
 					<label for="comments">
 						<input type="checkbox" name="comments" id="comments" value="on"<?php if (!$create AND $news['comments']) echo ' checked'; ?>>
@@ -144,8 +144,8 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="votes"><?php echo $clauses->get('enable_votes'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="votes"><?php echo $clauses->get('enable_votes'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<div class="checkbox">
 					<label for="votes">
 						<input type="checkbox" name="votes" id="votes" value="on"<?php if (!$create AND $news['votes']) echo ' checked'; ?>>

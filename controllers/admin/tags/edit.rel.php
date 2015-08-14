@@ -3,7 +3,7 @@
 		if ($tagId = \Tags\Single::create($_POST['name'], $_POST['type']))
 			header('Location: ' . $linksDir . 'admin/tags/' . $tagId);
 		else
-			error($clauses->get('tags_create_fails'));
+			error($clauses->get('tag_create_fails'));
 	}
 	elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$tag = new Tags\Single($params[2]);

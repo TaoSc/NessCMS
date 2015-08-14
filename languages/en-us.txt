@@ -93,6 +93,9 @@ source_code			= Source code
 by					= by
 soon				= soon
 
+members_types		= Members types
+rights				= Rights
+
 no_news				= No news currently.
 no_tags				= No tags currently.
 no_polls			= There are no polls currently.
@@ -152,4 +155,4 @@ time_format			= h:i A
 sexy_date_format	= {$dayWord}, {$monthWord} {$dayNum}<sup>{$daySuffix}</sup>, {$yearNum}
 o_quote				= “
 c_quote				= ”
-plural_exceptions	= NULL
+plural_exceptions	= banned

@@ -271,8 +271,11 @@ div#headlines-carousel {
 	margin: 5px;
 }
 
+ul.pagination {
+	margin-right: 5px;
+}
 div.coms-dropdowns {
-	margin: 19px 0px 20px 5px;
+	margin: 19px 5px 20px 0px;
 }
 
 div#comments .row.extra-margin {

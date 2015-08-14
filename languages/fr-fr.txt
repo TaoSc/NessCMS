@@ -93,6 +93,9 @@ source_code			= Code source
 by					= par
 soon				= bientôt
 
+members_types		= Types de membres
+rights				= Droits
+
 no_news				= Aucunes news pour le moment.
 no_tags				= Aucuns libellés pour le moment.
 no_polls			= Il n'y a aucun sondage pour le moment.

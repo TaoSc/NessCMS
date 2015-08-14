@@ -19,8 +19,20 @@
 		if ($rights['comment_moderate'])
 			$hideOptions[] = ['id' => 2, 'name' => 'act_as_deleted'];
 
-		// if (!$comment['hidden'])
-			// $btnsGroupMenu[] = ['link' => $linksDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
+		if (!$comment['hidden']) {
+			// Not great at all, it's not aware of the pagging system
+			if ($comment['post_type'] === 'polls') {
+				$post = (new Polls\Single($comment['post_id']))->getPoll();
+				$postLink = 'polls/' . $post['id'];
+			}
+			elseif ($comment['post_type'] === 'posts') {
+				$post = Posts\Handling::getPosts('id = ' . $comment['post_id'])[0];
+				$postLink = $post['type'] . '/' . $post['slug'];
+			}
+
+			if (isset($post) AND $post)
+				$btnsGroupMenu[] = ['link' => $linksDir . $postLink . '#comment-' . $comment['id'], 'name' => $clauses->get('show_more')];
+		}
 
 		$pageTitle = Basics\Strings::cropTxt($comment['content'], 10) . ' - ' . $clauses->get('comments');
 		$viewPath = 'comments/edit.rel';

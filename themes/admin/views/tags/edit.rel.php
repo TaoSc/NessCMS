@@ -3,15 +3,15 @@
 		<legend><?php echo $clauses->get($create ? 'create_tag' : 'edit_tag'); ?></legend>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="name"><?php echo $clauses->get('name'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="name"><?php echo $clauses->get('name'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<input name="name" id="name" type="text" class="form-control" value="<?php if (!$create) echo $tag['name']; ?>" required>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-xs-4 control-label" for="type"><?php echo $clauses->get('type'); ?></label>
-			<div class="col-xs-4">
+			<label class="col-md-4 col-xs-3 control-label" for="type"><?php echo $clauses->get('type'); ?></label>
+			<div class="col-md-4 col-xs-9">
 				<select id="type" name="type" class="form-control">
 <?php
 					foreach ($tagsTypes as $tagType) {

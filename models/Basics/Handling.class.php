@@ -14,7 +14,14 @@
 			if ($idsOnly)
 				return $ids;
 			else {
-				$className = '\\' . $namespaces . '\\' . ($type === 'languages' ? 'Languages' : 'Single');
+				$className = '\\' . $namespaces . '\\';
+				if ($type === 'languages')
+					$className .= 'Languages';
+				elseif ($type === 'members_types')
+					$className .= 'Type';
+				else
+					$className .= 'Single';
+
 				$array = [];
 				foreach ($ids as $element)
 					$array[] = call_user_func_array([(new $className($element['id'], ...$instanceParams)), 'get' . $accessor], (array) $methodParams);

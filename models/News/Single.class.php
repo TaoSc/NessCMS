@@ -13,7 +13,7 @@
 
 				$this->news['create_cond'] = $rights['news_create'];
 				$this->news['removal_cond'] = ($rights['news_create'] AND (in_array($currentMemberId, $this->news['authors_ids']) OR $rights['admin_access']));
-				$this->news['edit_cond'] = ($currentMemberId AND ((in_array($currentMemberId, $this->news['authors_ids']) AND $rights['news_edit'] AND !$rights['admin_access']) OR $rights['admin_access']));
+				$this->news['edit_cond'] = ($currentMemberId AND ((in_array($currentMemberId, $this->news['authors_ids']) AND $rights['news_edit']) OR $rights['admin_access']));
 			}
 		}
 
