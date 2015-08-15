@@ -71,7 +71,6 @@ send				= Envoyer
 details				= détails
 cookies_login		= Rester connecté
 cookies_login_info	= Vous devez accepter l'utilisation des cookies
-index_text			= <p>Vous pouvez trouvez ici l'actualité des jeux vidéo et de l'informatique en général vue par moi-même.</p><p>Vous pouvez gratuitement contribuer au site et donner votre opinion en <a href="{$linksDir}members/registration">vous inscrivant</a> ou en <a href="{$linksDir}members/login">vous connectant</a>.</p><p>Si vous avez la moindre idée permettant d'améliorer ce site, <a href="mailto:taoschreiner@outlook.com">n'hésitez pas à m'envoyer un e-mail</a> !</p>
 error_home_btn		= Ramenez-moi à l'accueil !
 error_previous_btn	= Page précédente
 loading				= Chargement…

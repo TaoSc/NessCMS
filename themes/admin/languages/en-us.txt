@@ -22,8 +22,31 @@ edit_tag			= Edit a tag
 cache_enabled		= Enable caching
 reset_views			= Reset total views
 tag_already_chosen	= This tag has already been chosen.
+edit_members_type	= Edit a members' type
+create_members_type	= Create a members' type
+personalize			= Personalize
+index_text_label	= Index text
+
 news_create_fails	= The creation of this news has failed.
 news_edit_fails		= The edit of this news has failed.
 comment_edit_fails	= The edit of this comment has failed.
-reset_views			= Reset total views
-tag_already_chosen	= This tag has already been chosen.unauthorized_removal = This item can't be deleted.
+tag_create_fails	= The creation of this tag has failed.
+tag_edit_fails		= The edit of this tag has failed.
+members_type_create_fails = The creation of this members' type has failed.
+members_type_edit_fails = The edit of this members' type has failed.
+unauthorized_removal = This item can't be deleted.
+
+admin_access		= Administration's access
+admin_access_descr	= Allows members to gain access to sensitive parts of the administration.
+config_edit			= Configuration's edition
+config_edit_descr	= Allows members to modify the site's configuration.
+news_create			= News' creation
+news_create_descr	= Allows news' creation and deletion (but not publishing).
+news_publish		= News' publishing
+news_publish_descr	= Allows news publishing.
+news_edit			= News' edition
+news_edit_descr		= Allows news' edition.
+comment_edit		= Comment's edition
+comment_edit_descr	= Allows comment's edition and deletion.
+comment_moderate	= Comment's moderation
+comment_moderate_descr = Allows a deeper moderation of all comments.

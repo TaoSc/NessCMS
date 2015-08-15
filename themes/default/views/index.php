@@ -56,7 +56,7 @@
 		echo '<div class="col-lg-12">';
 ?>
 		<h1><?php echo $clauses->get('hey_folks'); ?></h1>
-		<?php echo stripslashes(eval($clauses->getMagic('index_text'))); ?>
+		<?php echo stripslashes(eval('return "' . addslashes($clauses->getDB('pages', 1, 'index_text')) . '";')); ?>
 	</div>
 </div>
 
