@@ -1,4 +1,5 @@
-<?php echo $clauses->get('admin_index'); ?>
+<p><?php echo $clauses->get('admin_index'); ?></p>
+
 <form class="form-horizontal col-lg-12" method="post" action="">
 	<fieldset class="col-lg-offset-1 col-lg-10">
 		<legend><?php echo $clauses->get('personalize'); ?></legend>

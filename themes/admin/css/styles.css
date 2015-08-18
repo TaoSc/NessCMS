@@ -33,7 +33,7 @@ body {
 input.tt-input, input.tt-hint {
 	margin-top: 5px;
 	margin-bottom: 5px;
-	// border-right: 3px solid #DCE4EC;
+	/* border-right: 3px solid #DCE4EC; */
 }
 input.tt-hint {
 	color: grey;
@@ -52,4 +52,7 @@ input.tt-hint {
 }
 .tt-suggestion:hover {
 	background: #DBDBDB;
+}
+span.twitter-typeahead {
+	width: 100%;
 }
