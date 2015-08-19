@@ -56,3 +56,10 @@ input.tt-hint {
 span.twitter-typeahead {
 	width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+	.col-xs-no-padding {
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+}

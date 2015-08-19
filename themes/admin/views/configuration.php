@@ -1,5 +1,5 @@
-<form class="form-horizontal col-lg-12" method="post" action="">
-	<fieldset class="col-lg-offset-1 col-lg-10">
+<form class="form-horizontal col-lg-12 col-xs-no-padding" method="post" action="">
+	<fieldset class="col-lg-offset-1 col-lg-10 col-xs-no-padding">
 		<legend><?php echo $clauses->get('system_conf'); ?></legend>
 
 		<div class="form-group">
@@ -108,8 +108,10 @@
 			</div>
 		</div>
 
-		<div class="pull-right form-group">
-			<button class="btn btn-primary"><?php echo $clauses->get('send'); ?></button>
+		<div class="form-group">
+			<div class="col-md-offset-4 col-xs-offset-3" style="padding-left: 15px;">
+				<button class="btn btn-primary"><?php echo $clauses->get('send'); ?></button>
+			</div>
 		</div>
 	</fieldset>
 </form>

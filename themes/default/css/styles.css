@@ -165,8 +165,11 @@ div#headlines-carousel {
 }
 
 .news-list > .news {
-	margin-bottom: 10px;
+	margin-top: 10px;
 	background: #fafafa;
+}
+.news-list > .news:nth-of-type(1) {
+	margin-top: 0px;
 }
 .news-list > .news .glyphicon-comment {
 	font-size: 10px;

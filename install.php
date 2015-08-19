@@ -11,7 +11,7 @@
 	}
 	elseif (isset($_POST['nickname']) AND isset($_POST['email']) AND isset($_POST['pwd']) AND isset($_POST['pwd2']) AND isset($_POST['site_name'])) {
 		$request = $db->prepare(file_get_contents($siteDir . 'NessCMS.sql'));
-		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/') . '/']);
+		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/')]);
 
 		$request = $db->query('UPDATE members SET id = 0 WHERE id = 1');
 
@@ -41,6 +41,13 @@
 			footer {
 				border-top: 1px solid #eee;
 			}
+
+			@media screen and (max-width: 768px) {
+				.col-xs-no-padding {
+					padding-left: 0px !important;
+					padding-right: 0px !important;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -54,92 +61,99 @@
 					<section>
 						<div class="row">
 							<form class="form-horizontal col-lg-12" method="post" action="">
+								<fieldset class="col-lg-offset-1 col-lg-10 col-xs-no-padding">
 <?php
-								if (file_exists($configFile)) {
+									if (file_exists($configFile)) {
 ?>
-								<div class="row">
-									<div class="form-group">
-										<label class="col-xs-4 control-label" for="site_name">Site name</label>
-										<div class="col-xs-4">
-											<input id="site_name" name="site_name" type="text" placeholder="E.g.: “My extra website”" class="form-control" required>
+										<legend>Your website</legend>
+
+										<div class="form-group">
+											<label class="col-md-4 col-xs-3 control-label" for="site_name">Site name</label>
+											<div class="col-md-4 col-xs-9">
+												<input id="site_name" name="site_name" type="text" placeholder="E.g.: “My fantastic website”" class="form-control" required>
+											</div>
 										</div>
-									</div>
-								</div>
+									</fieldset>
 
-								<fieldset class="col-lg-offset-1 col-lg-10">
-									<legend>Your account</legend>
+									<fieldset class="col-lg-offset-1 col-lg-10 col-xs-no-padding">
+										<legend>Your account</legend>
 
-									<div class="form-group">
-										<label class="col-xs-4 control-label" for="nickname">Nickname</label>
-										<div class="col-xs-4">
-											<input id="nickname" name="nickname" type="text" class="form-control" required>
+										<div class="form-group">
+											<label class="col-md-4 col-xs-3 control-label" for="nickname">Nickname</label>
+											<div class="col-md-4 col-xs-9">
+												<input id="nickname" name="nickname" type="text" class="form-control" required>
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label class="col-xs-4 control-label" for="email">E-mail</label>
-										<div class="col-xs-4">
-											<input id="email" name="email" type="email" class="form-control" required>
+										<div class="form-group">
+											<label class="col-md-4 col-xs-3 control-label" for="email">E-mail</label>
+											<div class="col-md-4 col-xs-9">
+												<input id="email" name="email" type="email" class="form-control" required>
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label class="col-xs-4 control-label" for="pwd">Password</label>
-										<div class="col-xs-4">
-											<input id="pwd" name="pwd" type="password" class="form-control" required>
+										<div class="form-group">
+											<label class="col-md-4 col-xs-3 control-label" for="pwd">Password</label>
+											<div class="col-md-4 col-xs-9">
+												<input id="pwd" name="pwd" type="password" class="form-control" required>
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label class="col-xs-4 control-label" for="pwd2">Password (checking)</label>
-										<div class="col-xs-4">
-											<input id="pwd2" name="pwd2" type="password" class="form-control" required>
+										<div class="form-group">
+											<label class="col-md-4 col-xs-3 control-label" for="pwd2">Password (checking)</label>
+											<div class="col-md-4 col-xs-9">
+												<input id="pwd2" name="pwd2" type="password" class="form-control" required>
+											</div>
 										</div>
-									</div>
-								</fieldset>
 
+										<div class="form-group">
+											<div class="col-md-offset-4 col-xs-offset-3" style="padding-left: 15px;">
+												<button class="btn btn-primary">Create my website!</button>
+											</div>
+										</div>
 <?php
-								}
-								else {
+									}
+									else {
 ?>
-									<fieldset class="col-lg-offset-1 col-lg-10">
 										<legend>Database</legend>
 
 										<div class="form-group">
-											<label class="col-xs-4 control-label" for="host">Host</label>
-											<div class="col-xs-4">
+											<label class="col-md-4 col-xs-3 control-label" for="host">Host</label>
+											<div class="col-md-4 col-xs-9">
 												<input id="host" name="host" type="text" placeholder="Mostly “localhost”" class="form-control" value="localhost" required>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-xs-4 control-label" for="name">Name</label>
-											<div class="col-xs-4">
+											<label class="col-md-4 col-xs-3 control-label" for="name">Name</label>
+											<div class="col-md-4 col-xs-9">
 												<input id="name" name="name" type="text" placeholder="Your database name (muste be created)" class="form-control" required>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-xs-4 control-label" for="user">User</label>
-											<div class="col-xs-4">
+											<label class="col-md-4 col-xs-3 control-label" for="user">User</label>
+											<div class="col-md-4 col-xs-9">
 												<input id="user" name="user" type="text" placeholder="Your database account's name" class="form-control" required>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="col-xs-4 control-label" for="pass">Password</label>
-											<div class="col-xs-4">
+											<label class="col-md-4 col-xs-3 control-label" for="pass">Password</label>
+											<div class="col-md-4 col-xs-9">
 												<input id="pass" name="pass" type="password" placeholder="Your database account's password" class="form-control" required>
 											</div>
 										</div>
-									</fieldset>
-<?php
-								}
-?>
 
-								<div class="pull-right form-group">
-									<button class="btn btn-primary">Create my website!</button>
-								</div>
+										<div class="form-group">
+											<div class="col-md-offset-4 col-xs-offset-3" style="padding-left: 15px;">
+												<button class="btn btn-primary">Next <span class="glyphicon glyphicon-triangle-right"></span></button>
+											</div>
+										</div>
+<?php
+									}
+?>
+								</fieldset>
 							</form>
 						</div>
 					</section>

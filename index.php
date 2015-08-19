@@ -35,7 +35,7 @@
 	// Variables related to the site
 	$topDir = Basics\Site::parameter('directory');
 	if ($topDir)
-		$topDir = '/' . $topDir;
+		$topDir = '/' . trim($topDir, '/') . '/';
 	$siteName = Basics\Site::parameter('name');
 
 	if (!$topDir) {
