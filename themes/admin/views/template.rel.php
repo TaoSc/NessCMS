@@ -14,7 +14,15 @@
 		<script src="<?php echo $subDir; ?>js/typeahead.min.js"></script>
 		<script>
 			tinymce.init({
-				selector: 'textarea.tinymce',
+				selector: 'textarea.tinymce', theme: 'modern',
+				plugins: [
+					'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+					'searchreplace wordcount visualblocks visualchars code fullscreen',
+					'insertdatetime media nonbreaking save table contextmenu directionality',
+					'emoticons template paste textcolor colorpicker textpattern imagetools'
+				],
+				toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+				toolbar2: 'link image | print preview media | forecolor backcolor emoticons', image_advtab: true,
 				language_url : '<?php echo $subDir; ?>js/tinymce.<?php echo $language; ?>.js'
 			});
 

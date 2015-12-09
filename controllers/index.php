@@ -1,18 +1,5 @@
 <?php
 	$news = \News\Handling::getNews('TRUE', true, true, 5);
-	foreach ($news as $key => $newsLoop) {
-		$height = 100;
-		if ($newsLoop['priority'] === 'important')
-			$width = 750;
-		elseif ($newsLoop['priority'] === 'normal')
-			$width = 250;
-		elseif ($newsLoop['priority'] === 'low') {
-			$width = 200;
-			$height = 70;
-		}
-
-		$news[$key]['img_address'] = \Basics\Templates::getImg('heroes/' . $newsLoop['img']['slug'], $newsLoop['img']['format'], $width, $height);
-	}
 
 	$poll = (new Polls\Single(Basics\Handling::latestId('polls')))->getPoll();
 

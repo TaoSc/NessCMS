@@ -16,8 +16,11 @@
 
 		if (isset($_POST['name'])) {
 			Basics\Site::parameter('name', $_POST['name']);
-			header('Location: ' . $linksDir . 'admin/configuration');
+
+			// TODO: Fix bug with cookies.
 		}
+		
+		header('Refresh: 0');
 	}
 
 	$languages = \Basics\Languages::getLanguages();

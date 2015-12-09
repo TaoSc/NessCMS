@@ -61,6 +61,25 @@
 			include $siteDir . $theme['dir'] . 'views/Templates/smallUserBox.php';
 		}
 
+		static function postsList($postsArray, $emptyMessage = 'no_news') {
+			global $siteDir, $linksDir, $clauses, $theme, $params, $foldersDepth;
+			foreach ($postsArray as $key => $postLoop) {
+				$height = 100;
+				if ($postLoop['priority'] === 'important')
+					$width = 750;
+				elseif ($postLoop['priority'] === 'normal')
+					$width = 250;
+				elseif ($postLoop['priority'] === 'low') {
+					$width = 200;
+					$height = 70;
+				}
+
+				$postsArray[$key]['img_address'] = self::getImg('heroes/' . $postLoop['img']['slug'], $postLoop['img']['format'], $width, $height);
+			}
+
+			include $siteDir . $theme['dir'] . 'views/Templates/postsList.php';
+		}
+
 		static function comment($comment, $languageCheck, $hidden, $commentsTemplate = false) {
 			global $siteDir, $linksDir, $language, $clauses, $currentMemberId, $theme;
 			$commentAnswers = \Comments\Handling::getComments('parent_id = ' . $comment['id'], $languageCheck, $hidden, true);

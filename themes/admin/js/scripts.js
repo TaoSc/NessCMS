@@ -1,17 +1,15 @@
 $(function () {
-	function include(arr, obj) {
-		return (arr.indexOf(obj) != -1);
+	function include(array, object) {
+		return (array.indexOf(object) != -1);
 	}
 
 	function AutoComplete(tagType) {
 		var tags = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.whitespace,
 			queryTokenizer: Bloodhound.tokenizers.whitespace,
-			identify: function (obj) {return obj.id;},
+			identify: function (object) {return object.id;},
 			// prefetch: {url: linksDir + 'tags/' + tagType},
-			remote: {
-				url: linksDir + 'tags/' + tagType
-			}
+			remote: {url: linksDir + 'tags/' + tagType}
 		});
 
 		$('input[name=tag-temp]').typeahead({
@@ -22,14 +20,14 @@ $(function () {
 			source: tags,
 			display: 'name'
 		})
-		.bind('typeahead:select', function(ev, suggestion) {
+		.bind('typeahead:select', function(event, suggestion) {
 			latestSuggestedTag = suggestion;
 			var tagDropdown = $(this).closest('.form-group');
 
 			tagDropdown.find('.btn-success').prop('disabled', false);
 			tagDropdown.find('input[name=tag-id-temp]').val(suggestion.id);
 		})
-		.bind('typeahead:change', function(ev, suggestion) {
+		.bind('typeahead:change', function(event, suggestion) {
 			var tagDropdown = $(this).closest('.form-group'),
 				tagId = tagDropdown.find('input[name=tag-id-temp]');
 

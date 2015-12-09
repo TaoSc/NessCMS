@@ -61,32 +61,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-8 news-list">
-		<h2><?php echo $clauses->get('latest_news'); ?></h2>
-
-<?php
-		foreach ($news as $newsLoop) {
-?>
-			<div class="col-lg-12 <?php echo $newsLoop['priority']; ?> news<?php if ($newsLoop['priority'] !== 'important') echo ' no-padding'; ?>">
-				<a href="<?php echo $linksDir . 'news/' . $newsLoop['slug']; ?>">
-					<?php if ($newsLoop['priority'] === 'important') echo '<span class="sprites hotThumbLow"></span>'; ?>
-					<img data-original="<?php echo $newsLoop['img_address']; ?>" alt="<?php echo $clauses->get('img_thumb'); ?>">
-					<?php if ($newsLoop['priority'] === 'important') echo '<div class="mask"></div>'; ?>
-					<h3><?php echo $newsLoop['title']; ?></h3>
-					<h4><?php echo $newsLoop['sub_title']; ?> 
-						<small>
-							— <?php Basics\Templates::dateTime($newsLoop['date'], $newsLoop['time']); ?> 
-							<span class="badge"><?php echo $newsLoop['comments_nbr']; ?> <span class="glyphicon glyphicon-comment"></span></span>
-						</small>
-					</h4>
-				</a>
-			</div>
-<?php
-		}
-		if (!$news)
-			echo $clauses->get('no_news');
-?>
-	</div>
+	<?php Basics\Templates::postsList($news); ?>
 
 	<div class="col-md-4">
 		<h2><a href="<?php echo $linksDir; ?>polls/" title="<?php echo $clauses->get('show_more'); ?>"><?php echo $clauses->get('poll'); ?> »</a></h2>

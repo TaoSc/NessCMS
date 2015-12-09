@@ -64,6 +64,7 @@ Licensed under the GPL v3 license.
 
 **NessCMS** profits from these great others projects: 
 [Twitter Bootstrap](https://github.com/twbs/bootstrap) (MIT),
+[typeahead.js](https://github.com/twitter/typeahead.js) (MIT),
 [jQuery](https://github.com/jquery/jquery) (MIT),
 [jQuery Color](https://github.com/jquery/jquery-color) (MIT),
 [Lazy Load Plugin for jQuery](https://github.com/tuupola/jquery_lazyload) (MIT),
