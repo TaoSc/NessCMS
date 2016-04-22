@@ -40,7 +40,7 @@
 			return $this->poll;
 		}
 
-		function delPoll() {
+		function deletePoll() {
 			if ($this->poll) {
 				global $db;
 
@@ -60,6 +60,12 @@
 			else
 				return false;
 		}
+
+		/*static function createPoll($question, ) {
+			if () {
+				
+			}
+		}*/
 
 		function addVote($answerId) {
 			if ($this->poll AND !$this->poll['already_voted'] AND \Basics\Handling::recursiveArraySearch((int) $answerId, $this->poll['answers']) !== false) {

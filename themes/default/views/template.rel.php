@@ -6,7 +6,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $subDir; ?>images/favicon.ico">
 		<title><?php echo $siteName; ?> | <?php echo $pageTitle; ?></title>
 		<!--[if lt IE 9]>
-			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<link rel="stylesheet" type="text/css" href="<?php echo $subDir . $theme['dir']; ?>css/styles.css">

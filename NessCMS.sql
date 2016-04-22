@@ -102,9 +102,9 @@ CREATE TABLE IF NOT EXISTS `members_types` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `members_types` (`id`, `rights`) VALUES
-(1, '{"admin_access":true,"config_edit":true,"news_create":true,"news_publish":true,"news_edit":true,"comment_edit":true,"comment_moderate":true}'),
-(2, '{"admin_access":0,"config_edit":0,"news_create":true,"news_publish":0,"news_edit":0,"comment_edit":true,"comment_moderate":0}'),
-(3, '{"admin_access":0,"config_edit":0,"news_create":0,"news_publish":0,"news_edit":0,"comment_edit":0,"comment_moderate":0}');
+(1, '{"admin_access":true,"config_edit":true,"news_create":true,"news_publish":true,"news_edit":true,"comment_edit":true,"comment_moderate":true,"poll_create":true}'),
+(2, '{"admin_access":0,"config_edit":0,"news_create":true,"news_publish":0,"news_edit":0,"comment_edit":true,"comment_moderate":0,"poll_create":0}'),
+(3, '{"admin_access":0,"config_edit":0,"news_create":0,"news_publish":0,"news_edit":0,"comment_edit":0,"comment_moderate":0,"poll_create":0}');
 
 CREATE TABLE IF NOT EXISTS `polls` (
   `id` int(11) NOT NULL,

@@ -94,9 +94,9 @@ $(function () {
 		typeAhead = new AutoComplete($('input[name=tag-type-temp]').val());
 	}
 
-	$(document).on('click', '.btn-add', addTag);
-	$(document).on('click', '.btn-remove', removeTag);
-	$(document).on('click', '.dropdown-menu.tags-types a', selectTagType);
+	$(document).on('click', '.btn-add', addTag)
+		.on('click', '.btn-remove', removeTag)
+		.on('click', '.dropdown-menu.tags-types a', selectTagType);
 	$('[data-toggle="tooltip"]').tooltip();
 	var typeAhead = new AutoComplete($('input[name=tag-type-temp]').val());
 });

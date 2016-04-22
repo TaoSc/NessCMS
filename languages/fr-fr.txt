@@ -19,6 +19,7 @@ most_read			= Plus lu
 most_comment		= Plus commenté
 latest_featured		= Plus récent
 name_login			= Pseudo ou e-mail
+question			= Question
 cancel				= Annuler
 poll				= Sondage
 polls				= Sondages

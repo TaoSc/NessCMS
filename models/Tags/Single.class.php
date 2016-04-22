@@ -47,7 +47,7 @@
 				FROM posts p
 				INNER JOIN tags_relation r
 				ON p.id = r.incoming_id
-				WHERE r.tag_id = ? ' . (isset($condition) ? $condition : null) . ' AND r.incoming_type = ?
+				WHERE r.tag_id = ? ' . ($condition ?? null) . ' AND r.incoming_type = ?
 				ORDER BY p.id DESC LIMIT ' . $offset . ', ' . $limit
 			);
 			$request->bindParam(':offset', $offset, \PDO::PARAM_INT);
