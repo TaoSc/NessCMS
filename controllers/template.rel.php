@@ -8,6 +8,7 @@
 			['caption' => $clauses->get('home'), 'link' => 'admin/index'],
 			['caption' => $clauses->get('news'), 'link' => 'admin/news/index'],
 			['caption' => $clauses->get('tags'), 'link' => 'admin/tags/index'],
+			['caption' => $clauses->get('members_types'), 'link' => 'admin/members-types/index'],
 			['caption' => $clauses->get('config'), 'link' => 'admin/configuration'],
 		];
 	}
