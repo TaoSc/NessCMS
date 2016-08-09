@@ -176,7 +176,7 @@
 
 					$request = $db->prepare('
 						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments, votes)
-						VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)
+						VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?)
 					');
 					$request->execute([(int) $visible, $type, $categoryId, $img, json_encode([$currentMemberId]), $priority, $comments, $votes]);
 

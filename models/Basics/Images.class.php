@@ -8,7 +8,7 @@
 			ini_set('memory_limit', '-1');
 			set_time_limit(0);
 
-			$extension = mb_strtolower(pathinfo($src)['extension']);
+			$extension = preg_replace('#\?.{1,}#i', null, mb_strtolower(pathinfo($src)['extension']));
 			$pngFormat = $extension === 'png';
 			$createFunction = 'imagecreatefrom' . ($extension === 'jpg' ? 'jpeg' : $extension);
 			$dstSizes = (array) $dstSizes;
