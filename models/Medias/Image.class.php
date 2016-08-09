@@ -22,14 +22,14 @@
 			}
 		}
 
-		function getImage() {
+		public function getImage() {
 			if ($this->image)
 				$this->image['time'] = \Basics\Dates::sexyTime($this->image['time']);
 
 			return $this->image;
 		}
 
-		function setImage($newName, $newSlug, $newSize, $newDescription) {
+		public function setImage($newName, $newSlug, $newSize, $newDescription) {
 			if (!empty($newName) AND !empty($newSlug) AND $this->image) {
 				if (\Basics\Handling::countEntries('images', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != ' . $this->image['id']))
 					return false;
@@ -56,7 +56,7 @@
 				return false;
 		}
 
-		function deleteImage($size = false) {
+		public function deleteImage($size = false) {
 			if ($this->image) {
 				global $db;
 

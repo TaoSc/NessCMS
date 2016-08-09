@@ -20,7 +20,7 @@
 			}
 		}
 
-		function getPoll() {
+		public function getPoll() {
 			if ($this->poll) {
 				global $clauses;
 
@@ -40,7 +40,7 @@
 			return $this->poll;
 		}
 
-		function deletePoll() {
+		public function deletePoll() {
 			if ($this->poll) {
 				global $db;
 
@@ -67,7 +67,7 @@
 			}
 		}*/
 
-		function addVote($answerId) {
+		public function addVote($answerId) {
 			if ($this->poll AND !$this->poll['already_voted'] AND \Basics\Handling::recursiveArraySearch((int) $answerId, $this->poll['answers']) !== false) {
 				global $db, $currentMemberId;
 

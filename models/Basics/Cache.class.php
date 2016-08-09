@@ -16,7 +16,7 @@
 			$this->langExt = '.' . $language;
 		}
 
-		function get($fileName, $memberCheck = true, $gzDecode = true, $jsonDecode = false) {
+		public function get($fileName, $memberCheck = true, $gzDecode = true, $jsonDecode = false) {
 			$file = $this->dirname . hash('sha256', $fileName . ($memberCheck ? $this->memberExt : null) . $this->langExt);
 
 			if (file_exists($file)) {
@@ -31,7 +31,7 @@
 				return false;
 		}
 
-		function exist($fileName, $memberCheck = true, $controllerCached = false) {
+		public function exist($fileName, $memberCheck = true, $controllerCached = false) {
 			$file = $this->dirname . hash('sha256', $fileName . ($memberCheck ? $this->memberExt : null) . $this->langExt);
 
 			if (file_exists($file)) {
@@ -48,7 +48,7 @@
 				return false;
 		}
 
-		function write($fileName, $content, $memberCheck = true, $jsonEncoder = false) {
+		public function write($fileName, $content, $memberCheck = true, $jsonEncoder = false) {
 			if ($jsonEncoder === true)
 				$content = json_encode($content);
 
@@ -57,7 +57,7 @@
 			return true;
 		}
 
-		function delete($fileName, $memberCheck = true) {
+		public function delete($fileName, $memberCheck = true) {
 			$file = $this->dirname . hash('sha256', $fileName . ($memberCheck ? $this->memberExt : null) . $this->langExt);
 
 			if (file_exists($file))
@@ -65,7 +65,7 @@
 			return false;
 		}
 
-		function clear() {
+		public function clear() {
 			$files = glob($this->dirname . '*');
 			foreach ($files as $fileLoop)
 				unlink($fileLoop);
@@ -73,7 +73,7 @@
 			file_put_contents($this->dirname . 'index', null);
 		}
 
-		function getDirname() {
+		public function getDirname() {
 			return $this->dirname;
 		}
 	}

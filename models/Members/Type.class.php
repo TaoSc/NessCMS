@@ -29,7 +29,7 @@
 			}
 		}
 
-		function getType() {
+		public function getType() {
 			if ($this->type) {
 				global $clauses;
 
@@ -43,18 +43,18 @@
 				return false;
 		}
 
-		function getRights() {
+		public function getRights() {
 			if ($this->type)
 				return json_decode($this->type['rights'], true);
 			else
 				return false;
 		}
 
-		function getMembers() {
+		public function getMembers() {
 			return \Basics\Handling::getList('type_id = ' . $this->type['id'], 'members', 'Members', 'Member', false, false, false, false);
 		}
 
-		function setType($name, $rights) {
+		public function setType($name, $rights) {
 			$slug = \Basics\Strings::slug($name);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'members_types', 'slug', false);
 
@@ -72,7 +72,7 @@
 				return false;
 		}
 
-		function deleteType() {
+		public function deleteType() {
 			if ($this->type AND $this->type['removal_cond']) {
 				global $db;
 

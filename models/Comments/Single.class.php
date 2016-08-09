@@ -25,7 +25,7 @@
 			}
 		}
 
-		function getComment($lineJump = true, $parsing = true) {
+		public function getComment($lineJump = true, $parsing = true) {
 			if ($this->comment AND $parsing) {
 				global $language;
 
@@ -46,7 +46,7 @@
 			return $this->comment;
 		}
 
-		function setComment($content, $hidden = false) {
+		public function setComment($content, $hidden = false) {
 			if ($this->comment AND !empty($content) AND !empty($content) AND $this->comment['edit_cond']) {
 				global $db;
 				$hidden = (int) $hidden;
@@ -60,7 +60,7 @@
 				return false;
 		}
 
-		function deleteComment($realRemoval = true) {
+		public function deleteComment($realRemoval = true) {
 			if ($this->comment AND $this->comment['removal_cond']) {
 				global $db;
 

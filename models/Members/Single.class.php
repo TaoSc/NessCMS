@@ -18,7 +18,7 @@
 				$this->member['id'] = (int) $this->member['id'];
 		}
 
-		function getMember($biography = true) {
+		public function getMember($biography = true) {
 			if ($this->member) {
 				global $clauses;
 
@@ -48,7 +48,7 @@
 			return $this->member;
 		}
 
-		/*function setMember($newPseudo, $newSubName, $newFamilyName, $newEmail, $newPwd, $newType, $newAvatar, $pwdCript = true) {
+		/*public function setMember($newPseudo, $newSubName, $newFamilyName, $newEmail, $newPwd, $newType, $newAvatar, $pwdCript = true) {
 			$pseudoTest = $newPseudo !== $this->member['pseudo'];
 			$pwdCript = $pwdCript ? sha1($newPwd) : $newPwd;
 			$namesTest = !empty($newSubName) AND !empty($newFamilyName);
@@ -92,7 +92,7 @@
 				return false;
 		}
 
-		function setBiography($newBiography) {
+		public function setBiography($newBiography) {
 			if ($this->member AND !empty($newBiography)) {
 				global $db, $cache;
 
@@ -107,7 +107,7 @@
 				return false;
 		}
 
-		function deleteMember() {
+		public function deleteMember() {
 			if ($this->member) {
 				global $db;
 
@@ -134,7 +134,7 @@
 				return false;
 		}
 
-		function deleteAvatar() {
+		public function deleteAvatar() {
 			if ($this->member) {
 				global $db, $siteDir, $cache;
 

@@ -9,15 +9,15 @@
 			$this->category = &$this->tag;
 		}
 
-		function getCategory(...$params) {
+		public function getCategory(...$params) {
 			return parent::getTag(...$params);
 		}
 
-		function getNews($offsetLimit = false) {
+		public function getNews($offsetLimit = false) {
 			return \News\Handling::getNews('category_id = ' . $this->category['id'], true, true, $offsetLimit);
 		}
 
-		function deleteTag() {
+		public function deleteTag() {
 			$inheritedMethod = parent::deleteTag();
 
 			if ($inheritedMethod) {
