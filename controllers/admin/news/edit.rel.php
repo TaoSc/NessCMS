@@ -1,7 +1,7 @@
 <?php
 	if ($params[2] === '0' AND $rights['news_create'] AND $_SERVER['REQUEST_METHOD'] === 'POST') {
 		if ($newsId = \News\Single::create($_POST['title'], $_POST['sub_title'], $_POST['content'], $_POST['category_id'], $_POST['tags'],
-			$_POST['img'], null, isset($_POST['visible']) ? true : 0, $_POST['priority'], isset($_POST['comments']) ? true : 0, isset($_POST['votes']) ? true : 0))
+			$_POST['img'], null, isset($_POST['visible']) ? true : 0, $_POST['priority'], isset($_POST['comments']) ? true : 0, isset($_POST['votes']) ? true : 0), $rights)
 			header('Location: ' . $linksDir . 'admin/news/' . $newsId);
 		else
 			error($clauses->get('news_create_fails'));

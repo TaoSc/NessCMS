@@ -58,9 +58,7 @@
 				return false;
 		}
 
-		public static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true) {
-			global $rights;
-
+		public static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, &$rights) {
 			if ($rights['news_create']) {
 				if (!$rights['news_publish'])
 					$visible = false;
