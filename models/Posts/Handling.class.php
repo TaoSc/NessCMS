@@ -3,7 +3,7 @@
 
 	class Handling {
 		public static function getPosts($condition = 'TRUE', $visible = true, $languageCheck = true, $offsetLimit = false, $ascending = false) {
-			global $db, $language;
+			global $db;
 			$order = $ascending ? 'ASC' : 'DESC';
 			if ($offsetLimit)
 				$offsetLimit = ' LIMIT ' . $offsetLimit;

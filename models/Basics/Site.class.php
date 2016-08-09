@@ -3,7 +3,7 @@
 
 	class Site {
 		public static function parameter($name, $newValue = null) {
-			global $db;
+			$db = self::getDB()
 
 			if ($newValue === null) {
 				$request = $db->prepare('SELECT value FROM site WHERE name = ?');
@@ -34,5 +34,11 @@
 				return !isset($_SESSION[Strings::slug($siteName) . '_' . $name]) ? false : $_SESSION[Strings::slug($siteName) . '_' . $name];
 			else
 				$_SESSION[Strings::slug($siteName) . '_' . $name] = $newValue;
+		}
+
+		public static function getDB() {
+			global $db;
+
+			return $db;
 		}
 	}

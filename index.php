@@ -132,7 +132,7 @@
 		$admin = false;
 	}
 	$theme['dir'] = 'themes/' . $theme['dir'];
-	$clauses = new Basics\Languages($language, $db);
+	$clauses = new Basics\Languages($language);
 	if ($currentMemberId) {
 		if (!Basics\site::session('member'))
 			Basics\site::session('member', (new Members\Single(Basics\site::session('member_id')))->getMember(false));
@@ -145,7 +145,8 @@
 
 	// Errors management
 	function error($errorMsg = 404, $showHomeBtn = true) {
-		global $siteDir, $clauses, $theme, $language, $admin, $siteName, $location, $linksDir, $subDir, $currentMemberId, $rights, $currentMember, $db;
+		global $siteDir, $clauses, $theme, $language, $admin, $siteName, $location, $linksDir, $subDir, $currentMemberId, $rights, $currentMember;
+		global $db; // gonna be removed
 
 		if ($errorMsg === 404)
 			header('HTTP/1.0 404 Not Found');

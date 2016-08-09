@@ -3,12 +3,11 @@
 
 	class Handling {
 		public static function getList($condition = 'TRUE', $type = 'comments', $namespaces = 'Comments', $accessor = 'Comment', $offsetLimit = false, $idsOnly = false, $ascending = false, $methodParams = null, ...$instanceParams) {
-			global $db, $language;
 			$order = $ascending ? 'ASC' : 'DESC';
 			if ($offsetLimit)
 				$offsetLimit = ' LIMIT ' . $offsetLimit;
 
-			$request = $db->query('SELECT ' . ($type === 'languages' ? 'code id' : 'id') . ' FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
+			$request = Site::getDB()->query('SELECT ' . ($type === 'languages' ? 'code id' : 'id') . ' FROM ' . $type . ' WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
 			$ids = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			if ($idsOnly)
@@ -63,9 +62,7 @@
 		}
 
 		public static function countEntries($table = 'posts', $conditions = 'TRUE') {
-			global $db;
-
-			$request = $db->query('SELECT COUNT(*) total FROM ' . $table . ' WHERE ' . $conditions);
+			$request = Site::getDB()->query('SELECT COUNT(*) total FROM ' . $table . ' WHERE ' . $conditions);
 
 			return (int) $request->fetch(\PDO::FETCH_ASSOC)['total'];
 		}
@@ -77,9 +74,7 @@
 				return $clauses->getDB($tableName, $slug, $column, true, true, $noLanguage);
 			}
 			else {
-				global $db;
-
-				$request = $db->prepare('SELECT id FROM ' . $tableName . ' WHERE ' . $column . ' = ?');
+				$request = Site::getDB()->prepare('SELECT id FROM ' . $tableName . ' WHERE ' . $column . ' = ?');
 				$request->execute([$slug]);
 
 				return $request->fetch(\PDO::FETCH_ASSOC)['id'];
@@ -87,9 +82,7 @@
 		}
 
 		public static function latestId($from = 'posts', $select = 'id') {
-			global $db;
-
-			$request = $db->query('SELECT ' . $select . ' FROM ' . $from . ' ORDER BY id DESC LIMIT 1');
+			$request = Site::getDB()->query('SELECT ' . $select . ' FROM ' . $from . ' ORDER BY id DESC LIMIT 1');
 
 			return $request->fetch(\PDO::FETCH_ASSOC)[$select];
 		}

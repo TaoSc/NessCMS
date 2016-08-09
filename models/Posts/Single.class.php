@@ -17,7 +17,7 @@
 		];
 
 		public function __construct($id, $type = null, $visible = true, $languageCheck = true) {
-			global $db;
+			$db = \Basics\Site::getDB();
 			$this->languageCheck = $languageCheck;
 			$condition = 'id = ?';
 			if ($type)
@@ -94,7 +94,7 @@
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
 
 			if ($this->post AND !empty($slug) AND (!$slugBeing OR $slugBeing === $this->post['id']) AND !empty($subTitle) AND !empty($content) AND !empty($categoryId) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
-				global $db, $clauses, $language;
+				global $clauses, $language;
 
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') === $language)
 					$availability = 'default';
@@ -108,7 +108,7 @@
 
 				\Tags\Handling::createRelation($this->post['raw_tags'], json_decode($tagsIds), $this->post['id'], 'posts');
 
-				$request = $db->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ?, votes = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE posts SET category_id = ?, img = ?, visible = ?, priority = ?, comments = ?, votes = ? WHERE id = ?');
 				$request->execute([$categoryId, $img, (int) $visible, $priority, $comments, $votes, $this->post['id']]);
 
 				return true;
@@ -119,7 +119,7 @@
 
 		public function deletePost() {
 			if ($this->post) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				$request = $db->prepare('DELETE FROM posts WHERE type = ? AND id = ?');
 				$request->execute([$this->post['type'], $this->post['id']]);
@@ -140,7 +140,7 @@
 
 		public function setViews($reset = false, $type = 'news') {
 			if ($this->post) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				if ($reset)
 					$viewsNbr = 0;
@@ -170,11 +170,11 @@
 				if (\Basics\Handling::idFromSlug($slug, 'posts', 'slug', false) OR empty($slug))
 					return false;
 				else {
-					global $db, $currentMemberId, $clauses;
+					global $currentMemberId, $clauses;
 
 					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
 
-					$request = $db->prepare('
+					$request = \Basics\Site::getDB()->prepare('
 						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments, votes)
 						VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?)
 					');

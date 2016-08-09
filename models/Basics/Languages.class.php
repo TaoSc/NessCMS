@@ -7,10 +7,10 @@
 		private $language;
 		private $file;
 
-		public function __construct($language, \PDO &$db, $retrieveFile = true) {
-			$this->db = $db;
+		public function __construct($language, $retrieveFile = true) {
+			$this->db = Site::getDB();
 			
-			$request = $db->prepare('SELECT id, code, enabled FROM languages WHERE code = ?');
+			$request = $this->db->prepare('SELECT id, code, enabled FROM languages WHERE code = ?');
 			$request->execute([$language]);
 			$this->language = $request->fetch(\PDO::FETCH_ASSOC);
 
@@ -138,7 +138,7 @@
 			return $request->fetch(\PDO::FETCH_ASSOC)['language'];
 		}
 
-		public static function getLanguages(\PDO $db, $condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
-			return Handling::getList($condition, 'languages', 'Basics', 'Language', false, $codesOnly, false, [$originLanguage], $db, false);
+		public static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
+			return Handling::getList($condition, 'languages', 'Basics', 'Language', false, $codesOnly, false, [$originLanguage], false);
 		}
 	}
