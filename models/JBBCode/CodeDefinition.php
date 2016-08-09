@@ -57,7 +57,7 @@ class CodeDefinition
     /**
      * Constructs a new CodeDefinition. 
      *
-     * This constructor is deprecated. You should use the public static construct() method or the
+     * This constructor is deprecated. You should use the static construct() method or the
      * CodeDefinitionBuilder class to construct a new CodeDefiniton.
      *
      * @deprecated
