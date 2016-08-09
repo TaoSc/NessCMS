@@ -5,9 +5,7 @@
 		private $member;
 
 		public function __construct($id) {
-			global $db;
-
-			$request = $db->prepare('
+			$request = \Basics\Site::getDB()->prepare('
 				SELECT id, type_id, nickname, slug, first_name, last_name, email, password, avatar, DATE(registration) reg_date, TIME(registration) reg_time, birth
 				FROM members
 				WHERE id = ?
@@ -54,7 +52,7 @@
 			$namesTest = !empty($newSubName) AND !empty($newFamilyName);
 
 			if ($this->member AND \Members\Handling::check($newPseudo, $newSubName, $newFamilyName, $newEmail, $newPwd, $pseudoTest, '0000-00-01', $namesTest) AND !empty($newType)) {
-				global $siteDir, $db, $cache;
+				global $siteDir, $cache;
 				if (empty($newAvatar)) {
 					if ($this->member['img_id'] === 'default')
 						$newAvatar = null;
@@ -72,7 +70,7 @@
 					}
 				}
 
-				$request = $db->prepare('UPDATE members SET pseudo = ?, img = ?, first_name = ?, family_name = ?, email = ?, password = ?, type_id = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE members SET pseudo = ?, img = ?, first_name = ?, family_name = ?, email = ?, password = ?, type_id = ? WHERE id = ?');
 				$request->execute([
 					htmlspecialchars($newPseudo),
 					$newAvatar,
@@ -94,9 +92,9 @@
 
 		public function setBiography($newBiography) {
 			if ($this->member AND !empty($newBiography)) {
-				global $db, $cache;
+				global $cache;
 
-				$request = $db->prepare('UPDATE members SET biography = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE members SET biography = ? WHERE id = ?');
 				$request->execute([htmlspecialchars($newBiography), $this->member['id']]);
 
 				$cache->delete('members_profiles_' . $this->member['id'] . '.ctrl');
@@ -109,7 +107,7 @@
 
 		public function deleteMember() {
 			if ($this->member) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				$this->deleteAvatar();
 
@@ -136,11 +134,11 @@
 
 		public function deleteAvatar() {
 			if ($this->member) {
-				global $db, $siteDir, $cache;
+				global $siteDir, $cache;
 
 				unlink($siteDir . '/images/avatars/' . $this->member['id'] . '-100x100.' . $this->member['img']);
 
-				$request = $db->prepare('UPDATE members SET img = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE members SET img = ? WHERE id = ?');
 				$request->execute([null, $this->member['id']]);
 
 				$cache->clear();

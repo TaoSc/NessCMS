@@ -12,7 +12,7 @@
 		}
 
 		public static function createRelation($oldTagsIds, $tagsIds, $incomingId, $incomingType) {
-			global $db;
+			$db = \Basics\Site::getDB();
 			$tempOldTagsIds = [];
 			foreach ($oldTagsIds as $tagLoop)
 				$tempOldTagsIds[] = (int) $tagLoop['id'];
@@ -39,26 +39,20 @@
 		}
 
 		public static function tagAndGame($getGame = true, $id, $tagType = 'game') {
-			global $db;
-
 			if ($getGame) {
-				$request = $db->prepare('
-					SELECT r.post_id id
-					FROM tags t, tags_relation r
-					WHERE t.type = ? AND r.tag_id = t.id AND r.incoming_type = ? AND r.tag_id = ?
-				');
-				$request->execute([$tagType, 'games', $id]);
-				$datas = $request->fetchAll(\PDO::FETCH_ASSOC);
+				$query = '	SELECT r.post_id id
+							FROM tags t, tags_relation r
+							WHERE t.type = ? AND r.tag_id = t.id AND r.incoming_type = ? AND r.tag_id = ?';
 			}
 			else {
-				$request = $db->prepare('
-					SELECT t.id id
-					FROM tags t, tags_relation r
-					WHERE t.type = ? AND r.tag_id = t.id AND r.incoming_type = ? AND r.incoming_id = ?
-				');
-				$request->execute([$tagType, 'games', $id]);
-				$datas = $request->fetchAll(\PDO::FETCH_ASSOC);
+				$query = '	SELECT t.id id
+							FROM tags t, tags_relation r
+							WHERE t.type = ? AND r.tag_id = t.id AND r.incoming_type = ? AND r.incoming_id = ?';
 			}
+
+			$request = \Basics\Site::getDB()->prepare($query);
+			$request->execute([$tagType, 'games', $id]);
+			$datas = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			return $datas;
 		}

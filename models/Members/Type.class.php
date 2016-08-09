@@ -15,9 +15,7 @@
 		];
 
 		public function __construct($id) {
-			global $db;
-
-			$request = $db->prepare('SELECT id, rights FROM members_types WHERE id = ?');
+			$request = \Basics\Site::getDB()->prepare('SELECT id, rights FROM members_types WHERE id = ?');
 			$request->execute([$id]);
 			$this->type = $request->fetch(\PDO::FETCH_ASSOC);
 
@@ -59,11 +57,11 @@
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'members_types', 'slug', false);
 
 			if ($this->type AND !empty($slug) AND (!$slugBeing OR $slugBeing === $this->type['id']) AND !empty($rights) AND $this->type['edit_cond']) {
-				global $db, $clauses;
+				global $clauses;
 
 				$clauses->setDB('members_types', $this->type['id'], true, ['name', $name], ['slug', $slug]);
 
-				$request = $db->prepare('UPDATE members_types SET rights = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE members_types SET rights = ? WHERE id = ?');
 				$request->execute([json_encode($rights), $this->type['id']]);
 
 				return true;
@@ -74,7 +72,7 @@
 
 		public function deleteType() {
 			if ($this->type AND $this->type['removal_cond']) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				$request = $db->prepare('DELETE FROM members_types WHERE id = ?');
 				$request->execute([$this->type['id']]);
@@ -98,9 +96,9 @@
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'members_types', 'slug', false);
 
 			if (!$slugBeing AND !empty($slug) AND !empty($rights) AND $rights['admin_access']) {
-				global $db, $clauses;
+				global $clauses;
 
-				$request = $db->prepare('INSERT INTO members_types (rights) VALUES (?)');
+				$request = \Basics\Site::getDB()->prepare('INSERT INTO members_types (rights) VALUES (?)');
 				$request->execute([json_encode($rights)]);
 
 				$typeId = \Basics\Handling::latestId('members_types');

@@ -14,9 +14,7 @@
 		];
 
 		public function __construct($id, $type = null) {
-			global $db;
-
-			$request = $db->prepare('SELECT id, author_id, type FROM tags WHERE id = ?' . ($type === null ? null : ' AND type = \'' . $type . '\''));
+			$request = \Basics\Site::getDB()->prepare('SELECT id, author_id, type FROM tags WHERE id = ?' . ($type === null ? null : ' AND type = \'' . $type . '\''));
 			$request->execute([$id]);
 			$this->tag = $request->fetch(\PDO::FETCH_ASSOC);
 		}
@@ -35,14 +33,13 @@
 		}
 
 		public function getPosts($offset = 0, $limit = 9999, $postsIds = null, $visible = true) {
-			global $db;
 			$postsIds = (array) $postsIds;
 
 			$condition = null;
 			foreach ($postsIds as $element)
 				$condition .= ' AND p.id != ' . $element;
 
-			$request = $db->prepare('
+			$request = \Basics\Site::getDB()->prepare('
 				SELECT p.id
 				FROM posts p
 				INNER JOIN tags_relation r
@@ -70,11 +67,11 @@
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'tags', 'slug', false);
 
 			if (!empty($slug) AND $type AND (!$slugBeing OR $slugBeing === $this->tag['id']) AND $this->tag) {
-				global $db, $clauses;
+				global $clauses;
 
 				$clauses->setDB('tags', $this->tag['id'], true, ['name', $name], ['slug', $slug]);
 
-				$request = $db->prepare('UPDATE tags SET type = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE tags SET type = ? WHERE id = ?');
 				$request->execute([$type, $this->tag['id']]);
 
 				return true;
@@ -85,7 +82,7 @@
 
 		public function deleteTag() {
 			if ($this->tag AND $this->tag['id'] != 1) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				$request = $db->prepare('DELETE FROM tags WHERE id = ?');
 				$request->execute([$this->tag['id']]);
@@ -109,9 +106,9 @@
 				if (\Basics\Handling::idFromSlug($slug, 'tags', 'slug', false))
 					return false;
 				else {
-					global $db, $currentMemberId, $clauses;
+					global $currentMemberId, $clauses;
 
-					$request = $db->prepare('INSERT INTO tags(author_id, type) VALUES(?, ?)');
+					$request = \Basics\Site::getDB()->prepare('INSERT INTO tags(author_id, type) VALUES(?, ?)');
 					$request->execute([$currentMemberId, $type]);
 
 					$tagId = \Basics\Handling::latestId('tags');

@@ -3,7 +3,7 @@
 
 	class Site {
 		public static function parameter($name, $newValue = null) {
-			$db = self::getDB()
+			$db = self::getDB();
 
 			if ($newValue === null) {
 				$request = $db->prepare('SELECT value FROM site WHERE name = ?');
