@@ -34,7 +34,7 @@
 					$this->comment['modif_time'] = \Basics\Dates::sexyTime($this->comment['modif_time']);
 				$this->comment['content'] = htmlspecialchars($this->comment['content']);
 				if ($lineJump)
-					$this->comment['content'] = \Basics\Strings::BBCode(nl2br($this->comment['content'], false));
+					$this->comment['content'] = \Basics\Strings::bbCode(nl2br($this->comment['content'], false));
 
 				$this->comment['author'] = (new \Members\Single($this->comment['author_id']))->getMember(false);
 				$this->comment['language'] = (new \Basics\Languages($this->comment['language'], false))->getLanguage($language);

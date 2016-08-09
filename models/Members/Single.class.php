@@ -42,7 +42,7 @@
 				$this->member['registration']['time'] = \Basics\Dates::sexyTime($this->member['reg_time']);
 				$this->member['type'] = (new Type($this->member['type_id']))->getType();
 				if ($biography)
-					$this->member['biography'] =  \Basics\Strings::BBCode(nl2br($clauses->getDB('members', $this->member['id'], 'biography'), false));
+					$this->member['biography'] =  \Basics\Strings::bbCode(nl2br($clauses->getDB('members', $this->member['id'], 'biography'), false));
 			}
 
 			return $this->member;
