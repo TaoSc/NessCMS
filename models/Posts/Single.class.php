@@ -58,7 +58,7 @@
 			}
 		}
 
-		function getPost() {
+		public function getPost() {
 			if ($this->post) {
 				global $clauses;
 
@@ -89,7 +89,7 @@
 			return $this->post;
 		}
 
-		function setPost($title, $subTitle, $content, $categoryId, $tagsIds, $img, $visible, $availability, $priority, $comments, $votes) {
+		public function setPost($title, $subTitle, $content, $categoryId, $tagsIds, $img, $visible, $availability, $priority, $comments, $votes) {
 			$slug = \Basics\Strings::slug($title);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'posts', 'slug', false);
 
@@ -117,7 +117,7 @@
 				return false;
 		}
 
-		function deletePost() {
+		public function deletePost() {
 			if ($this->post) {
 				global $db;
 
@@ -138,7 +138,7 @@
 				return false;
 		}
 
-		function setViews($reset = false, $type = 'news') {
+		public function setViews($reset = false, $type = 'news') {
 			if ($this->post) {
 				global $db;
 

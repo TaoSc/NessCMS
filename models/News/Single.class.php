@@ -16,7 +16,7 @@
 			}
 		}
 
-		function getNews() {
+		public function getNews() {
 			if (parent::getPost()) {
 				global $clauses;
 
@@ -32,7 +32,7 @@
 			return $this->news;
 		}
 
-		function setNews(...$traversableContent) {
+		public function setNews(...$traversableContent) {
 			if ($this->news['edit_cond']) {
 				global $rights;
 				if (!$rights['news_publish'])
@@ -50,7 +50,7 @@
 			return false;
 		}
 
-		function deleteNews() {
+		public function deleteNews() {
 			if ($this->news['removal_cond']) {
 				return parent::deletePost();
 			}

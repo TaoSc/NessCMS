@@ -24,14 +24,14 @@
 			}
 		}
 
-		function getLanguage($originLanguage = false) {
+		public function getLanguage($originLanguage = false) {
 			$this->language = array_merge($this->language, $this->getDB('languages', $this->language['id'], '*', true, false, $originLanguage));
 			$this->language['name'] = $this->language['lang_name'] . ' (' . $this->language['country_name'] . ')';
 
 			return $this->language;
 		}
 
-		function get($mark) {
+		public function get($mark) {
 			foreach ($this->file as $value) {
 				$line = explode('= ', $value, 2);
 
@@ -48,11 +48,11 @@
 			return $mark;
 		}
 
-		function getMagic($mark) {
+		public function getMagic($mark) {
 			return 'return "' . addslashes($this->get($mark)) . '";';
 		}
 
-		function getDB($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $hopedLanguage = null) {
+		public function getDB($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $hopedLanguage = null) {
 			global $db;
 			if ($hopedLanguage === null)
 				$hopedLanguage = $this->language['code'];
@@ -99,7 +99,7 @@
 				return $columns[0][$to];
 		}
 
-		function setDB($tableName, $index, $checkBeing = false, ...$keyValuePairs) {
+		public function setDB($tableName, $index, $checkBeing = false, ...$keyValuePairs) {
 			global $db;
 
 			if ($checkBeing) {
@@ -132,7 +132,7 @@
 			$request->execute($PDOExecute);
 		}
 
-		function getDBLang($tableName, $columnName, $index, $value) {
+		public function getDBLang($tableName, $columnName, $index, $value) {
 			global $db;
 
 			$request = $db->prepare('SELECT language FROM languages_routing WHERE table_name = ? AND column_name = ? AND incoming_id = ? AND value = ?');
