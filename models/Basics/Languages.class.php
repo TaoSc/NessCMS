@@ -2,12 +2,14 @@
 	namespace Basics;
 
 	class Languages {
+		private $db;
+
 		private $language;
 		private $file;
 
-		public function __construct($language, $retrieveFile = true) {
-			global $db;
-
+		public function __construct($language, \PDO &$db, $retrieveFile = true) {
+			$this->db = $db;
+			
 			$request = $db->prepare('SELECT id, code, enabled FROM languages WHERE code = ?');
 			$request->execute([$language]);
 			$this->language = $request->fetch(\PDO::FETCH_ASSOC);
@@ -39,7 +41,7 @@
 					$finalSentence = trim($line[1], "\t\n\r\0\x0B");
 
 					if ($finalSentence === '' AND $this->language['code'] !== Site::parameter('default_language'))
-						return (new Languages(Site::parameter('default_language')))->get($mark);
+						return (new Languages(Site::parameter('default_language'), $this->db))->get($mark);
 					else
 						return str_replace('NULL', null, $finalSentence);
 				}
@@ -53,7 +55,6 @@
 		}
 
 		public function getDB($tableName, $index, $columnsName = '*', $errorRecovery = true, $getId = false, $hopedLanguage = null) {
-			global $db;
 			if ($hopedLanguage === null)
 				$hopedLanguage = $this->language['code'];
 			if ($getId) {
@@ -70,7 +71,7 @@
 			if ($hopedLanguage !== false)
 				$conditions .= ' AND language = \'' . $hopedLanguage . '\'';
 
-			$request = $db->prepare('SELECT * FROM languages_routing WHERE ' . $conditions);
+			$request = $this->db->prepare('SELECT * FROM languages_routing WHERE ' . $conditions);
 			$request->execute([$tableName, $index]);
 			$columns = $request->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -100,14 +101,12 @@
 		}
 
 		public function setDB($tableName, $index, $checkBeing = false, ...$keyValuePairs) {
-			global $db;
-
 			if ($checkBeing) {
 				foreach ($keyValuePairs as $key => $keyValue) {
 					$columnValue = $this->getDB($tableName, $index, $keyValue[0], false, false, $this->language['code']);
 
 					if ($columnValue !== false) {
-						$request = $db->prepare('UPDATE languages_routing SET value = ? WHERE language = ?  AND incoming_id = ? AND table_name = ? AND column_name = ?');
+						$request = $this->db->prepare('UPDATE languages_routing SET value = ? WHERE language = ?  AND incoming_id = ? AND table_name = ? AND column_name = ?');
 						$request->execute([$keyValue[1], $this->language['code'], $index, $tableName, $keyValue[0]]);
 
 						unset($keyValuePairs[$key]);
@@ -128,20 +127,18 @@
 			}
 			$SQLLoop = trim($SQLLoop, ',');
 
-			$request = $db->prepare('INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value) VALUES ' . $SQLLoop);
+			$request = $this->db->prepare('INSERT INTO languages_routing (id, language, incoming_id, table_name, column_name, value) VALUES ' . $SQLLoop);
 			$request->execute($PDOExecute);
 		}
 
 		public function getDBLang($tableName, $columnName, $index, $value) {
-			global $db;
-
-			$request = $db->prepare('SELECT language FROM languages_routing WHERE table_name = ? AND column_name = ? AND incoming_id = ? AND value = ?');
+			$request = $this->db->prepare('SELECT language FROM languages_routing WHERE table_name = ? AND column_name = ? AND incoming_id = ? AND value = ?');
 			$request->execute([$tableName, $columnName, $index, $value]);
 
 			return $request->fetch(\PDO::FETCH_ASSOC)['language'];
 		}
 
-		public static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
-			return Handling::getList($condition, 'languages', 'Basics', 'Language', false, $codesOnly, false, [$originLanguage], false);
+		public static function getLanguages(\PDO $db, $condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
+			return Handling::getList($condition, 'languages', 'Basics', 'Language', false, $codesOnly, false, [$originLanguage], $db, false);
 		}
 	}

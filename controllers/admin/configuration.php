@@ -23,7 +23,7 @@
 		header('Refresh: 0');
 	}
 
-	$languages = \Basics\Languages::getLanguages();
+	$languages = \Basics\Languages::getLanguages($db);
 	$membersTypes = \Members\Types::getTypes();
 
 	$pageTitle = $clauses->get('config');
