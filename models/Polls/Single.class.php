@@ -4,7 +4,7 @@
 	class Single {
 		private $poll;
 
-		function __construct($id) {
+		public function __construct($id) {
 			global $db;
 
 			$request = $db->prepare('SELECT id, answers, DATE(poll_date) date, TIME(poll_date) time, author_id FROM polls WHERE id = ?');

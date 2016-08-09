@@ -4,7 +4,7 @@
 	class Image {
 		private $image;
 
-		function __construct($id) {
+		public function __construct($id) {
 			global $subDir, $db;
 
 			$request = $db->prepare('

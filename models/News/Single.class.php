@@ -4,14 +4,13 @@
 	class Single extends \Posts\Single {
 		protected $news;
 
-		function __construct($id, $visible = true, $languageCheck = true) {
+		public function __construct($id, $visible = true, $languageCheck = true) {
 			parent::__construct($id, 'news', $visible, $languageCheck);
 			$this->news = &$this->post;
 
 			if ($this->news) {
 				global $currentMemberId, $rights;
 
-				$this->news['create_cond'] = $rights['news_create'];
 				$this->news['removal_cond'] = ($rights['news_create'] AND (in_array($currentMemberId, $this->news['authors_ids']) OR $rights['admin_access']));
 				$this->news['edit_cond'] = ($currentMemberId AND ((in_array($currentMemberId, $this->news['authors_ids']) AND $rights['news_edit']) OR $rights['admin_access']));
 			}
@@ -60,8 +59,9 @@
 		}
 
 		public static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true) {
-			if ($this->news['create_cond']) {
-				global $rights;
+			global $rights;
+
+			if ($rights['news_create']) {
 				if (!$rights['news_publish'])
 					$visible = false;
 

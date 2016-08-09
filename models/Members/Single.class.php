@@ -4,7 +4,7 @@
 	class Single {
 		private $member;
 
-		function __construct($id) {
+		public function __construct($id) {
 			global $db;
 
 			$request = $db->prepare('

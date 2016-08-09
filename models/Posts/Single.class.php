@@ -16,7 +16,7 @@
 			'low'
 		];
 
-		function __construct($id, $type = null, $visible = true, $languageCheck = true) {
+		public function __construct($id, $type = null, $visible = true, $languageCheck = true) {
 			global $db;
 			$this->languageCheck = $languageCheck;
 			$condition = 'id = ?';
@@ -160,7 +160,7 @@
 				return false;
 		}
 
-		public static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, $type = 'news', $parseSlug = true) {
+		static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, $type = 'news', $parseSlug = true) {
 			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
 				if (empty($slug))
 					$slug = $title;

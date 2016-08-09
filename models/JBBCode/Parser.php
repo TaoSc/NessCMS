@@ -388,7 +388,7 @@ class Parser
     {
         $buffer = "";
         $tagName = "";
-        $state = public static::OPTION_STATE_TAGNAME;
+        $state = static::OPTION_STATE_TAGNAME;
         $keys = array();
         $values = array();
         $options = array();

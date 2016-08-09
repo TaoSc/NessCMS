@@ -4,7 +4,7 @@
 	class Single {
 		protected $comment;
 
-		function __construct($id) {
+		public function __construct($id) {
 			global $db;
 
 			$request = $db->prepare('

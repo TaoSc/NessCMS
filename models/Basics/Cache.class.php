@@ -7,7 +7,7 @@
 		private $memberExt;
 		private $langExt;
 
-		function __construct($dirname, $duration) {
+		public function __construct($dirname, $duration) {
 			global $language, $currentMemberId;
 
 			$this->dirname = $dirname . '/';

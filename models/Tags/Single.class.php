@@ -13,7 +13,7 @@
 			'category'
 		];
 
-		function __construct($id, $type = null) {
+		public function __construct($id, $type = null) {
 			global $db;
 
 			$request = $db->prepare('SELECT id, author_id, type FROM tags WHERE id = ?' . ($type === null ? null : ' AND type = \'' . $type . '\''));

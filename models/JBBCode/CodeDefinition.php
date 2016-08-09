@@ -38,7 +38,7 @@ class CodeDefinition
     /**
      * Constructs a new CodeDefinition.
      */
-    public public static function construct($tagName, $replacementText, $useOption = false,
+    public static function construct($tagName, $replacementText, $useOption = false,
             $parseContent = true, $nestLimit = -1, $optionValidator = array(),
             $bodyValidator = null)
     {

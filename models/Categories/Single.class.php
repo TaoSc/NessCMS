@@ -4,7 +4,7 @@
 	class Single extends \Tags\Single {
 		protected $category;
 
-		function __construct($id) {
+		public function __construct($id) {
 			parent::__construct($id, 'category');
 			$this->category = &$this->tag;
 		}

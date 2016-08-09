@@ -5,7 +5,7 @@
 		private $language;
 		private $file;
 
-		function __construct($language, $retrieveFile = true) {
+		public function __construct($language, $retrieveFile = true) {
 			global $db;
 
 			$request = $db->prepare('SELECT id, code, enabled FROM languages WHERE code = ?');

@@ -14,7 +14,7 @@
 			'poll_create'
 		];
 
-		function __construct($id) {
+		public function __construct($id) {
 			global $db;
 
 			$request = $db->prepare('SELECT id, rights FROM members_types WHERE id = ?');
@@ -24,7 +24,6 @@
 			if ($this->type) {
 				global $rights;
 
-				$this->type['create_cond'] = $rights['admin_access'];
 				$this->type['removal_cond'] = ($rights['admin_access'] AND ($this->type['id'] > 3 OR $rights['config_edit']));
 				$this->type['edit_cond'] = ($rights['admin_access'] AND (!in_array($this->type['id'], [1, 3]) OR $rights['config_edit']));
 			}
@@ -93,10 +92,12 @@
 		}
 
 		public static function create($name, $rights) {
+			global $rights;
+			
 			$slug = \Basics\Strings::slug($name);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'members_types', 'slug', false);
 
-			if (!$slugBeing AND !empty($slug) AND !empty($rights) AND $this->type['create_cond']) {
+			if (!$slugBeing AND !empty($slug) AND !empty($rights) AND $rights['admin_access']) {
 				global $db, $clauses;
 
 				$request = $db->prepare('INSERT INTO members_types (rights) VALUES (?)');

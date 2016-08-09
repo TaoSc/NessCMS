@@ -34,7 +34,7 @@
 			foreach ($units as $seconds => $string) {
 				$duration = $interval / $seconds;
 				if ($duration >= 1) {
-					$sentence = Strings::plural($clauses->get($string), round($duration));
+					$sentence = Strings::plural($clauses->get($string), round($duration)); // called in 'relative_time'
 					return stripslashes(eval($clauses->getMagic('relative_time')));
 				}
 			}
