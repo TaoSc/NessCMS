@@ -9,7 +9,7 @@
 
 		public function __construct($language, $retrieveFile = true) {
 			$this->db = Site::getDB();
-			
+
 			$request = $this->db->prepare('SELECT id, code, enabled FROM languages WHERE code = ?');
 			$request->execute([$language]);
 			$this->language = $request->fetch(\PDO::FETCH_ASSOC);

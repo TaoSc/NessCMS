@@ -5,9 +5,7 @@
 		protected $comment;
 
 		public function __construct($id) {
-			global $db;
-
-			$request = $db->prepare('
+			$request = \Basics\Site::getDB()->prepare('
 				SELECT id, author_id, parent_id, post_id, post_type, hidden, content, language, DATE(post_date) date, TIME(post_date) time,
 				DATE(modif_date) modif_date, TIME(modif_date) modif_time
 				FROM comments
@@ -48,10 +46,9 @@
 
 		public function setComment($content, $hidden = false) {
 			if ($this->comment AND !empty($content) AND !empty($content) AND $this->comment['edit_cond']) {
-				global $db;
 				$hidden = (int) $hidden;
 
-				$request = $db->prepare('UPDATE comments SET content = ?, hidden = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE comments SET content = ?, hidden = ? WHERE id = ?');
 				$request->execute([$content, $hidden, $this->comment['id']]);
 
 				return true;
@@ -62,7 +59,7 @@
 
 		public function deleteComment($realRemoval = true) {
 			if ($this->comment AND $this->comment['removal_cond']) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				if ($realRemoval) {
 					$request = $db->prepare('DELETE FROM comments WHERE id = ?');
@@ -87,9 +84,9 @@
 			$parentId = (int) $parentId;
 
 			if ((\Basics\Site::parameter('anonymous_coms') OR $currentMemberId) AND !empty($content)) {
-				global $db, $language;
+				global $language;
 
-				$request = $db->prepare('INSERT INTO comments (author_id, ip, parent_id, post_id, post_type, hidden, content, language, post_date) VALUES (?, ?, ?, ?, ?, 0, ?, ?, NOW())');
+				$request = \Basics\Site::getDB()->prepare('INSERT INTO comments (author_id, ip, parent_id, post_id, post_type, hidden, content, language, post_date) VALUES (?, ?, ?, ?, ?, 0, ?, ?, NOW())');
 				$request->execute([$currentMemberId, \Basics\Handling::ipAddress(), $parentId, $postId, $postType, $content, $language]);
 
 				return true;

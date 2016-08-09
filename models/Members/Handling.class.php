@@ -10,7 +10,7 @@
 
 				if ($namesTestCond AND $birthDateRegex AND mb_strlen($nickname) >= 4 AND $emailRegex AND mb_strlen($pwd) >= 6) {
 					if ($nicknameTest) {
-						global $db;
+						$db = \Basics\Site::getDB();
 
 						$request = $db->prepare('SELECT id FROM members WHERE slug = ?');
 						$request->execute([$slug]);
@@ -38,14 +38,14 @@
 		}
 
 		public static function login($nickname, $pwd, $cookies = false) {
-			global $db, $clauses;
+			global $clauses;
 
 			if (preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $nickname))
 				$columnName = 'email';
 			else
 				$columnName = 'nickname';
 
-			$request = $db->prepare('SELECT id, password FROM members WHERE ' . $columnName . ' = ? AND type_id != 3');
+			$request = \Basics\Site::getDB()->prepare('SELECT id, password FROM members WHERE ' . $columnName . ' = ? AND type_id != 3');
 			$request->execute([$nickname]);
 			$member = $request->fetch(\PDO::FETCH_ASSOC);
 			$request->closeCursor();
@@ -81,9 +81,7 @@
 			$nickname = htmlspecialchars($nickname);
 			$slug = \Basics\Strings::slug($nickname);
 			if (self::check($nickname, $slug, null, null, $email, $pwd2, true, '0000-00-01', false) AND $pwd1 === $pwd2) {
-				global $db;
-
-				$request = $db->prepare('
+				$request = \Basics\Site::getDB()->prepare('
 					INSERT INTO members(type_id, nickname, slug, email, password, registration)
 					VALUES(?, ?, ?, ?, ?, NOW())
 				');

@@ -5,9 +5,7 @@
 		private $poll;
 
 		public function __construct($id) {
-			global $db;
-
-			$request = $db->prepare('SELECT id, answers, DATE(poll_date) date, TIME(poll_date) time, author_id FROM polls WHERE id = ?');
+			$request = \Basics\Site::getDB()->prepare('SELECT id, answers, DATE(poll_date) date, TIME(poll_date) time, author_id FROM polls WHERE id = ?');
 			$request->execute([$id]);
 			$this->poll = $request->fetch(\PDO::FETCH_ASSOC);
 
@@ -42,7 +40,7 @@
 
 		public function deletePoll() {
 			if ($this->poll) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				$request = $db->prepare('DELETE FROM polls WHERE id = ?');
 				$request->execute([$this->poll['id']]);
@@ -69,9 +67,9 @@
 
 		public function addVote($answerId) {
 			if ($this->poll AND !$this->poll['already_voted'] AND \Basics\Handling::recursiveArraySearch((int) $answerId, $this->poll['answers']) !== false) {
-				global $db, $currentMemberId;
+				global $currentMemberId;
 
-				$request = $db->prepare('INSERT INTO polls_users (poll_id, user_id, answer_id, ip) VALUES (?, ?, ?, ?)');
+				$request = \Basics\Site::getDB()->prepare('INSERT INTO polls_users (poll_id, user_id, answer_id, ip) VALUES (?, ?, ?, ?)');
 				$request->execute([$this->poll['id'], $currentMemberId, $answerId, \Basics\Handling::ipAddress()]);
 
 				return true;

@@ -3,12 +3,11 @@
 
 	class Handling {
 		public static function getPosts($condition = 'TRUE', $visible = true, $languageCheck = true, $offsetLimit = false, $ascending = false) {
-			global $db;
 			$order = $ascending ? 'ASC' : 'DESC';
 			if ($offsetLimit)
 				$offsetLimit = ' LIMIT ' . $offsetLimit;
 
-			$request = $db->query('SELECT id, type FROM posts WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
+			$request = \Basics\Site::getDB()->query('SELECT id, type FROM posts WHERE ' . $condition . ' ORDER BY id ' . $order . $offsetLimit);
 			$posts = $request->fetchAll(\PDO::FETCH_ASSOC);
 
 			$array = [];

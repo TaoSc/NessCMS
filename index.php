@@ -25,12 +25,7 @@
 	}
 
 	// Database connection
-	try {
-		$db = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
-	}
-	catch (Exception $error) {
-		die('Error with <b>PHP Data Objects</b> : ' . $error->getMessage());
-	}
+	Basics\Site::getDB($dbHost, $dbName, $dbUser, $dbPass);
 
 	// Variables related to the site
 	$topDir = Basics\Site::parameter('directory');
@@ -146,7 +141,6 @@
 	// Errors management
 	function error($errorMsg = 404, $showHomeBtn = true) {
 		global $siteDir, $clauses, $theme, $language, $admin, $siteName, $location, $linksDir, $subDir, $currentMemberId, $rights, $currentMember;
-		global $db; // gonna be removed
 
 		if ($errorMsg === 404)
 			header('HTTP/1.0 404 Not Found');

@@ -5,9 +5,9 @@
 		private $image;
 
 		public function __construct($id) {
-			global $subDir, $db;
+			global $subDir;
 
-			$request = $db->prepare('
+			$request = \Basics\Site::getDB()->prepare('
 				SELECT id, ext format, author_id, name, sizes, DATE(post_date) date, TIME(post_date) time, slug, type
 				FROM medias
 				WHERE id = ? AND type = \'images\'
@@ -34,8 +34,6 @@
 				if (\Basics\Handling::countEntries('images', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != ' . $this->image['id']))
 					return false;
 				else {
-					global $db;
-
 					if ($newSize) {
 						foreach ($this->image['sizes'] as $sizeLoop) {
 							if ($sizeLoop === $newSize)
@@ -46,7 +44,7 @@
 						\Basics\Images::crop($this->image['address'], 'heroes/' . $this->image['slug'], [$newSize]);
 					}
 
-					$request = $db->prepare('UPDATE posts SET title = ?, slug = ?, content = ?, description = ? WHERE id = ?');
+					$request = \Basics\Site::getDB()->prepare('UPDATE posts SET title = ?, slug = ?, content = ?, description = ? WHERE id = ?');
 					$request->execute([$newName, $newSlug, json_encode($this->image['sizes']), $newDescription, $this->image['id']]);
 
 					return true;
@@ -58,7 +56,7 @@
 
 		public function deleteImage($size = false) {
 			if ($this->image) {
-				global $db;
+				$db = \Basics\Site::getDB();
 
 				if ($size) {
 					$size = explode('x', $size);
@@ -93,7 +91,7 @@
 		}
 
 		public static function create($imageAddress, $imageName, $imageSizes = [[100, 70]]) {
-			global $siteDir, $db, $currentMemberId;
+			global $siteDir, $currentMemberId;
 
 			$imageInfos = pathinfo($imageAddress);
 			if (!isset($imageInfos['extension']) OR empty($imageInfos['extension']))
@@ -108,7 +106,7 @@
 			$imageExtension = \Basics\Images::crop($imageAddress, 'heroes/' . $imageSlug, $imageSizes);
 			copy($imageAddress, $siteDir . 'images/heroes/' . $imageSlug . '.' . $imageExtension);
 
-			$request = $db->prepare('
+			$request = \Basics\Site::getDB()->prepare('
 				INSERT INTO medias(id, ext, author_id, name, sizes, post_date, slug, type)
 				VALUES(?, ?, ?, ?, ?, NOW(), ?, ?)
 			');
