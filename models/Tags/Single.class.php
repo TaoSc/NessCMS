@@ -21,7 +21,7 @@
 			$this->tag = $request->fetch(\PDO::FETCH_ASSOC);
 		}
 
-		function getTag() {
+		public function getTag() {
 			if ($this->tag) {
 				global $clauses;
 
@@ -34,7 +34,7 @@
 			return $this->tag;
 		}
 
-		function getPosts($offset = 0, $limit = 9999, $postsIds = null, $visible = true) {
+		public function getPosts($offset = 0, $limit = 9999, $postsIds = null, $visible = true) {
 			global $db;
 			$postsIds = (array) $postsIds;
 
@@ -65,7 +65,7 @@
 			return \Posts\Handling::getPosts($condition, $visible, true, $offset . ', ' . $limit);
 		}
 
-		function setTag($name, $type) {
+		public function setTag($name, $type) {
 			$slug = \Basics\Strings::slug($name);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'tags', 'slug', false);
 
@@ -83,7 +83,7 @@
 				return false;
 		}
 
-		function deleteTag() {
+		public function deleteTag() {
 			if ($this->tag AND $this->tag['id'] != 1) {
 				global $db;
 

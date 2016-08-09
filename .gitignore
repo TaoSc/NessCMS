@@ -1,6 +1,6 @@
 # Windows image file caches
-Thumbs.db
-ehthumbs.db
+#Thumbs.db
+#ehthumbs.db
 
 # Folder config file
 Desktop.ini
@@ -21,12 +21,12 @@ $RECYCLE.BIN/
 # OSX
 # =========================
 
-.DS_Store
+#.DS_Store
 .AppleDouble
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+#Icon
 
 # Thumbnails
 ._*
@@ -76,3 +76,7 @@ images/heroes/the-legend-of-zelda-wii-u-750x400.jpg
 images/heroes/the-legend-of-zelda-wii-u.jpg
 models/Categories/Single.old.class.php
 models/News/Single.old.class.php
+images/Thumbs.db
+themes/default/images/Thumbs.db
+images/avatars/Thumbs.db
+images/heroes/Thumbs.db
