@@ -40,7 +40,7 @@
 				$this->post['availability'] = $clauses->getDB('posts', $this->post['id'], 'availability', false);
 				$this->post['slug'] = $clauses->getDB('posts', $this->post['id'], 'slug', false);
 
-				if ((!$this->post['availability'] OR !$this->post['slug']) AND $visible != false)
+				if ((!$this->post['availability'] OR !$this->post['slug']) AND $visible != 0)
 					$this->post = false;
 				else {
 					$request = $db->prepare('
