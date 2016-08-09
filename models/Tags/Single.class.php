@@ -3,7 +3,7 @@
 
 	class Single {
 		protected $tag;
-		static $types = [
+		public static $types = [
 			'tag',
 			'game',
 			'developer',
@@ -102,7 +102,7 @@
 				return false;
 		}
 
-		static function create($name, $type) {
+		public static function create($name, $type) {
 			if (!empty($name) AND !empty($type)) {
 				$slug = \Basics\Strings::slug($name);
 

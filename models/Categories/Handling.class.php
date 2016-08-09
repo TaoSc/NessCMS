@@ -2,7 +2,7 @@
 	namespace Categories;
 
 	class Handling {
-		static function getCategories($condition = 'TRUE') {
+		public static function getCategories($condition = 'TRUE') {
 			return \Basics\Handling::getList('type = \'category\' AND (' . $condition . ')', 'tags', 'Categories', 'Category');
 		}
 	}

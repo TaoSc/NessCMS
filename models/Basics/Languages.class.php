@@ -141,7 +141,7 @@
 			return $request->fetch(\PDO::FETCH_ASSOC)['language'];
 		}
 
-		static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
+		public static function getLanguages($condition = 'TRUE', $originLanguage = false, $codesOnly = false) {
 			return Handling::getList($condition, 'languages', 'Basics', 'Language', false, $codesOnly, false, [$originLanguage], false);
 		}
 	}

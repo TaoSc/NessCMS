@@ -2,7 +2,7 @@
 	namespace Comments;
 
 	class Handling {
-		static function getComments($condition = 'TRUE', $languageCheck = false, $hidden = true, $ascending = false, $offsetLimit = false, $idsOnly = false, $lineJump = true) {
+		public static function getComments($condition = 'TRUE', $languageCheck = false, $hidden = true, $ascending = false, $offsetLimit = false, $idsOnly = false, $lineJump = true) {
 			global $language;
 			if ($languageCheck)
 				$condition .= ' AND language = \'' . $language . '\'';
@@ -12,7 +12,7 @@
 			return \Basics\Handling::getList($condition, 'comments', 'Comments', 'Comment', $offsetLimit, $idsOnly, $ascending, $lineJump);
 		}
 
-		static function countComments($parentId, $postId, $postType, $languageCheck = true, $hidden = true) {
+		public static function countComments($parentId, $postId, $postType, $languageCheck = true, $hidden = true) {
 			global $language;
 			$basicCondition = 'post_id = ' . $postId . ' AND post_type = \'' . $postType . '\'';
 			$advancedCondition = null;
@@ -38,7 +38,7 @@
 			return $allCommentsNbr;
 		}
 
-		static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $order = false, $hidden = true, $commentsPerPage = false) {
+		public static function view($postId, $postType = 'news', $actualPage = 1, $languageCheck = true, $order = false, $hidden = true, $commentsPerPage = false) {
 			global $siteDir, $linksDir, $clauses, $location, $language, $currentMemberId, $theme;
 			$basicCondition = 'post_id = ' . $postId . ' AND post_type = \'' . $postType . '\'';
 			$advancedCondition = null;

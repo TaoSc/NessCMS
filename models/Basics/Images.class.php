@@ -2,7 +2,7 @@
 	namespace Basics;
 
 	class Images {
-		static function crop($src, $dstUrl, $dstSizes = null) {
+		public static function crop($src, $dstUrl, $dstSizes = null) {
 			if (!isset(pathinfo($src)['extension']))
 				die('Error.');
 			ini_set('memory_limit', '-1');

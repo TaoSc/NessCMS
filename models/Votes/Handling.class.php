@@ -2,7 +2,7 @@
 	namespace Votes;
 
 	class Handling {
-		static function number($postId, $tableName = 'posts', $state = 1) {
+		public static function number($postId, $tableName = 'posts', $state = 1) {
 			global $db;
 
 			$request = $db->prepare('SELECT COUNT(*) likes_nbr FROM votes WHERE table_name = ? AND post_id = ? AND state = ?');
@@ -11,7 +11,7 @@
 			return (int) $request->fetch(\PDO::FETCH_ASSOC)['likes_nbr'];
 		}
 
-		static function send($postId, $state = 1, $tableName = 'posts') {
+		public static function send($postId, $state = 1, $tableName = 'posts') {
 			global $currentMemberId;
 
 			if ($currentMemberId OR \Basics\Site::parameter('anonymous_votes')) {
@@ -26,7 +26,7 @@
 				return false;
 		}
 
-		static function delete($postId, $tableName = 'posts') {
+		public static function delete($postId, $tableName = 'posts') {
 			global $currentMemberId;
 
 			if ($currentMemberId) {
@@ -41,7 +41,7 @@
 				return false;
 		}
 
-		static function did($postId, $tableName = 'posts') {
+		public static function did($postId, $tableName = 'posts') {
 			global $currentMemberId;
 
 			if ($currentMemberId OR \Basics\Site::parameter('anonymous_votes')) {

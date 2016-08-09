@@ -2,7 +2,7 @@
 	namespace Basics;
 
 	class Site {
-		static function parameter($name, $newValue = null) {
+		public static function parameter($name, $newValue = null) {
 			global $db;
 
 			if ($newValue === null) {
@@ -18,7 +18,7 @@
 			}
 		}
 
-		static function cookie($name, $newValue = null) {
+		public static function cookie($name, $newValue = null) {
 			global $siteName, $topDir;
 
 			if ($newValue === null) {
@@ -28,7 +28,7 @@
 				setcookie(Strings::slug($siteName) . '_' . $name, $newValue, time() + 63072000, $topDir, null, false, true);
 		}
 
-		static function session($name, $newValue = null) {
+		public static function session($name, $newValue = null) {
 			global $siteName;
 			if ($newValue === null)
 				return !isset($_SESSION[Strings::slug($siteName) . '_' . $name]) ? false : $_SESSION[Strings::slug($siteName) . '_' . $name];

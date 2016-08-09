@@ -3,7 +3,7 @@
 
 	class Type {
 		private $type;
-		static $rights = [
+		public static $rights = [
 			'admin_access',
 			'config_edit',
 			'news_create',
@@ -92,7 +92,7 @@
 				return false;
 		}
 
-		static function create($name, $rights) {
+		public static function create($name, $rights) {
 			$slug = \Basics\Strings::slug($name);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'members_types', 'slug', false);
 

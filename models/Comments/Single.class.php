@@ -82,7 +82,7 @@
 				return false;
 		}
 
-		static function create($parentId, $postId, $postType, $content) {
+		public static function create($parentId, $postId, $postType, $content) {
 			global $currentMemberId;
 			$parentId = (int) $parentId;
 

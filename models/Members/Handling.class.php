@@ -2,7 +2,7 @@
 	namespace Members;
 
 	class Handling {
-		static function check($nickname, $slug, $firstName, $lastName, $email, $pwd, $nicknameTest = true, $birthDate = '0000-00-01', $namesTest = true) {
+		public static function check($nickname, $slug, $firstName, $lastName, $email, $pwd, $nicknameTest = true, $birthDate = '0000-00-01', $namesTest = true) {
 			if (!empty($birthDate) AND $birthDate !== '0000-00-00' AND !empty($nickname) AND !empty($email) AND !empty($pwd)) {
 				$birthDateRegex = preg_match('#^([0-9]{4})-([0-9]{2})-([0-9]{2})$#', $birthDate);
 				$emailRegex = preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $email);
@@ -37,7 +37,7 @@
 				return false;
 		}
 
-		static function login($nickname, $pwd, $cookies = false) {
+		public static function login($nickname, $pwd, $cookies = false) {
 			global $db, $clauses;
 
 			if (preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $nickname))
@@ -67,7 +67,7 @@
 				return false;
 		}
 
-		static function logout() {
+		public static function logout() {
 			global $topDir;
 
 			session_destroy();
@@ -77,7 +77,7 @@
 			return true;
 		}
 
-		static function registration($nickname, $email, $pwd1, $pwd2, $cookies = false, $admin = false) {
+		public static function registration($nickname, $email, $pwd1, $pwd2, $cookies = false, $admin = false) {
 			$nickname = htmlspecialchars($nickname);
 			$slug = \Basics\Strings::slug($nickname);
 			if (self::check($nickname, $slug, null, null, $email, $pwd2, true, '0000-00-01', false) AND $pwd1 === $pwd2) {

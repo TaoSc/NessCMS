@@ -19,7 +19,7 @@
 				}
 
 				if ($comment['language']['code'] !== $language)
-					echo ' · <b>' . $clauses->get('comment_lang_info') . Basics\Strings::mb_lcfirst($comment['language']['lang_name']) . '</b>';
+					echo ' · <b>' . $clauses->get('comment_lang_info') . Basics\Strings::lcFirst($comment['language']['lang_name']) . '</b>';
 ?>
 				</div>
 			</div>

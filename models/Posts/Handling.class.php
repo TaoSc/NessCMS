@@ -2,7 +2,7 @@
 	namespace Posts;
 
 	class Handling {
-		static function getPosts($condition = 'TRUE', $visible = true, $languageCheck = true, $offsetLimit = false, $ascending = false) {
+		public static function getPosts($condition = 'TRUE', $visible = true, $languageCheck = true, $offsetLimit = false, $ascending = false) {
 			global $db, $language;
 			$order = $ascending ? 'ASC' : 'DESC';
 			if ($offsetLimit)
@@ -13,7 +13,7 @@
 
 			$array = [];
 			foreach ($posts as $element) {
-				$postType = \Basics\Strings::mb_ucfirst($element['type']);
+				$postType = \Basics\Strings::ucFirst($element['type']);
 				$className = '\\' . $postType . '\\Single';
 				$array[] = call_user_func([(new $className($element['id'], $visible, $languageCheck)), 'get' . $postType]);
 			}

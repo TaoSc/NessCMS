@@ -4,13 +4,13 @@
 	abstract class Single {
 		protected $post;
 		protected $languageCheck;
-		static $imgsSizes = [
+		public static $imgsSizes = [
 			[200, 70],
 			[250, 100],
 			[750, 100],
 			[750, 400]
 		];
-		static $priorities = [
+		public static $priorities = [
 			'important',
 			'normal',
 			'low'
@@ -160,7 +160,7 @@
 				return false;
 		}
 
-		static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, $type = 'news', $parseSlug = true) {
+		public static protected function createAbstract($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, $type = 'news', $parseSlug = true) {
 			if (!empty($subTitle) AND !empty($content) AND !empty($categoryId) AND !empty($tagsIds) AND !empty($img) AND \Basics\Handling::countEntries('tags', 'id = ' . $categoryId . ' AND type = \'category\'') AND in_array($priority, Single::$priorities)) {
 				if (empty($slug))
 					$slug = $title;

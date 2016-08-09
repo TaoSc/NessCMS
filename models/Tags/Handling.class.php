@@ -2,7 +2,7 @@
 	namespace Tags;
 
 	class Handling {
-		static function getTags($condition = 'TRUE') {
+		public static function getTags($condition = 'TRUE') {
 			return \Basics\Handling::getList($condition, 'tags', 'Tags', 'Tag');
 
 			// foreach ($datas as $key => $tagLoop)
@@ -11,7 +11,7 @@
 			// return $datas;
 		}
 
-		static function createRelation($oldTagsIds, $tagsIds, $incomingId, $incomingType) {
+		public static function createRelation($oldTagsIds, $tagsIds, $incomingId, $incomingType) {
 			global $db;
 			$tempOldTagsIds = [];
 			foreach ($oldTagsIds as $tagLoop)
@@ -38,7 +38,7 @@
 			}
 		}
 
-		static function tagAndGame($getGame = true, $id, $tagType = 'game') {
+		public static function tagAndGame($getGame = true, $id, $tagType = 'game') {
 			global $db;
 
 			if ($getGame) {

@@ -2,7 +2,7 @@
 	namespace Basics;
 
 	class Templates {
-		static function basicHeaders() {
+		public static function basicHeaders() {
 			global $linksDir, $subDir, $CMSVersion;
 
 			echo '<meta charset="utf-8">', PHP_EOL,
@@ -14,7 +14,7 @@
 				 '<script src="' . $subDir . 'js/bootstrap.min.js"></script>' . PHP_EOL;
 		}
 
-		static function textList($array) {
+		public static function textList($array) {
 			$list = null;
 
 			foreach ($array as $element) {
@@ -27,13 +27,13 @@
 			echo trim($list, '<hr>' . PHP_EOL);
 		}
 
-		static function dateTime($date, $time) {
+		public static function dateTime($date, $time) {
 			global $clauses;
 
 			echo Dates::sexyDate($date, true, true) . ' ' . $clauses->get('at') . ' ' . Dates::sexyTime($date . ' ' . $time);
 		}
 
-		static function getImg($slug, $extension, $width, $height, $relativeLoc = true) {
+		public static function getImg($slug, $extension, $width, $height, $relativeLoc = true) {
 			if ($relativeLoc) {
 				global $subDir;
 				$dir = &$subDir;
@@ -46,7 +46,7 @@
 			return $dir . 'images/' . $slug . '-' . $width . 'x' . $height .  '.' . $extension;
 		}
 
-		static function pollAnswers($poll) {
+		public static function pollAnswers($poll) {
 			global $siteDir, $clauses, $theme;
 
 			if ($poll['already_voted'])
@@ -55,13 +55,13 @@
 			include $siteDir . $theme['dir'] . 'views/Templates/pollAnswers.php';
 		}
 
-		static function smallUserBox($member, $size = 'col-sm-5') {
+		public static function smallUserBox($member, $size = 'col-sm-5') {
 			global $siteDir, $linksDir, $clauses, $theme;
 
 			include $siteDir . $theme['dir'] . 'views/Templates/smallUserBox.php';
 		}
 
-		static function postsList($postsArray, $emptyMessage = 'no_news') {
+		public static function postsList($postsArray, $emptyMessage = 'no_news') {
 			global $siteDir, $linksDir, $clauses, $theme, $params, $foldersDepth;
 			foreach ($postsArray as $key => $postLoop) {
 				$height = 100;
@@ -80,7 +80,7 @@
 			include $siteDir . $theme['dir'] . 'views/Templates/postsList.php';
 		}
 
-		static function comment($comment, $languageCheck, $hidden, $commentsTemplate = false) {
+		public static function comment($comment, $languageCheck, $hidden, $commentsTemplate = false) {
 			global $siteDir, $linksDir, $language, $clauses, $currentMemberId, $theme;
 			$commentAnswers = \Comments\Handling::getComments('parent_id = ' . $comment['id'], $languageCheck, $hidden, true);
 

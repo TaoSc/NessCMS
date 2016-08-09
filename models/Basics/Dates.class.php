@@ -2,7 +2,7 @@
 	namespace Basics;
 
 	class Dates {
-		static function countryDate($date, $language = null) {
+		public static function countryDate($date, $language = null) {
 			if ($language === null)
 				global $language;
 
@@ -15,7 +15,7 @@
 			return $date->format($dateFormat);
 		}
 
-		static function relativeTime($date, $time) {
+		public static function relativeTime($date, $time) {
 			global $clauses;
 
 			$interval = time() - strtotime($date . ' ' . $time);
@@ -40,7 +40,7 @@
 			}
 		}
 
-		static function sexyDate($date, $cutDays = false, $today = false) {
+		public static function sexyDate($date, $cutDays = false, $today = false) {
 			global $language, $clauses;
 
 			if ($today AND $date === (new \DateTime)->format('Y-m-d'))
@@ -64,7 +64,7 @@
 			return stripslashes(eval($clauses->getMagic('sexy_date_format')));
 		}
 
-		static function enDaySuffix($day) {
+		public static function enDaySuffix($day) {
 			switch ($day) {
 				case 1: case 21: case 31: return 'st';
 				case 2: case 22:          return 'nd';
@@ -73,13 +73,13 @@
 			return 'th';
 		}
 
-		static function sexyTime($date) {
+		public static function sexyTime($date) {
 			global $clauses;
 
 			return (new \DateTime($date))->format($clauses->get('time_format'));
 		}
 
-		static function age($birthDate) {
+		public static function age($birthDate) {
 			list($year, $month, $day) = explode('-', $birthDate);
 			$now = (new \DateTime());
 			$todayMonth = $now->format('n');

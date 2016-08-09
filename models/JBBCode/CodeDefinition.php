@@ -38,7 +38,7 @@ class CodeDefinition
     /**
      * Constructs a new CodeDefinition.
      */
-    public static function construct($tagName, $replacementText, $useOption = false,
+    public public static function construct($tagName, $replacementText, $useOption = false,
             $parseContent = true, $nestLimit = -1, $optionValidator = array(),
             $bodyValidator = null)
     {
@@ -57,7 +57,7 @@ class CodeDefinition
     /**
      * Constructs a new CodeDefinition. 
      *
-     * This constructor is deprecated. You should use the static construct() method or the
+     * This constructor is deprecated. You should use the public static construct() method or the
      * CodeDefinitionBuilder class to construct a new CodeDefiniton.
      *
      * @deprecated

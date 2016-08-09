@@ -61,7 +61,7 @@
 				return false;
 		}
 
-		/*static function createPoll($question, ) {
+		/*public static function createPoll($question, ) {
 			if () {
 				
 			}

@@ -59,7 +59,7 @@
 				return false;
 		}
 
-		static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true) {
+		public static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true) {
 			if ($this->news['create_cond']) {
 				global $rights;
 				if (!$rights['news_publish'])

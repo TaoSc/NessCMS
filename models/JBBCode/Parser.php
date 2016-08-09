@@ -388,7 +388,7 @@ class Parser
     {
         $buffer = "";
         $tagName = "";
-        $state = static::OPTION_STATE_TAGNAME;
+        $state = public static::OPTION_STATE_TAGNAME;
         $keys = array();
         $values = array();
         $options = array();
@@ -401,16 +401,16 @@ class Parser
             while(!$done){
                 $char = $idx < $len ? $tagContent[$idx]:null;
                 switch($state){
-                    case static::OPTION_STATE_TAGNAME:
+                    case public static::OPTION_STATE_TAGNAME:
                         switch($char){
                             case '=':
-                                $state = static::OPTION_STATE_VALUE;
+                                $state = public static::OPTION_STATE_VALUE;
                                 $tagName = $buffer;
                                 $keys[] = $tagName;
                                 $buffer = "";
                                 break;
                             case ' ':
-                                $state = static::OPTION_STATE_DEFAULT;
+                                $state = public static::OPTION_STATE_DEFAULT;
                                 $tagName = $buffer;
                                 $buffer = '';
                                 $keys[] = $tagName;
@@ -426,30 +426,30 @@ class Parser
                         }
                         break;
 
-                    case static::OPTION_STATE_DEFAULT:
+                    case public static::OPTION_STATE_DEFAULT:
                         switch($char){
                             case ' ':
                                 // do nothing
                             default:
-                                $state = static::OPTION_STATE_KEY;
+                                $state = public static::OPTION_STATE_KEY;
                                 $buffer .= $char;
                         }
                         break;
 
-                    case static::OPTION_STATE_VALUE:
+                    case public static::OPTION_STATE_VALUE:
                         switch($char){
                             case '"':
-                                $state = static::OPTION_STATE_QUOTED_VALUE;
+                                $state = public static::OPTION_STATE_QUOTED_VALUE;
                                 break;
                             case null: // intentional fall-through
                             case ' ': // key=value<space> delimits to next key
                                 $values[] = $buffer;
                                 $buffer = "";
-                                $state = static::OPTION_STATE_KEY;
+                                $state = public static::OPTION_STATE_KEY;
                                 break;
                             case ":":
                                 if($buffer=="javascript"){
-                                    $state = static::OPTION_STATE_JAVASCRIPT;
+                                    $state = public static::OPTION_STATE_JAVASCRIPT;
                                 }
                                 $buffer .= $char;
                                 break;
@@ -459,13 +459,13 @@ class Parser
                         }
                         break;
 
-                    case static::OPTION_STATE_JAVASCRIPT:
+                    case public static::OPTION_STATE_JAVASCRIPT:
                         switch($char){
                             case ";":
                                 $buffer .= $char;
                                 $values[] = $buffer;
                                 $buffer = "";
-                                $state = static::OPTION_STATE_KEY;
+                                $state = public static::OPTION_STATE_KEY;
 
                                 break;
                             default:
@@ -473,10 +473,10 @@ class Parser
                         }
                         break;
 
-                    case static::OPTION_STATE_KEY:
+                    case public static::OPTION_STATE_KEY:
                         switch($char){
                             case '=':
-                                $state = static::OPTION_STATE_VALUE;
+                                $state = public static::OPTION_STATE_VALUE;
                                 $keys[] = $buffer;
                                 $buffer = '';
                                 break;
@@ -488,11 +488,11 @@ class Parser
                         }
                         break;
 
-                    case static::OPTION_STATE_QUOTED_VALUE:
+                    case public static::OPTION_STATE_QUOTED_VALUE:
                         switch($char){
                             case null:
                             case '"':
-                                $state = static::OPTION_STATE_KEY;
+                                $state = public static::OPTION_STATE_KEY;
                                 $values[] = $buffer;
                                 $buffer = '';
 
@@ -508,7 +508,7 @@ class Parser
                         break;
                     default:
                         if(!empty($char)){
-                            $state = static::OPTION_STATE_KEY;
+                            $state = public static::OPTION_STATE_KEY;
                         }
 
                 }

@@ -92,7 +92,7 @@
 				return false;
 		}
 
-		static function create($imageAddress, $imageName, $imageSizes = [[100, 70]]) {
+		public static function create($imageAddress, $imageName, $imageSizes = [[100, 70]]) {
 			global $siteDir, $db, $currentMemberId;
 
 			$imageInfos = pathinfo($imageAddress);
