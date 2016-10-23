@@ -21,17 +21,17 @@
 			if ($hidden)
 				$advancedCondition .= ' AND hidden < 2';
 
-			$commentsIds = Handling::getComments($basicCondition . ' AND parent_id = ' . $parentId, $languageCheck, $hidden, false, false, true);
-			$commentsNbr = $allCommentsNbr = count($commentsIds);
+			$commentsIds = self::getComments($basicCondition . ' AND parent_id = ' . $parentId, $languageCheck, $hidden, false, false, true);
+			$allCommentsNbr = count($commentsIds);
 			foreach ($commentsIds as $commentLoop) {
-				$repliesIds = Handling::getComments($basicCondition . ' AND parent_id = ' . $commentLoop['id'], $languageCheck, $hidden, false, false, true);
+				$repliesIds = self::getComments($basicCondition . ' AND parent_id = ' . $commentLoop['id'], $languageCheck, $hidden, false, false, true);
 				$repliesNbr = count($repliesIds);
 
 				if ($repliesNbr) {
 					$allCommentsNbr += $repliesNbr;
 
 					foreach ($repliesIds as $replyLoop)
-						$allCommentsNbr += Handling::countComments($replyLoop['id'], $postId, $postType, $languageCheck, $hidden);
+						$allCommentsNbr += self::countComments($replyLoop['id'], $postId, $postType, $languageCheck, $hidden);
 				}
 			}
 
@@ -50,7 +50,7 @@
 				$commentsPerPage = \Basics\Site::parameter('coms_per_page');
 
 			$rootCommentsNbr = \Basics\Handling::countEntries('comments', $basicCondition . $advancedCondition . ' AND parent_id = 0');
-			$allCommentsNbr = Handling::countComments(0, $postId, $postType, $languageCheck, $hidden);
+			$allCommentsNbr = self::countComments(0, $postId, $postType, $languageCheck, $hidden);
 
 			$pages = (int) ceil($rootCommentsNbr / $commentsPerPage) ?: 1;
 			$actualComments = $commentsPerPage * ($actualPage - 1);
@@ -60,7 +60,7 @@
 				$offsetLimit = $actualComments . ', ' . $commentsPerPage;
 				if ($order > 1)
 					$order = $sortNeeded = 1;
-				$comments = Handling::getComments($basicCondition . ' AND parent_id = 0', $languageCheck, $hidden, $order, $offsetLimit);
+				$comments = self::getComments($basicCondition . ' AND parent_id = 0', $languageCheck, $hidden, $order, $offsetLimit);
 				if (isset($sortNeeded))
 					$comments = \Basics\Handling::twoDimSorting($comments, 'popularity');
 				$pageRootCommentsNbr = count($comments);

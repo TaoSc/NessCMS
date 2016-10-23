@@ -29,29 +29,39 @@
 			return $this->image;
 		}
 
-		public function setImage($newName, $newSlug, $newSize, $newDescription) {
-			if (!empty($newName) AND !empty($newSlug) AND $this->image) {
-				if (\Basics\Handling::countEntries('images', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != ' . $this->image['id']))
-					return false;
-				else {
-					if ($newSize) {
-						foreach ($this->image['sizes'] as $sizeLoop) {
-							if ($sizeLoop === $newSize)
-								die('Cette image a déjà été rognée avec cette taille.');
-						}
-
-						$this->image['sizes'][] = $newSize;
-						\Basics\Images::crop($this->image['address'], 'heroes/' . $this->image['slug'], [$newSize]);
-					}
-
-					$request = \Basics\Site::getDB()->prepare('UPDATE posts SET title = ?, slug = ?, content = ?, description = ? WHERE id = ?');
-					$request->execute([$newName, $newSlug, json_encode($this->image['sizes']), $newDescription, $this->image['id']]);
-
-					return true;
-				}
-			}
-			else
+		public function setImage($newName, $newSlug, $newSize) {
+			if (!$this->image OR \Basics\Handling::countEntries('medias', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != \'' . $this->image['id'] .'\''))
 				return false;
+
+
+			if ($newSize) {
+				foreach ($this->image['sizes'] as $sizeLoop) {
+					if ($sizeLoop === $newSize)
+						die('Cette image a déjà été rognée avec cette taille.');
+				}
+
+				$this->image['sizes'][] = $newSize;
+				\Basics\Images::crop($this->image['address'], 'heroes/' . $this->image['slug'], [$newSize]);
+			}
+			
+			if ($newSlug !== $this->image['slug']) {
+				global $siteDir;
+
+				foreach ($this->image['sizes'] as $sizeKey) {
+					rename(\Basics\Templates::getImg('heroes/' . $this->image['slug'], $this->image['format'], $sizeKey[0], $sizeKey[1], false), 
+					       \Basics\Templates::getImg('heroes/' . $newSlug, $this->image['format'], $sizeKey[0],$sizeKey[1], false));
+				}
+				
+				rename($siteDir . 'images/heroes/' . $this->image['slug'] . '.' . $this->image['format'], $siteDir . 'images/heroes/' . $newSlug . '.' . $this->image['format']);
+			}
+
+			$request = \Basics\Site::getDB()->prepare('UPDATE medias SET name = ?, slug = ?, sizes = ? WHERE id = ?');
+			$request->execute([(empty($newName)) ? $this->image['name'] : $newName,
+			                   (empty($newSlug)) ? $this->image['slug'] : $newSlug,
+			                   json_encode($this->image['sizes']),
+			                   $this->image['id']]);
+
+			return true;
 		}
 
 		public function deleteImage($size = false) {
@@ -95,16 +105,18 @@
 
 			$imageInfos = pathinfo($imageAddress);
 			if (!isset($imageInfos['extension']) OR empty($imageInfos['extension']))
-				return false;;
+				return false;
 
 			$imageName = $imageName ?: $imageInfos['filename'];
 			$imageSlug = \Basics\Strings::slug($imageName);
 			if (\Basics\Handling::countEntries('medias', 'type = \'images\' AND slug = \'' . $imageSlug . '\''))
-				return false;;
+				return false;
 
 			$imageIdentifier = \Basics\Strings::identifier();
 			$imageExtension = \Basics\Images::crop($imageAddress, 'heroes/' . $imageSlug, $imageSizes);
-			copy($imageAddress, $siteDir . 'images/heroes/' . $imageSlug . '.' . $imageExtension);
+
+			if (!copy($imageAddress, $siteDir . 'images/heroes/' . $imageSlug . '.' . $imageExtension))
+				return false;
 
 			$request = \Basics\Site::getDB()->prepare('
 				INSERT INTO medias(id, ext, author_id, name, sizes, post_date, slug, type)

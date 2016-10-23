@@ -33,39 +33,35 @@
 		}
 
 		public function setNews(...$traversableContent) {
-			if ($this->news['edit_cond']) {
-				global $rights;
-				if (!$rights['news_publish'])
-					$traversableContent[6] = $this->news['visible']; // Not perfect since this is not aware of the modification's history
-				$editSucceed = parent::setPost(...$traversableContent);
+			if (!$this->news['edit_cond'])
+				return false;
 
-				if ($editSucceed AND \Basics\Site::parameter('cache_enabled')) {
-					global $cache;
+			global $rights;
 
-					$cache->delete('news/' . $this->news['slug'], true);
-				}
+			if (!$rights['news_publish'])
+				$traversableContent[6] = $this->news['visible']; // Not perfect since this is not aware of the modifications history
 
-				return $editSucceed;
+			$editSucceed = parent::setPost(...$traversableContent);
+			if ($editSucceed AND \Basics\Site::parameter('cache_enabled')) {
+				global $cache;
+
+				$cache->delete('news/' . $this->news['slug'], true);
 			}
-			return false;
+
+			return $editSucceed;
 		}
 
 		public function deleteNews() {
-			if ($this->news['removal_cond']) {
-				return parent::deletePost();
-			}
-			else
-				return false;
+			return ($this->news['removal_cond']) ? parent::deletePost() : false;
 		}
 
 		public static function create($title, $subTitle, $content, $categoryId, $tagsIds = null, $img, $slug = null, $visible = false, $priority = 'normal', $comments = true, $votes = true, &$rights) {
-			if ($rights['news_create']) {
-				if (!$rights['news_publish'])
-					$visible = false;
-
-				return parent::createAbstract($title, $subTitle, $content, $categoryId, $tagsIds, $img, $slug, $visible, $priority, $comments, $votes);
-			}
-			else
+			if (!$rights['news_create'])
 				return false;
+
+			if (!$rights['news_publish'])
+				$visible = false;
+
+			return parent::createAbstract($title, $subTitle, $content, $categoryId, $tagsIds, $img, $slug, $visible, $priority, $comments, $votes);
 		}
 	}

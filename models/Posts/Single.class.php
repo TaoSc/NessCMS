@@ -101,10 +101,12 @@
 
 				$clauses->setDB('posts', $this->post['id'], true, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', $availability]);
 
-				if (empty($img))
+				if (empty($img) OR !$img = \Medias\Image::create($img, $title, Single::$imgsSizes))
 					$img = $this->post['img_id'];
-				else
-					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
+
+				if ($img == $this->post['img_id'] AND $slug !== $this->post['slug']) {
+					(new \Medias\Image($this->post['img_id']))->setImage($title, $slug, null, null); // if the image slug is already taken nothing will change for it, the error is silenced.
+				}
 
 				\Tags\Handling::createRelation($this->post['raw_tags'], json_decode($tagsIds), $this->post['id'], 'posts');
 
