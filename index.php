@@ -6,7 +6,7 @@
 	session_start();
 	mb_internal_encoding('UTF-8');
 
-	// Classes' auto-loading
+	// Classes auto-loading
 	spl_autoload_register(function ($class) {
 		global $siteDir;
 
