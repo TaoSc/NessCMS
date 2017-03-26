@@ -1,5 +1,5 @@
 body {
-	padding-top: 10px;
+	padding-top: 1em;
 }
 
 .btn-outline {
@@ -43,8 +43,8 @@ input.tt-hint {
 	border: 1px solid black;
 	border-top: none;
 	background: white;
-	border-radius: 0px 0px 5px 5px;
-	padding: 5px 0px;
+	border-radius: 0 0 5px 5px;
+	padding: 5px 0;
 }
 .tt-suggestion {
 	cursor: pointer;
@@ -59,7 +59,7 @@ span.twitter-typeahead {
 
 @media screen and (max-width: 768px) {
 	.col-xs-no-padding {
-		padding-left: 0px !important;
-		padding-right: 0px !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
 	}
 }

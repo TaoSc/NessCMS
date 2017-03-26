@@ -1,5 +1,5 @@
 <?php
-	// Basic configurations
+	// Basic configuration
 	$siteDir = dirname(__FILE__) . '/';
 	$configFile = $siteDir . 'config.inc.php';
 	$ajaxCheck = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && mb_strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
@@ -47,7 +47,7 @@
 		$language = Basics\site::cookie('lang');
 
 	// Connected member management
-	if (Basics\site::cookie('name') AND Basics\site::cookie('password') AND !Basics\site::session('member'))
+	if (empty(Basics\site::session('member_id')) AND (Basics\site::cookie('name') AND Basics\site::cookie('password') AND !Basics\site::session('member')))
 		Members\Handling::login(Basics\site::cookie('name'), Basics\site::cookie('password'));
 	if (empty(Basics\site::session('member_id')))
 		$currentMemberId = 0;
@@ -197,7 +197,7 @@
 	else
 		error();
 
-	// Page's display management and cache writing
+	// Page display management and cache writing
 	if (isset($viewPath)) {
 		$cachingCond = (\Basics\Site::parameter('cache_enabled') AND (!isset($caching) OR (isset($caching) AND $caching === true)) AND !$admin);
 		if ($cachingCond) {

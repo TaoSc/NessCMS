@@ -11,7 +11,7 @@ $(function () {
 	var sideSlider = $('[data-toggle=collapse-side]'),
 		sel = sideSlider.attr('data-target'),
 		sel2 = sideSlider.attr('data-target-2');
-	sideSlider.click(function(event){
+	sideSlider.click(function (event) {
 		$(sel).toggleClass('in');
 		$(sel2).toggleClass('out');
 	});
@@ -22,18 +22,18 @@ $(function () {
 
 	if ($('.poll-template').html()) {
 		var get = $.get(linksDir + 'polls/' + $('.poll-template').attr('data-poll-id'));
-		get.done(function (datas) {
-			$('.poll-template').replaceWith(datas);
+		get.done(function (data) {
+			$('.poll-template').replaceWith(data);
 		});
 
 		$('.poll-template').parent().on('click', 'input[name=poll_radios]', function () {
 			var posting = $.post(linksDir + 'polls/' + $('.poll-template').attr('data-poll-id') + '/send', {'poll_radios': $('input[name=poll_radios]:checked').attr('value')});
-			posting.done(function (datas) {
-				var decodedDatas = JSON.parse(datas);
+			posting.done(function (data) {
+				var decodedData = JSON.parse(data);
 
-				$('.poll-template').replaceWith(decodedDatas['poll_answers']);
+				$('.poll-template').replaceWith(decodedData['poll_answers']);
 				if ($('.poll-participants').html())
-					$('.poll-participants').text(decodedDatas['poll_participants']);
+					$('.poll-participants').text(decodedData['poll_participants']);
 			});
 		});
 	}
@@ -44,8 +44,8 @@ $(function () {
 			voteState = $(this).attr('value'),
 			posting = $.post(linksDir + 'votes/' + type + '/' + id, {'vote_state': voteState});
 
-		posting.done(function (datas) {
-			var decodedDatas = JSON.parse(datas);
+		posting.done(function (data) {
+			var decodedData = JSON.parse(data);
 				btnSelector = 'button.vote-btn[data-id=' + id + '][data-type=' + type + ']'; // Not perfect but it works indeed
 
 			if (voteState === 'strip')
@@ -55,7 +55,7 @@ $(function () {
 				var btnState = $(this).attr('value');
 
 				if (btnState !== 'strip') {
-					$('span.votes-nbr', this).text(decodedDatas[btnState]);
+					$('span.votes-nbr', this).text(decodedData[btnState]);
 
 					$(this).prop('disabled', function (index, value) {
 						return !value;
@@ -76,9 +76,9 @@ $(function () {
 			actualLink = $(this).attr('href');
 			if (commentsLatestLink !== actualLink) {
 				var get = $.get(actualLink);
-				get.done(function (datas) {
+				get.done(function (data) {
 					commentsLatestLink = actualLink;
-					$('#comments').replaceWith(datas);
+					$('#comments').replaceWith(data);
 					$('#comments input#location').attr('value', commentsLocation);
 					$('.comments-list img').lazyload({effect : 'fadeIn'});
 				});

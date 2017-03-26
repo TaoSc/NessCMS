@@ -70,7 +70,7 @@ registered			= registered
 members				= Members
 send				= Send
 details				= details
-cookies_login		= Stay Connected
+cookies_login		= Stay Connected?
 cookies_login_info	= You need to accept the usage of cookies
 error_home_btn		= Take me home!
 error_previous_btn	= Previous page
@@ -118,7 +118,7 @@ login_needed		= You must be logged in to view this page.
 login_fail			= We were unable to log you in.<br><a href="{$linksDir}members/login">Click here</a> to do it manually.
 login_bad_pass		= A problem occurred while logging you in.<br>You have probably <i>mistyped your password</i>.<br><a href="{$linksDir}members/login">Click here to try again.</a>
 invalid_user		= Banned or nonexistent member.
-already_logged_in	= You're already logged in.
+already_logged_in	= You are already logged in.
 registration_fail	= An error has occurred during your registration.<br><a href="{$linksDir}members/registration">Go back to the form</a>.
 comment_fail		= Your comment couldn't be sent.
 polls_vote_fail		= Your vote hasn't been added.<br>Likely you've already voted.

@@ -70,7 +70,7 @@ registered			= inscrit
 members				= Membres
 send				= Envoyer
 details				= détails
-cookies_login		= Rester connecté
+cookies_login		= Rester connecté?
 cookies_login_info	= Vous devez accepter l'utilisation des cookies
 error_home_btn		= Ramenez-moi à l'accueil !
 error_previous_btn	= Page précédente
@@ -121,7 +121,7 @@ invalid_user		= Membre banni ou inexistant.
 already_logged_in	= Vous êtes déjà connecté.
 registration_fail	= Une erreur est survenue lors de votre inscription.<br><a href="{$linksDir}members/registration">Retourner au formulaire</a>.
 comment_fail		= Votre commentaire n'a pas pu être envoyé.
-polls_vote_fail		= Votre vote n'a pas été ajouté.<br>Sans doute avez vous déjà voté.
+polls_vote_fail		= Votre vote n'a pas été ajouté.<br>Vous avez sans doute déjà voté.
 
 monday				= lundi
 tuesday				= mardi

@@ -10,7 +10,7 @@
 					self::$db = new \PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
 				}
 				catch (Exception $error) {
-					die('Error with <b>PHP Data Objects</b> : ' . $error->getMessage());
+					die('Error with <b>PHP Data Objects</b>: ' . $error->getMessage());
 				}
 			}
 
