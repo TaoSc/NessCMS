@@ -34,14 +34,14 @@
 	</head>
 	<body>
 		<header class="container">
-			<nav role="navigation" class="navbar navbar-default">
+			<nav class="navbar navbar-default">
 				<div class="navbar-header pull-left">
 					<a href="<?php echo $linksDir; ?>index" class="navbar-brand"><?php echo $siteName; ?></a>
 				</div>
 
 				<ul class="nav navbar-nav lang-selector pull-left">
 					<li class="dropdown">
-						<a data-toggle="dropdown" href="#null"><?php echo $actualLang['country_name']; ?> <b class="caret"></b></a>
+						<a data-toggle="dropdown" href="#null"><?php echo $activeLang['country_name']; ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 <?php
 							foreach ($languagesList as $languageLoop)

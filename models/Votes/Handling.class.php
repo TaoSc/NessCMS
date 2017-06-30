@@ -13,7 +13,7 @@
 			global $currentMemberId;
 
 			if ($currentMemberId OR \Basics\Site::parameter('anonymous_votes')) {
-				$request = \Basics\Site::getDB()->prepare('INSERT INTO votes(state, author_id, ip, table_name, post_id, vote_date) VALUES(?, ?, ?, ?, ?, NOW())');
+				$request = \Basics\Site::getDB()->prepare('INSERT INTO votes (state, author_id, ip, table_name, post_id, vote_date) VALUES (?, ?, ?, ?, ?, NOW())');
 				$request->execute([$state, $currentMemberId, \Basics\Handling::ipAddress(), $tableName, $postId]);
 
 				return true;

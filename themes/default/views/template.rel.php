@@ -27,12 +27,12 @@
 					</button>
 				</div>
 
-				<nav role="navigation" class="navbar-collapse pull-right">
+				<nav class="navbar-collapse pull-right">
 					<ul class="pull-left nav navbar-nav lang-selector">
 						<li class="dropdown">
 							<a data-toggle="dropdown" href="#null">
-								<span class="sprites <?php echo $actualLang['code']; ?> flag"></span>
-								<?php echo $actualLang['country_name']; ?>
+								<span class="sprites <?php echo $activeLang['code']; ?> flag"></span>
+								<?php echo $activeLang['country_name']; ?>
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
@@ -85,7 +85,7 @@
 				</nav>
 
 				<div class="navbar-inverse side-collapse in">
-					<nav role="navigation" class="navbar-collapse">
+					<nav class="navbar-collapse">
 						<ul class="nav navbar-nav">
 <?php
 							foreach ($navigation as $item) {

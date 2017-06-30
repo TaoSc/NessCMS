@@ -18,7 +18,7 @@
 
 	// System installation check
 	if (file_exists($configFile))
-		include $configFile;
+		require $configFile;
 	else {
 		include $siteDir . 'install.php';
 		die();

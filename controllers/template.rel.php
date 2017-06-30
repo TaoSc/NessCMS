@@ -1,12 +1,12 @@
 <?php
-	// $backgroundImage = ' style="background-image: url(\'' . $subDir . 'images/backgrounds/' . mt_rand(2, 21) . '.jpg\');"';
-	$actualLang = $clauses->getLanguage();
-	$languagesList = Basics\Languages::getLanguages('code != \'' . $actualLang['code'] . '\' AND enabled = true', $actualLang['code']);
+	$activeLang = $clauses->getLanguage();
+	$languagesList = Basics\Languages::getLanguages('code != \'' . $activeLang['code'] . '\' AND enabled = true', $activeLang['code']);
 
 	if ($admin) {
 		$navigation = [
 			['caption' => $clauses->get('home'), 'link' => 'admin/index'],
 			['caption' => $clauses->get('news'), 'link' => 'admin/news/index'],
+			['caption' => $clauses->get('polls'), 'link' => 'admin/polls/index'],
 			['caption' => $clauses->get('tags'), 'link' => 'admin/tags/index'],
 			['caption' => $clauses->get('members_types'), 'link' => 'admin/members-types/index'],
 			['caption' => $clauses->get('config'), 'link' => 'admin/configuration'],

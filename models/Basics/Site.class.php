@@ -3,7 +3,7 @@
 
 	class Site {
 		protected static $db;
-		
+
 		public static function getDB($dbHost = null, $dbName = null, $dbUser = null, $dbPass = null) {
 			if (!isset(self::$db)) {
 				try {

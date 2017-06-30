@@ -108,7 +108,7 @@
 				else {
 					global $currentMemberId, $clauses;
 
-					$request = \Basics\Site::getDB()->prepare('INSERT INTO tags(author_id, type) VALUES(?, ?)');
+					$request = \Basics\Site::getDB()->prepare('INSERT INTO tags (author_id, type) VALUES (?, ?)');
 					$request->execute([$currentMemberId, $type]);
 
 					$tagId = \Basics\Handling::latestId('tags');

@@ -48,7 +48,7 @@
 			if ($this->comment AND !empty($content) AND !empty($content) AND $this->comment['edit_cond']) {
 				$hidden = (int) $hidden;
 
-				$request = \Basics\Site::getDB()->prepare('UPDATE comments SET content = ?, hidden = ? WHERE id = ?');
+				$request = \Basics\Site::getDB()->prepare('UPDATE comments SET content = ?, hidden = ?, modif_date = NOW() WHERE id = ?');
 				$request->execute([$content, $hidden, $this->comment['id']]);
 
 				return true;

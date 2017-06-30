@@ -29,7 +29,7 @@
 					$tempTag = (new Single($tagLoop))->getTag();
 
 					if ($tempTag AND $tempTag['type'] !== 'category') {
-						$request = $db->prepare('INSERT INTO tags_relation(id, tag_id, incoming_id, incoming_type) VALUES(?, ?, ?, ?)');
+						$request = $db->prepare('INSERT INTO tags_relation (id, tag_id, incoming_id, incoming_type) VALUES (?, ?, ?, ?)');
 						$request->execute([\Basics\Strings::identifier(), $tagLoop, $incomingId, $incomingType]);
 					}
 					else

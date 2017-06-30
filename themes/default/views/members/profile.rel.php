@@ -38,7 +38,7 @@
 			}
 ?>
 			<dt><?php echo $clauses->get('type'); ?></dt>
-			<dd><a href="<?php echo $linksDir . 'members/types/' . $member['type']['slug']; ?>"><?php echo $member['type']['name'] ?></a></dd>
+			<dd><a href="<?php echo $linksDir . 'members/types/' . $member['type']['slug']; ?>"><?php echo $member['type']['name']; ?></a></dd>
 		</dl>
 	</div>
 </div>

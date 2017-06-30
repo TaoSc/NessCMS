@@ -82,8 +82,8 @@
 			$slug = \Basics\Strings::slug($nickname);
 			if (self::check($nickname, $slug, null, null, $email, $pwd2, true, '0000-00-01', false) AND $pwd1 === $pwd2) {
 				$request = \Basics\Site::getDB()->prepare('
-					INSERT INTO members(type_id, nickname, slug, email, password, registration)
-					VALUES(?, ?, ?, ?, ?, NOW())
+					INSERT INTO members (type_id, nickname, slug, email, password, registration)
+					VALUES (?, ?, ?, ?, ?, NOW())
 				');
 				$request->execute([($admin ? 1 : \Basics\Site::parameter('default_users_type')), $nickname, $slug, htmlspecialchars($email), hash('sha256', $pwd2)]);
 

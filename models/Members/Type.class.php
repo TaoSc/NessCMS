@@ -91,7 +91,7 @@
 
 		public static function create($name, $rights) {
 			global $rights;
-			
+
 			$slug = \Basics\Strings::slug($name);
 			$slugBeing = \Basics\Handling::idFromSlug($slug, 'members_types', 'slug', false);
 
