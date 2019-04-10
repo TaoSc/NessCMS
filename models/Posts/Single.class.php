@@ -104,7 +104,7 @@
 				if (empty($img) OR !$img = \Medias\Image::create($img, $title, Single::$imgsSizes))
 					$img = $this->post['img_id'];
 
-				if ($img == $this->post['img_id'] AND $slug !== $this->post['slug']) {
+				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') == $language AND $img == $this->post['img_id'] AND $slug !== $this->post['slug']) {
 					(new \Medias\Image($this->post['img_id']))->setImage($title, $slug, null, null); // if the image slug is already taken nothing will change for it, the error is silenced.
 				}
 

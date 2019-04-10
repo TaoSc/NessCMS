@@ -32,18 +32,18 @@
 			}
 		}
 
-		public static function cookie($name, $newValue = null) {
+		public static function cookie($name, $newValue = null, $extraTime = 63072000) {
 			global $siteName, $topDir;
 
-			if ($newValue === null) {
+			if ($newValue === null)
 				return !isset($_COOKIE[Strings::slug($siteName) . '_' . $name]) ? false : $_COOKIE[Strings::slug($siteName) . '_' . $name];
-			}
 			else
-				setcookie(Strings::slug($siteName) . '_' . $name, $newValue, time() + 63072000, $topDir, null, false, true);
+				setcookie(Strings::slug($siteName) . '_' . $name, $newValue, time() + $extraTime, $topDir, null, false, true);
 		}
 
 		public static function session($name, $newValue = null) {
 			global $siteName;
+
 			if ($newValue === null)
 				return !isset($_SESSION[Strings::slug($siteName) . '_' . $name]) ? false : $_SESSION[Strings::slug($siteName) . '_' . $name];
 			else

@@ -29,15 +29,15 @@ members				= Membres
 modify				= Modifier
 content				= Contenu
 pv_emails_sign_in	= ne sera pas affiché
-reg_date			= Date d'inscription
+reg_date			= Date d’inscription
 send_message		= Envoyer un e-mail
 send_comment_title	= Poster un commentaire
 comments			= Commentaires
-today				= Aujourd'hui
+today				= Aujourd’hui
 latest_news			= Dernières actualités
 answer				= Répondre
 hey_folks			= Salut les gens !
-img_thumb			= Miniature d'une news
+img_thumb			= Miniature d’une news
 years_old			= ans
 last_modified		= dernière modification : 
 to_like				= Aimer
@@ -64,15 +64,15 @@ remove_vote			= Enlever votre vote
 bbcode_placeholder	= Vous pouvez utiliser le BBCode.
 com_hidden_lvl1		= Le contenu de ce commentaire a été caché.
 coms_per_page		= Commentaires par page
-register			= S'inscrire
+register			= S’inscrire
 registration		= Inscription
 registered			= inscrit
 members				= Membres
 send				= Envoyer
 details				= détails
-cookies_login		= Rester connecté?
-cookies_login_info	= Vous devez accepter l'utilisation des cookies
-error_home_btn		= Ramenez-moi à l'accueil !
+cookies_login		= Rester connecté ?
+cookies_login_info	= Vous devez accepter l’utilisation des cookies
+error_home_btn		= Ramenez-moi à l’accueil !
 error_previous_btn	= Page précédente
 loading				= Chargement…
 comment_lang_info	= écrit en 
@@ -98,7 +98,7 @@ rights				= Droits
 
 no_news				= Aucunes news pour le moment.
 no_tags				= Aucuns libellés pour le moment.
-no_polls			= Il n'y a aucun sondage pour le moment.
+no_polls			= Il n’y a aucun sondage pour le moment.
 
 tag					= Libellé
 game				= Jeu
@@ -115,13 +115,13 @@ low					= Basse
 
 error				= Erreur
 login_needed		= Vous devez être connecté pour accèder à cette page.
-login_fail			= Nous n'avons pas réussi à vous connecter.<br><a href="{$linksDir}members/login">Cliquez ici</a> pour le faire manuellement.
+login_fail			= Nous n’avons pas réussi à vous connecter.<br><a href="{$linksDir}members/login">Cliquez ici</a> pour le faire manuellement.
 login_bad_pass		= Un problème est survenu lors de votre connexion.<br>Vous avez sûrement <i>mal tapé votre mot de passe</i>.<br><a href="{$linksDir}members/login">Cliquez ici pour réessayer.</a>
 invalid_user		= Membre banni ou inexistant.
 already_logged_in	= Vous êtes déjà connecté.
 registration_fail	= Une erreur est survenue lors de votre inscription.<br><a href="{$linksDir}members/registration">Retourner au formulaire</a>.
-comment_fail		= Votre commentaire n'a pas pu être envoyé.
-polls_vote_fail		= Votre vote n'a pas été ajouté.<br>Vous avez sans doute déjà voté.
+comment_fail		= Votre commentaire n’a pas pu être envoyé.
+polls_vote_fail		= Votre vote n’a pas été ajouté.<br>Vous avez sans doute déjà voté.
 
 monday				= lundi
 tuesday				= mardi

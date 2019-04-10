@@ -10,16 +10,10 @@
 		header('Refresh: 0');
 	}
 	elseif (isset($_POST['nickname']) AND isset($_POST['email']) AND isset($_POST['pwd']) AND isset($_POST['pwd2']) AND isset($_POST['site_name'])) {
-		require $configFile;
-		try {
-			$db = new \PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
-		} catch (Exception $error) {
-			die('Error with <b>PHP Data Objects</b>: <pre>' . $error->getMessage() . '</pre>');
-		}
-		$request = $db->prepare(file_get_contents($siteDir . 'NessCMS.sql'));
+		$request = \Basics\Site::getDB()->prepare(file_get_contents($siteDir . 'NessCMS.sql'));
 		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/')]);
 
-		$request = $db->query('UPDATE members SET id = 0 WHERE id = 1');
+		$request = \Basics\Site::getDB()->query('UPDATE members SET id = 0 WHERE id = 1');
 
 		$topDir = '/' . Basics\Site::parameter('directory') . '/';
 		$siteName = Basics\Site::parameter('name');
@@ -133,7 +127,7 @@
 										<div class="form-group">
 											<label class="col-md-4 col-xs-3 control-label" for="name">Name</label>
 											<div class="col-md-4 col-xs-9">
-												<input id="name" name="name" type="text" placeholder="Your database name (muste be created)" class="form-control" required>
+												<input id="name" name="name" type="text" placeholder="Your database name (must be created)" class="form-control" required>
 											</div>
 										</div>
 

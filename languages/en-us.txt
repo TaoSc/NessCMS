@@ -28,7 +28,7 @@ image				= Image
 members				= Members
 modify				= Modify
 content				= Content
-pv_emails_sign_in	= won't be shown
+pv_emails_sign_in	= won’t be shown
 reg_date			= Registration date
 send_message		= Send an e-mail
 send_comment_title	= Send a comment
@@ -120,8 +120,8 @@ login_bad_pass		= A problem occurred while logging you in.<br>You have probably 
 invalid_user		= Banned or nonexistent member.
 already_logged_in	= You are already logged in.
 registration_fail	= An error has occurred during your registration.<br><a href="{$linksDir}members/registration">Go back to the form</a>.
-comment_fail		= Your comment couldn't be sent.
-polls_vote_fail		= Your vote hasn't been added.<br>Likely you've already voted.
+comment_fail		= Your comment couldn’t be sent.
+polls_vote_fail		= Your vote hasn’t been added.<br>Likely you’ve already voted.
 
 monday				= Monday
 tuesday				= Tuesday

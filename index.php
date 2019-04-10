@@ -2,6 +2,7 @@
 	// Basic configuration
 	mb_internal_encoding('UTF-8');
 	session_start();
+	date_default_timezone_set("Europe/Paris"); // FIXME: should be configurable by admins
 	$siteDir = str_replace('\\', '/', dirname(__FILE__)) . '/';
 	$configFile = $siteDir . 'config.inc.php';
 	$ajaxCheck = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && mb_strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
@@ -27,7 +28,7 @@
 	// Database connection
 	Basics\Site::getDB($dbHost, $dbName, $dbUser, $dbPass);
 
-	// Variables related to the site
+	// Site related variables
 	$topDir = Basics\Site::parameter('directory');
 	if ($topDir)
 		$topDir = '/' . trim($topDir, '/') . '/';

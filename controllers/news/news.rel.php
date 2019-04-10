@@ -5,7 +5,7 @@
 	if (empty($news))
 		error();
 	elseif ($news['slug'] !== $params[1])
-		header('Location: ' . $subDir . 'news/' . $news['slug']);
+		header('Location: ' . $linksDir . 'news/' . $news['slug']);
 	else {
 		$previousNews = \News\Handling::getNews('id <' . $news['id'], true, true, '0, 1');
 		if (!$previousNews) {

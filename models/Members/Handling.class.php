@@ -3,7 +3,7 @@
 
 	class Handling {
 		public static function check($nickname, $slug, $firstName, $lastName, $email, $pwd, $nicknameTest = true, $birthDate = '0000-00-01', $namesTest = true) {
-			if (!empty($birthDate) AND $birthDate !== '0000-00-00' AND !empty($nickname) AND !empty($email) AND !empty($pwd) AND mb_strlen($pwd) >= 6) {
+			if (!empty($birthDate) AND $birthDate !== '0000-00-00' AND !empty($nickname) AND !empty($email) AND !empty($pwd) AND mb_strlen($pwd) >= 6 AND strpos($pwd, '¶') == false) {
 				$birthDateRegex = preg_match('#^([0-9]{4})-([0-9]{2})-([0-9]{2})$#', $birthDate);
 				$emailRegex = preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $email);
 				$namesTestCond = $namesTest ? mb_strlen($lastName) >= 2 AND mb_strlen($firstName) >= 2 : true;
@@ -37,22 +37,28 @@
 				return false;
 		}
 
-		public static function login($nickname, $pwd, $cookies = false) {
+		public static function login($nickname, $pwd, $cookies = false, $rawPass = false) {
 			global $clauses;
+
+			if (empty($nickname) OR empty($pwd) OR !empty(\Basics\site::session('member_id')))
+				return false;
 
 			if (preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $nickname))
 				$columnName = 'email';
 			else
 				$columnName = 'nickname';
 
-			$request = \Basics\Site::getDB()->prepare('SELECT id, password FROM members WHERE ' . $columnName . ' = ? AND type_id != 3');
+			$request = \Basics\Site::getDB()->prepare('SELECT id, slug, password FROM members WHERE ' . $columnName . ' = ? AND type_id != 3');
 			$request->execute([$nickname]);
 			$member = $request->fetch(\PDO::FETCH_ASSOC);
 			$request->closeCursor();
 
+			if ($rawPass)
+				$pwd = hash('sha256', $member['slug'] . '¶' . $pwd);
+
 			if (!$member)
 				return error($clauses->get('invalid_user'));
-			elseif (empty($member['id']) OR empty($nickname) OR empty($pwd) OR !empty(\Basics\site::session('member_id')))
+			elseif (empty($member['id']))
 				return false;
 			elseif ($pwd === $member['password']) {
 				if ($cookies) {
@@ -83,16 +89,18 @@
 			$slug = \Basics\Strings::slug($nickname);
 
 			if (self::check($nickname, $slug, null, null, $email, $pwd2, true, '0000-00-01', false) AND $pwd1 === $pwd2) {
+				$pwd2 = hash('sha256', $slug . '¶' . $pwd2);
+
 				$request = \Basics\Site::getDB()->prepare('
 					INSERT INTO members (type_id, nickname, slug, email, password, registration)
 					VALUES (?, ?, ?, ?, ?, NOW())
 				');
-				$request->execute([($admin ? 1 : \Basics\Site::parameter('default_user_type')), $nickname, $slug, htmlspecialchars($email), hash('sha256', $pwd2)]);
+				$request->execute([($admin ? 1 : \Basics\Site::parameter('default_user_type')), $nickname, $slug, htmlspecialchars($email), $pwd2]);
 
-				if (self::login($nickname, hash('sha256', $pwd2), $cookies))
+				if (self::login($nickname, $pwd2, $cookies))
 					return true;
 				elseif (!$admin) {
-					global $clauses;
+					global $clauses, $linksDir;
 
 					return error(stripslashes(eval($clauses->getMagic('login_fail'))));
 				}
