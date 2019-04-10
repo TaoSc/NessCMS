@@ -37,7 +37,7 @@
 			if ($newSize) {
 				foreach ($this->image['sizes'] as $sizeLoop) {
 					if ($sizeLoop === $newSize)
-						die('Cette image a déjà été rognée avec cette taille.');
+						die('Error: can not crop the image twice. Abort.');
 				}
 
 				$this->image['sizes'][] = $newSize;

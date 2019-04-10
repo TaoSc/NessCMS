@@ -39,19 +39,11 @@ config.inc.php
 themes/default/css/styles.helvetica-neue.css
 themes/default/fonts/Helvetica Neue/
 themes/default/images/backgrounds/
-images/jpegtran.exe
-images/optipng.exe
-images/optimize.cmd
-images/avatars/taos-100x100.jpg
 models/Categories/Single.old.class.php
 models/News/Single.old.class.php
-images/optimize (get rid of ICC profile).cmd
-images/heroes/news-test-200x70.jpg
-images/heroes/news-test-750x100.jpg
-images/heroes/news-test-250x100.jpg
-images/heroes/news-test-750x400.jpg
-images/heroes/news-test.jpg
-images/alt_opti/optimize.cmd
-images/alt_opti/jpeg62.dll
-images/alt_opti/jpegtran.exe
-images/alt_opti/turbojpeg.dll
+images/*
+!images/favicon.ico
+images/avatars/*
+!images/avatars/index
+images/heroes/*
+!images/heroes/index

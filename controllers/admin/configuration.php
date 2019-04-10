@@ -11,8 +11,8 @@
 		Basics\Site::parameter('url_rewriting', isset($_POST['url_rewriting']) ? true : 0);
 		if (isset($_POST['default_language']))
 			Basics\Site::parameter('default_language', $_POST['default_language']);
-		if (isset($_POST['default_users_type']))
-			Basics\Site::parameter('default_users_type', $_POST['default_users_type']);
+		if (isset($_POST['default_user_type']))
+			Basics\Site::parameter('default_user_type', $_POST['default_user_type']);
 
 		if (isset($_POST['name'])) {
 			Basics\Site::parameter('name', $_POST['name']);

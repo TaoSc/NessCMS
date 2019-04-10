@@ -3,12 +3,12 @@
 
 	class Handling {
 		public static function check($nickname, $slug, $firstName, $lastName, $email, $pwd, $nicknameTest = true, $birthDate = '0000-00-01', $namesTest = true) {
-			if (!empty($birthDate) AND $birthDate !== '0000-00-00' AND !empty($nickname) AND !empty($email) AND !empty($pwd)) {
+			if (!empty($birthDate) AND $birthDate !== '0000-00-00' AND !empty($nickname) AND !empty($email) AND !empty($pwd) AND mb_strlen($pwd) >= 6) {
 				$birthDateRegex = preg_match('#^([0-9]{4})-([0-9]{2})-([0-9]{2})$#', $birthDate);
 				$emailRegex = preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $email);
 				$namesTestCond = $namesTest ? mb_strlen($lastName) >= 2 AND mb_strlen($firstName) >= 2 : true;
 
-				if ($namesTestCond AND $birthDateRegex AND mb_strlen($nickname) >= 4 AND $emailRegex AND mb_strlen($pwd) >= 6) {
+				if ($namesTestCond AND $birthDateRegex AND mb_strlen($nickname) >= 4 AND $emailRegex) {
 					if ($nicknameTest) {
 						$db = \Basics\Site::getDB();
 
@@ -79,13 +79,15 @@
 
 		public static function registration($nickname, $email, $pwd1, $pwd2, $cookies = false, $admin = false) {
 			$nickname = htmlspecialchars($nickname);
+			$email = htmlspecialchars($email);
 			$slug = \Basics\Strings::slug($nickname);
+
 			if (self::check($nickname, $slug, null, null, $email, $pwd2, true, '0000-00-01', false) AND $pwd1 === $pwd2) {
 				$request = \Basics\Site::getDB()->prepare('
 					INSERT INTO members (type_id, nickname, slug, email, password, registration)
 					VALUES (?, ?, ?, ?, ?, NOW())
 				');
-				$request->execute([($admin ? 1 : \Basics\Site::parameter('default_users_type')), $nickname, $slug, htmlspecialchars($email), hash('sha256', $pwd2)]);
+				$request->execute([($admin ? 1 : \Basics\Site::parameter('default_user_type')), $nickname, $slug, htmlspecialchars($email), hash('sha256', $pwd2)]);
 
 				if (self::login($nickname, hash('sha256', $pwd2), $cookies))
 					return true;

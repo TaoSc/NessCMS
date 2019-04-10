@@ -1,10 +1,10 @@
 <?php
 	// Basic configuration
-	$siteDir = dirname(__FILE__) . '/';
+	mb_internal_encoding('UTF-8');
+	session_start();
+	$siteDir = str_replace('\\', '/', dirname(__FILE__)) . '/';
 	$configFile = $siteDir . 'config.inc.php';
 	$ajaxCheck = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && mb_strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-	session_start();
-	mb_internal_encoding('UTF-8');
 
 	// Classes auto-loading
 	spl_autoload_register(function ($class) {
@@ -138,7 +138,7 @@
 		$rights = (new Members\Type(3))->getRights();
 	$CMSVersion = 'dev';
 
-	// Errors management
+	// Error management
 	function error($errorMsg = 404, $showHomeBtn = true) {
 		global $siteDir, $clauses, $theme, $language, $admin, $siteName, $location, $linksDir, $subDir, $currentMemberId, $rights, $currentMember;
 

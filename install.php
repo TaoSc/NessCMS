@@ -1,6 +1,6 @@
 <?php
 	if (PHP_VERSION_ID < 50600)
-		die('Your version of PHP is too old. Please use PHP 5.6 at least.');
+		die('Your PHP version is too old. Please use PHP 5.6 at least.');
 	$language = 'en-us';
 
 	if (pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_BASENAME) === 'install.php')
@@ -10,6 +10,12 @@
 		header('Refresh: 0');
 	}
 	elseif (isset($_POST['nickname']) AND isset($_POST['email']) AND isset($_POST['pwd']) AND isset($_POST['pwd2']) AND isset($_POST['site_name'])) {
+		require $configFile;
+		try {
+			$db = new \PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
+		} catch (Exception $error) {
+			die('Error with <b>PHP Data Objects</b>: <pre>' . $error->getMessage() . '</pre>');
+		}
 		$request = $db->prepare(file_get_contents($siteDir . 'NessCMS.sql'));
 		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/')]);
 

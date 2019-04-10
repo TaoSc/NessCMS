@@ -93,13 +93,13 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-4 col-xs-3 control-label" for="default_users_type"><?php echo $clauses->get('default_users_type'); ?></label>
+			<label class="col-md-4 col-xs-3 control-label" for="default_user_type"><?php echo $clauses->get('default_user_type'); ?></label>
 			<div class="col-md-4 col-xs-9">
-				<select id="default_users_type" name="default_users_type" class="form-control">
+				<select id="default_user_type" name="default_user_type" class="form-control">
 <?php
 					foreach ($membersTypes as $typeLoop) {
 						echo '<option value="' .  $typeLoop['id'] . '"';
-						if (Basics\Site::parameter('default_users_type') === $typeLoop['id'])
+						if (Basics\Site::parameter('default_user_type') === $typeLoop['id'])
 							echo ' selected';
 						echo '>' .  $typeLoop['name'] . '</option>' . PHP_EOL;
 					}

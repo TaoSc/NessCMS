@@ -81,7 +81,7 @@
 				$request->execute(['members_types', $this->type['id']]);
 
 				$request = $db->prepare('UPDATE members SET type_id = ? WHERE type_id = ?');
-				$request->execute([\Basics\Site::parameter('default_users_type'), $this->type['id']]);
+				$request->execute([\Basics\Site::parameter('default_user_type'), $this->type['id']]);
 
 				return true;
 			}

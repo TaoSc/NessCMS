@@ -8,9 +8,8 @@
 			if (!isset(self::$db)) {
 				try {
 					self::$db = new \PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
-				}
-				catch (Exception $error) {
-					die('Error with <b>PHP Data Objects</b>: ' . $error->getMessage());
+				} catch (Exception $error) {
+					die('Error with <b>PHP Data Objects</b>: <pre>' . $error->getMessage() . '</pre>');
 				}
 			}
 

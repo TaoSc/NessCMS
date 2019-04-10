@@ -12,6 +12,7 @@
 			');
 			$request->execute([$id]);
 			$this->member = $request->fetch(\PDO::FETCH_ASSOC);
+
 			if ($this->member)
 				$this->member['id'] = (int) $this->member['id'];
 		}

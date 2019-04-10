@@ -1,4 +1,6 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -6,31 +8,32 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE IF NOT EXISTS `comments` (
+
+CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `ip` varchar(39) DEFAULT NULL,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `parent_id` int(11) NOT NULL DEFAULT 0,
   `post_id` int(11) NOT NULL,
   `post_type` varchar(255) NOT NULL,
-  `hidden` int(1) NOT NULL DEFAULT '0',
+  `hidden` int(1) NOT NULL DEFAULT 0,
   `content` text NOT NULL,
   `language` varchar(5) NOT NULL,
   `post_date` datetime NOT NULL,
   `modif_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `languages` (
+CREATE TABLE `languages` (
   `id` int(11) NOT NULL,
   `code` varchar(5) NOT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `enabled` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `languages` (`id`, `code`, `enabled`) VALUES
 (2, 'en-us', 1),
 (1, 'fr-fr', 1);
 
-CREATE TABLE IF NOT EXISTS `languages_routing` (
+CREATE TABLE `languages_routing` (
   `id` varchar(11) NOT NULL,
   `language` varchar(5) NOT NULL,
   `incoming_id` int(11) NOT NULL,
@@ -68,7 +71,7 @@ INSERT INTO `languages_routing` (`id`, `language`, `incoming_id`, `table_name`, 
 ('RCr4vOChAKa', 'fr-fr', 2, 'members_types', 'slug', 'membres'),
 ('yVadvSuXQNm', 'en-us', 2, 'members_types', 'name', 'Members');
 
-CREATE TABLE IF NOT EXISTS `medias` (
+CREATE TABLE `medias` (
   `id` varchar(11) NOT NULL,
   `ext` varchar(4) NOT NULL,
   `author_id` int(11) NOT NULL,
@@ -79,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `medias` (
   `type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `members` (
+CREATE TABLE `members` (
   `id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   `nickname` varchar(255) NOT NULL,
@@ -91,29 +94,29 @@ CREATE TABLE IF NOT EXISTS `members` (
   `last_name` varchar(255) DEFAULT NULL,
   `registration` datetime NOT NULL,
   `birth` date DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `members` (`id`, `type_id`, `nickname`, `slug`, `avatar`, `email`, `password`, `first_name`, `last_name`, `registration`, `birth`) VALUES
 (0, 3, 'Guest', 'guest', NULL, '', '', NULL, NULL, '2011-11-11 00:00:00', NULL);
 
-CREATE TABLE IF NOT EXISTS `members_types` (
+CREATE TABLE `members_types` (
   `id` int(11) NOT NULL,
   `rights` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `members_types` (`id`, `rights`) VALUES
-(1, '{"admin_access":true,"config_edit":true,"news_create":true,"news_publish":true,"news_edit":true,"comment_edit":true,"comment_moderate":true,"poll_create":true}'),
-(2, '{"admin_access":0,"config_edit":0,"news_create":true,"news_publish":0,"news_edit":0,"comment_edit":true,"comment_moderate":0,"poll_create":0}'),
-(3, '{"admin_access":0,"config_edit":0,"news_create":0,"news_publish":0,"news_edit":0,"comment_edit":0,"comment_moderate":0,"poll_create":0}');
+(1, '{\"admin_access\":true,\"config_edit\":true,\"news_create\":true,\"news_publish\":true,\"news_edit\":true,\"comment_edit\":true,\"comment_moderate\":true,\"poll_create\":true}'),
+(2, '{\"admin_access\":0,\"config_edit\":0,\"news_create\":true,\"news_publish\":0,\"news_edit\":0,\"comment_edit\":true,\"comment_moderate\":0,\"poll_create\":0}'),
+(3, '{\"admin_access\":0,\"config_edit\":0,\"news_create\":0,\"news_publish\":0,\"news_edit\":0,\"comment_edit\":0,\"comment_moderate\":0,\"poll_create\":0}');
 
-CREATE TABLE IF NOT EXISTS `polls` (
+CREATE TABLE `polls` (
   `id` int(11) NOT NULL,
   `answers` varchar(255) NOT NULL,
   `poll_date` datetime NOT NULL,
   `author_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `polls_users` (
+CREATE TABLE `polls_users` (
   `id` int(11) NOT NULL,
   `poll_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -121,21 +124,21 @@ CREATE TABLE IF NOT EXISTS `polls_users` (
   `ip` varchar(39) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `posts` (
+CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
-  `visible` tinyint(1) NOT NULL DEFAULT '1',
+  `visible` tinyint(1) NOT NULL DEFAULT 1,
   `type` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
   `img` varchar(11) NOT NULL,
   `authors_ids` varchar(255) NOT NULL,
   `priority` varchar(50) NOT NULL DEFAULT 'normal',
   `post_date` datetime NOT NULL,
-  `comments` tinyint(1) NOT NULL DEFAULT '1',
-  `votes` tinyint(1) NOT NULL DEFAULT '1',
-  `views` int(11) NOT NULL DEFAULT '0'
+  `comments` tinyint(1) NOT NULL DEFAULT 1,
+  `votes` tinyint(1) NOT NULL DEFAULT 1,
+  `views` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `site` (
+CREATE TABLE `site` (
   `name` char(100) NOT NULL,
   `value` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -143,33 +146,33 @@ CREATE TABLE IF NOT EXISTS `site` (
 INSERT INTO `site` (`name`, `value`) VALUES
 ('anonymous_coms', '1'),
 ('anonymous_votes', '1'),
+('cache_enabled', '0'),
 ('coms_per_page', '10'),
 ('default_language', 'en-us'),
-('default_users_type', '2'),
-('name', ?),
+('default_user_type', '2'),
 ('directory', ?),
+('name', ?),
 ('private_emails', '1'),
 ('theme', 'default'),
-('cache_enabled', '0'),
 ('url_rewriting', '0');
 
-CREATE TABLE IF NOT EXISTS `tags` (
+CREATE TABLE `tags` (
   `id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `type` varchar(255) NOT NULL DEFAULT 'tag'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `tags` (`id`, `author_id`, `type`) VALUES
 (1, 1, 'category');
 
-CREATE TABLE IF NOT EXISTS `tags_relation` (
+CREATE TABLE `tags_relation` (
   `id` varchar(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
   `incoming_id` int(11) NOT NULL,
   `incoming_type` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `votes` (
+CREATE TABLE `votes` (
   `id` int(11) NOT NULL,
   `state` tinyint(1) NOT NULL,
   `author_id` int(11) NOT NULL,
@@ -221,22 +224,32 @@ ALTER TABLE `votes`
 
 ALTER TABLE `comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `languages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 ALTER TABLE `members_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 ALTER TABLE `polls`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `polls_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 ALTER TABLE `votes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
