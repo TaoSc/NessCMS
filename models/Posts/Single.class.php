@@ -4,7 +4,7 @@
 	abstract class Single {
 		protected $post;
 		protected $languageCheck;
-		public static $imgsSizes = [
+		public static $imgSizes = [
 			[200, 70],
 			[250, 100],
 			[750, 100],
@@ -69,7 +69,7 @@
 
 				$this->post['time'] = \Basics\Dates::sexyTime($this->post['time']);
 
-				$this->post['img'] = (new \Medias\Image($this->post['img_id']))->getImage();
+				$this->post['img'] = (new \Media\Image($this->post['img_id']))->getImage();
 				$this->post['authors'] = [];
 				foreach ($this->post['authors_ids'] as $memberLoop)
 					$this->post['authors'][] = (new \Members\Single($memberLoop))->getMember(false);
@@ -101,11 +101,11 @@
 
 				$clauses->setDB('posts', $this->post['id'], true, ['title', $title], ['sub_title', $subTitle], ['content', $content], ['slug', $slug], ['availability', $availability]);
 
-				if (empty($img) OR !$img = \Medias\Image::create($img, $title, Single::$imgsSizes))
+				if (empty($img) OR !$img = (new \Media\Image($this->post['img_id']))->updateImage($img))
 					$img = $this->post['img_id'];
 
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') == $language AND $img == $this->post['img_id'] AND $slug !== $this->post['slug']) {
-					(new \Medias\Image($this->post['img_id']))->setImage($title, $slug, null, null); // if the image slug is already taken nothing will change for it, the error is silenced.
+					(new \Media\Image($this->post['img_id']))->setImage($title, $slug, null, null); // if the image slug is already taken nothing will change for it, the error is silenced.
 				}
 
 				\Tags\Handling::createRelation($this->post['raw_tags'], json_decode($tagsIds), $this->post['id'], 'posts');
@@ -132,7 +132,7 @@
 				$request = $db->prepare('DELETE FROM tags_relation WHERE incoming_type = ? AND incoming_id = ?');
 				$request->execute(['posts', $this->post['id']]);
 
-				(new \Medias\Image($this->post['img_id']))->deleteImage();
+				(new \Media\Image($this->post['img_id']))->deleteImage();
 
 				return true;
 			}
@@ -174,7 +174,7 @@
 				else {
 					global $currentMemberId, $clauses;
 
-					$img = \Medias\Image::create($img, $title, Single::$imgsSizes);
+					$img = \Media\Image::create($img, $title, Single::$imgSizes);
 
 					$request = \Basics\Site::getDB()->prepare('
 						INSERT INTO posts (visible, type, category_id, img, authors_ids, priority, post_date, comments, votes)

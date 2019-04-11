@@ -7,7 +7,7 @@
 ?>
 		<div class="col-lg-12 <?php echo $postLoop['priority']; ?> news<?php if ($postLoop['priority'] !== 'important') echo ' no-padding'; ?>">
 			<a href="<?php echo $linksDir . $postLoop['type'] . '/' . $postLoop['slug']; ?>">
-				<?php if ($postLoop['priority'] === 'important') echo '<span class="sprites hotThumbLow"></span>'; ?>
+				<?php if ($postLoop['priority'] === 'important') echo '<span class="sprites hotThumbLow glyphicon glyphicon-fire"></span>'; ?>
 				<img data-original="<?php echo $postLoop['img_address']; ?>" alt="<?php echo $clauses->get('img_thumb'); ?>">
 				<?php if ($postLoop['priority'] === 'important') echo '<div class="mask"></div>'; ?>
 				<h3><?php echo $postLoop['title']; ?></h3>

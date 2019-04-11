@@ -57,8 +57,9 @@ span.hotThumbLow {
 	float: left;
 	z-index: 10;
 }
-span.hotThumbLow::after {
-	content: '';
+span.hotThumbLow::before {
+	text-shadow: 0px 1px 1px black;
+	color: white;
 	width: 15px;
 	height: 15px;
 	display: block;
@@ -66,7 +67,6 @@ span.hotThumbLow::after {
 	top: -35px;
 	left: 5px;
 	z-index: 11;
-	background: url('../images/flame-low.png');
 	float: left;
 }
 span.hel-neue-light {

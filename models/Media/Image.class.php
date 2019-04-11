@@ -1,5 +1,5 @@
 <?php
-	namespace Medias;
+	namespace Media;
 
 	class Image {
 		private $image;
@@ -9,7 +9,7 @@
 
 			$request = \Basics\Site::getDB()->prepare('
 				SELECT id, ext format, author_id, name, sizes, DATE(post_date) date, TIME(post_date) time, slug, type
-				FROM medias
+				FROM media
 				WHERE id = ? AND type = \'images\'
 			');
 			$request->execute([$id]);
@@ -30,7 +30,7 @@
 		}
 
 		public function setImage($newName, $newSlug, $newSize) {
-			if (!$this->image OR \Basics\Handling::countEntries('medias', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != \'' . $this->image['id'] .'\''))
+			if (!$this->image OR \Basics\Handling::countEntries('media', 'type = \'images\' AND slug = \'' . $newSlug . '\' AND id != \'' . $this->image['id'] .'\''))
 				return false;
 
 
@@ -55,7 +55,7 @@
 				rename($siteDir . 'images/heroes/' . $this->image['slug'] . '.' . $this->image['format'], $siteDir . 'images/heroes/' . $newSlug . '.' . $this->image['format']);
 			}
 
-			$request = \Basics\Site::getDB()->prepare('UPDATE medias SET name = ?, slug = ?, sizes = ? WHERE id = ?');
+			$request = \Basics\Site::getDB()->prepare('UPDATE media SET name = ?, slug = ?, sizes = ? WHERE id = ?');
 			$request->execute([(empty($newName)) ? $this->image['name'] : $newName,
 			                   (empty($newSlug)) ? $this->image['slug'] : $newSlug,
 			                   json_encode($this->image['sizes']),
@@ -77,8 +77,8 @@
 
 						unset($this->image['sizes'][$sizeKey]);
 
-						$request = $db->prepare('UPDATE medias SET sizes = ? WHERE type = ? AND id = ?');
-						$request->execute(['images', json_encode($this->image['sizes']), $this->image['id']]);
+						$request = $db->prepare('UPDATE media SET sizes = ? WHERE type = ? AND id = ?');
+						$request->execute([json_encode($this->image['sizes']), 'images', $this->image['id']]);
 					}
 					else
 						return false;
@@ -86,7 +86,7 @@
 				else {
 					global $siteDir;
 
-					$request = $db->prepare('DELETE FROM medias WHERE type = ? AND id = ?');
+					$request = $db->prepare('DELETE FROM media WHERE type = ? AND id = ?');
 					$request->execute(['images', $this->image['id']]);
 
 					$filesList = glob($siteDir . 'images/heroes/' . $this->image['slug'] . '*.' . $this->image['format']);
@@ -100,6 +100,28 @@
 				return false;
 		}
 
+		public function updateImage($imageAddress) {
+			global $siteDir;
+			
+			$imageInfos = pathinfo($imageAddress);
+			if (!isset($imageInfos['extension']) OR empty($imageInfos['extension']))
+				return false;
+
+			$imageExtension = \Basics\Images::crop($imageAddress, 'heroes/' . $this->image['slug'], $this->image['sizes']);
+
+			if (!copy($imageAddress, $siteDir . 'images/heroes/' . $this->image['slug'] . '.' . $imageExtension))
+				return false;
+
+			if ($imageExtension !== $this->image['format']) {
+				$filesList = glob($siteDir . 'images/heroes/' . $this->image['slug'] . '*.' . $this->image['format']);
+				foreach ($filesList as $sizeLoop)
+					unlink($sizeLoop);
+					
+				$request = \Basics\Site::getDB()->prepare('UPDATE media SET ext = ? WHERE type = ? AND id = ?');
+				$request->execute([$imageExtension, 'images', $this->image['id']]);
+			}
+		}
+
 		public static function create($imageAddress, $imageName, $imageSizes = [[100, 70]]) {
 			global $siteDir, $currentMemberId;
 
@@ -109,7 +131,7 @@
 
 			$imageName = $imageName ?: $imageInfos['filename'];
 			$imageSlug = \Basics\Strings::slug($imageName);
-			if (\Basics\Handling::countEntries('medias', 'type = \'images\' AND slug = \'' . $imageSlug . '\''))
+			if (\Basics\Handling::countEntries('media', 'type = \'images\' AND slug = \'' . $imageSlug . '\''))
 				return false;
 
 			$imageIdentifier = \Basics\Strings::identifier();
@@ -119,7 +141,7 @@
 				return false;
 
 			$request = \Basics\Site::getDB()->prepare('
-				INSERT INTO medias (id, ext, author_id, name, sizes, post_date, slug, type)
+				INSERT INTO media (id, ext, author_id, name, sizes, post_date, slug, type)
 				VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)
 			');
 			$request->execute([

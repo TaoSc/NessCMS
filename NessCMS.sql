@@ -71,7 +71,7 @@ INSERT INTO `languages_routing` (`id`, `language`, `incoming_id`, `table_name`, 
 ('RCr4vOChAKa', 'fr-fr', 2, 'members_types', 'slug', 'membres'),
 ('yVadvSuXQNm', 'en-us', 2, 'members_types', 'name', 'Members');
 
-CREATE TABLE `medias` (
+CREATE TABLE `media` (
   `id` varchar(11) NOT NULL,
   `ext` varchar(4) NOT NULL,
   `author_id` int(11) NOT NULL,
@@ -192,7 +192,7 @@ ALTER TABLE `languages`
 ALTER TABLE `languages_routing`
   ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `medias`
+ALTER TABLE `media`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `members`
