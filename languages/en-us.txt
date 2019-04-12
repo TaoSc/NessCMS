@@ -3,6 +3,7 @@ lang_add			= Add your language
 login				= Login
 log_in				= Log in
 log_out				= Log out
+close				= Close
 avatar				= Avatar
 views				= Views
 home				= Home

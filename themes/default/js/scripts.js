@@ -8,6 +8,13 @@ $(function () {
 		$('#login').modal({remote: this.attr(href)}, 'show');
 	});
 
+	$('.previewThumb').click( function() {
+		$('.imagePreview').attr('src', $(this).find('img').attr('src').replace('-750x100', ''));
+		$('#imageModal').modal('show');
+		event.preventDefault();
+	});
+
+
 	var sideSlider = $('[data-toggle=collapse-side]'),
 		sel = sideSlider.attr('data-target'),
 		sel2 = sideSlider.attr('data-target-2');
@@ -46,7 +53,7 @@ $(function () {
 
 		posting.done(function (data) {
 			var decodedData = JSON.parse(data);
-				btnSelector = 'button.vote-btn[data-id=' + id + '][data-type=' + type + ']'; // Not perfect but it works indeed
+				btnSelector = 'button.vote-btn[data-id=' + id + '][data-type=' + type + ']'; // Not perfect but it works
 
 			if (voteState === 'strip')
 				$(btnSelector + '[value=' + voteState + ']').remove();

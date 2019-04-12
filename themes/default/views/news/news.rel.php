@@ -6,8 +6,10 @@
 
 		<div class="row">
 			<div class="col-lg-8">
-				<?php if ($news['priority'] === 'important') echo '<span class="sprites hotThumbLow glyphicon glyphicon-fire" style="left: initial;"></span>'; ?>
-				<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
+				<a href="#" class="previewThumb">
+					<?php if ($news['priority'] === 'important') echo '<span class="sprites hotThumbLow glyphicon glyphicon-fire" style="left: initial;"></span>'; ?>
+					<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
+				</a>
 
 				<hr>
 
@@ -54,14 +56,14 @@
 					<div class="row">
 						<div class="col-xs-6">
 							<button type="button" class="btn icon-btn rounded-btn btn-success btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="up">
-								<span class="glyphicon glyphicon-thumbs-up img-circle text-success"></span> <?php echo $clauses->get('to_like'); ?> 
-								(<span class="votes-nbr"><?php echo $news['likes']; ?></span>)								
+								<span class="glyphicon glyphicon-thumbs-up img-circle text-success"></span> <?php echo $clauses->get('to_like'); ?>
+								(<span class="votes-nbr"><?php echo $news['likes']; ?></span>)
 							</button>
 						</div>
 						<div class="col-xs-6">
 							<button type="button" class="btn icon-btn rounded-btn btn-danger btn-block vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $news['id']; ?>" data-type="posts" value="down">
-								<span class="glyphicon glyphicon-thumbs-down img-circle text-danger"></span> <?php echo $clauses->get('to_dislike'); ?> 
-								(<span class="votes-nbr"><?php echo $news['dislikes']; ?></span>)								
+								<span class="glyphicon glyphicon-thumbs-down img-circle text-danger"></span> <?php echo $clauses->get('to_dislike'); ?>
+								(<span class="votes-nbr"><?php echo $news['dislikes']; ?></span>)
 							</button>
 						</div>
 					</div>
@@ -103,6 +105,19 @@
 				echo '>' . $nextNews['title'] . ' &rarr;</a></li>';
 ?>
 			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="<?php echo $clauses->get('img_thumb'); ?>" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" title="<?= $clauses->get('close'); ?>"><span aria-hidden="true">&times;</span><span class="sr-only"><?= $clauses->get('close'); ?></span></button>
+			</div>
+			<div class="modal-body">
+				<img src="" class="imagePreview" style="width: 100%;">
+			</div>
 		</div>
 	</div>
 </div>

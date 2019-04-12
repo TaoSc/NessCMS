@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" title="<?= $clauses->get('close'); ?>"><span aria-hidden="true">&times;</span><span class="sr-only"><?= $clauses->get('close'); ?></span></button>
 	<h3><?php echo $clauses->get('login'); ?></h3>
 </div>
 <div class="modal-body">

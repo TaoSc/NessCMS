@@ -24,7 +24,7 @@
 			$news = (new News\Single($params[2], false))->getNews();
 
 			if (!empty($news)) {
-				if ($news['visible'])
+				if ($news['availability'])
 					$btnsGroupMenu[] = ['link' => $linksDir . 'news/' . $news['slug'], 'name' => $clauses->get('show_more')];
 				if ($news['views'])
 					$btnsGroupMenu[] = ['link' => $linksDir . 'admin/news/' . $news['id'] . '/reset-views', 'name' => $clauses->get('reset_views'), 'type' => 'warning'];

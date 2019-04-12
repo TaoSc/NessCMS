@@ -3,6 +3,7 @@ lang_add			= Ajouter votre langue
 login				= Connexion
 log_in				= Se connecter
 log_out				= Se déconnecter
+close				= Fermer
 avatar				= Avatar
 views				= Vues
 home				= Accueil

@@ -8,6 +8,10 @@
 			if (!isset(self::$db)) {
 				try {
 					self::$db = new \PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName . ';charset=utf8', $dbUser, $dbPass);
+
+					self::$db->query('SET NAMES \'utf8mb4\'');
+					self::$db->query('SET CHARACTER SET utf8mb4');
+					self::$db->query('SET COLLATION_CONNECTION = \'utf8mb4_general_ci\'');
 				} catch (Exception $error) {
 					die('Error with <b>PHP Data Objects</b>: <pre>' . $error->getMessage() . '</pre>');
 				}

@@ -40,7 +40,7 @@ input.tt-hint {
 }
 .tt-menu {
 	min-width: 100%;
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	border-top: none;
 	background: white;
 	border-radius: 0 0 5px 5px;
