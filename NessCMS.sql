@@ -43,33 +43,32 @@ CREATE TABLE `languages_routing` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `languages_routing` (`id`, `language`, `incoming_id`, `table_name`, `column_name`, `value`) VALUES
+('jNvgtW5yyf_', 'en-us', 2, 'languages', 'lang_name', 'English'),
 ('3nvgtz5yyf_', 'fr-fr', 2, 'languages', 'lang_name', 'Anglais'),
-('5SvXinUELrL', 'fr-fr', 3, 'members_types', 'name', 'Bannis'),
+('llt8xGZpZpd', 'en-us', 1, 'languages', 'lang_name', 'French'),
+('olt8xGZpZpd', 'fr-fr', 1, 'languages', 'lang_name', 'Français'),
+('llt8xGZpZpW', 'en-us', 2, 'members_types', 'slug', 'members'),
+('yVadvSuXQNm', 'en-us', 2, 'members_types', 'name', 'Members'),
+('RCr4vOChAKa', 'fr-fr', 2, 'members_types', 'slug', 'membres'),
 ('7pM4JVpqPs_', 'fr-fr', 2, 'members_types', 'name', 'Membres'),
+('7pMruVpqPs_', 'en-us', 3, 'members_types', 'slug', 'banned'),
 ('7pM4uVpqPs7', 'en-us', 3, 'members_types', 'name', 'Banned'),
 ('7pM4uVpqPs_', 'fr-fr', 3, 'members_types', 'slug', 'bannis'),
 ('7pM8JVpqPs_', 'fr-fr', 3, 'members_types', 'name', 'Bannis'),
-('7pMruVpqPs_', 'en-us', 3, 'members_types', 'slug', 'banned'),
 ('AMGgn3_xXFY', 'en-us', 1, 'members_types', 'slug', 'administrators'),
 ('D-Pc9fvevsU', 'en-us', 1, 'members_types', 'name', 'Administrators'),
 ('Ilgk6l-4Qqk', 'fr-fr', 1, 'members_types', 'slug', 'administrateurs'),
-('jNvgtW5yyf_', 'en-us', 2, 'languages', 'lang_name', 'English'),
+('OywNmf76HeW', 'fr-fr', 1, 'members_types', 'name', 'Administrateurs'),
 ('llt87GZpZpd', 'en-us', 1, 'languages', 'country_name', 'France'),
-('llt8gtZpZpd', 'fr-fr', 1, 'pages', 'index_text', '<p>Bonjour tout le monde.<br>Bienvenue sur mon site !</p>'),
-('llt8xGdpZpW', 'fr-fr', 2, 'languages', 'country_name', 'États-Unis'),
-('llt8xGopZpW', 'en-us', 2, 'languages', 'country_name', 'U.S.'),
-('llt8xGZpZpd', 'en-us', 1, 'languages', 'lang_name', 'French'),
-('llt8xGZpZpW', 'en-us', 2, 'members_types', 'slug', 'members'),
 ('llt8xrZpZpi', 'fr-fr', 1, 'languages', 'country_name', 'France'),
+('llt8xGopZpW', 'en-us', 2, 'languages', 'country_name', 'U.S.'),
+('llt8xGdpZpW', 'fr-fr', 2, 'languages', 'country_name', 'États-Unis'),
 ('lltreGZpZpd', 'en-us', 1, 'pages', 'index_text', '<p>Hello everyone.<br>Welcome to my website!</p>'),
+('llt8gtZpZpd', 'fr-fr', 1, 'pages', 'index_text', '<p>Bonjour tout le monde.<br>Bienvenue sur mon site !</p>'),
 ('lZbBuL58diK', 'fr-fr', 1, 'tags', 'slug', 'defaut'),
 ('lZbBuL58dsK', 'en-us', 1, 'tags', 'slug', 'default'),
 ('lZoBlL78usK', 'fr-fr', 1, 'tags', 'name', 'Défaut'),
-('lZoulL78usK', 'en-us', 1, 'tags', 'name', 'Default'),
-('olt8xGZpZpd', 'fr-fr', 1, 'languages', 'lang_name', 'Français'),
-('OywNmf76HeW', 'fr-fr', 1, 'members_types', 'name', 'Administrateurs'),
-('RCr4vOChAKa', 'fr-fr', 2, 'members_types', 'slug', 'membres'),
-('yVadvSuXQNm', 'en-us', 2, 'members_types', 'name', 'Members');
+('lZoulL78usK', 'en-us', 1, 'tags', 'name', 'Default');
 
 CREATE TABLE `media` (
   `id` varchar(11) NOT NULL,
@@ -79,7 +78,7 @@ CREATE TABLE `media` (
   `sizes` varchar(255) DEFAULT NULL,
   `post_date` datetime NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL
+  `type` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

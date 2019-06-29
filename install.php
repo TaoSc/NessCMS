@@ -125,7 +125,7 @@
 										</div>
 
 										<div class="form-group">
-											<label class="col-md-4 col-xs-3 control-label" for="name">Name</label>
+											<label class="col-md-4 col-xs-3 control-label" for="name">Database Name</label>
 											<div class="col-md-4 col-xs-9">
 												<input id="name" name="name" type="text" placeholder="Your database name (must be created)" class="form-control" required>
 											</div>
