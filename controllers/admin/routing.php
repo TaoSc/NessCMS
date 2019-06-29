@@ -14,13 +14,6 @@
 	elseif ($rights['admin_access'] AND isset($params[3]) AND $params[1] === 'members-types' AND is_numeric($params[2]) AND $params[3] === 'delete' AND $foldersDepth === 3)
 		include $siteDir . 'controllers/admin/members-types/delete.rel.php';
 
-	elseif ($rights['poll_create'] AND isset($params[2]) AND $params[1] === 'polls' AND $params[2] === 'index' AND $foldersDepth === 2)
-		include $siteDir . 'controllers/admin/polls/index.php';
-	// elseif (($rights['poll_create'] /*OR $rights['poll_edit']*/) AND isset($params[2]) AND $params[1] === 'polls' AND is_numeric($params[2]) AND $foldersDepth === 2)
-		// include $siteDir . 'controllers/admin/polls/edit.rel.php';
-	// elseif (($rights['poll_create']) AND isset($params[3]) AND $params[1] === 'polls' AND is_numeric($params[2]) AND $params[3] === 'delete' AND $foldersDepth === 3)
-		// include $siteDir . 'controllers/admin/polls/delete.rel.php';
-
 	elseif (($rights['news_create'] OR $rights['news_edit']) AND isset($params[2]) AND $params[1] === 'news' AND $params[2] === 'index' AND $foldersDepth === 2)
 		include $siteDir . 'controllers/admin/news/index.php';
 	elseif (($rights['news_create'] OR $rights['news_edit']) AND isset($params[2]) AND $params[1] === 'news' AND is_numeric($params[2]) AND $foldersDepth === 2)
