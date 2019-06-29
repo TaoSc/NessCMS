@@ -4,6 +4,9 @@
 	elseif ($rights['config_edit'] AND isset($params[1]) AND $params[1] === 'configuration' AND $foldersDepth === 1)
 		include $siteDir . 'controllers/admin/configuration.php';
 
+	elseif ($currentMemberId AND isset($params[2]) AND $params[1] === 'members' AND is_numeric($params[2]) AND $foldersDepth === 2)
+		include $siteDir . 'controllers/admin/members/edit.rel.php';
+
 	elseif ($rights['admin_access'] AND isset($params[2]) AND $params[1] === 'members-types' AND $params[2] === 'index' AND $foldersDepth === 2)
 		include $siteDir . 'controllers/admin/members-types/index.php';
 	elseif ($rights['admin_access'] AND isset($params[2]) AND $params[1] === 'members-types' AND is_numeric($params[2]) AND $foldersDepth === 2)
