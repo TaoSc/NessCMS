@@ -61,7 +61,7 @@
 
 		/*public static function createPoll($question, ) {
 			if () {
-				
+
 			}
 		}*/
 

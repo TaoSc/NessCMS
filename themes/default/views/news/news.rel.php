@@ -1,14 +1,14 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="page-header">
-			<h1 class="news-title"><?php echo $news['title'] . '<br><small>' . $news['sub_title'] . '</small>'; ?></h1>
+			<h1 class="news-title"><?= $news['title'] . '<br><small>' . $news['sub_title'] . '</small>'; ?></h1>
 		</div>
 
 		<div class="row">
 			<div class="col-lg-8">
 				<a href="#" class="previewThumb">
 					<?php if ($news['priority'] === 'important') echo '<span class="sprites hotThumbLow glyphicon glyphicon-fire" style="left: initial;"></span>'; ?>
-					<img data-original="<?php echo \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?php echo $clauses->get('img_thumb'); ?>">
+					<img style="width:100%;" data-original="<?= \Basics\Templates::getImg('heroes/' . $news['img']['slug'], $news['img']['format'], 750, 100); ?>" class="img-responsive" alt="<?= $clauses->get('news_img_thumb'); ?>" title="<?= $clauses->get('preview'); ?>">
 				</a>
 
 				<hr>
@@ -78,7 +78,7 @@
 						<div class="col-xs-12 btn-group btn-group-justified btn-group-sm">
 <?php
 							if ($news['edit_cond'])
-								echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
+								echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '" type="button" class="btn btn-warning">' . $clauses->get('edit') . '</a>';
 							if ($news['removal_cond'])
 								echo '<a href="' . $linksDir . 'admin/news/' . $news['id'] . '/delete" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
 ?>
@@ -109,7 +109,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="<?php echo $clauses->get('img_thumb'); ?>" aria-hidden="true">
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="<?= $clauses->get('news_img_thumb'); ?>" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">

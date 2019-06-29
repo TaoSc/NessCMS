@@ -80,6 +80,7 @@ CREATE TABLE `media` (
   `post_date` datetime NOT NULL,
   `slug` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL
+  `location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `members` (
@@ -87,7 +88,7 @@ CREATE TABLE `members` (
   `type_id` int(11) NOT NULL,
   `nickname` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `avatar` varchar(4) DEFAULT NULL,
+  `avatar` varchar(11) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,

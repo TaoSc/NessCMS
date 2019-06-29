@@ -114,7 +114,7 @@
 
 		<footer class="container">
 			<div class="col-lg-12 text-center">
-				<a href="//github.com/TaoSc/NessCMS"><?php echo $clauses->get('source_code'); ?></a> - Licensed <a href="<?php echo $subDir; ?>LICENSE">GPL v3</a>.
+				<a href="//github.com/TaoSc/NessCMS"><?php echo $clauses->get('source_code'); ?></a> - Licensed <a href="<?= $subDir; ?>LICENSE">GPL v3</a>.
 			</div>
 		</footer>
 	</body>

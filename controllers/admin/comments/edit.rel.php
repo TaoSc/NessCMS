@@ -34,6 +34,6 @@
 				$btnsGroupMenu[] = ['link' => $linksDir . $postLink . '#comment-' . $comment['id'], 'name' => $clauses->get('show_more')];
 		}
 
-		$pageTitle = Basics\Strings::cropTxt($comment['content'], 10) . ' - ' . $clauses->get('comments');
+		$pageTitle = $clauses->get('o_quote') . Basics\Strings::cropTxt($comment['content'], 10) . $clauses->get('c_quote') . ' - ' . $clauses->get('comments');
 		$viewPath = 'comments/edit.rel';
 	}

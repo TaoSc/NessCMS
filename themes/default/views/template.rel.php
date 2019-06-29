@@ -55,13 +55,13 @@
 ?>
 						<div class="pull-right btn-group navbar-btn login-btn btn-group-sm">
 							<a href="<?php echo $linksDir . 'members/' . $currentMember['slug']; ?>/" class="btn btn-default">
-								<img src="<?php echo Basics\Templates::getImg('avatars/' . $currentMember['avatar_slug'], $currentMember['avatar'], 100, 100); ?>" alt="<?php echo $clauses->get('avatar'); ?>" class="img img-circle">
+								<img src="<?php echo Basics\Templates::getImg('avatars/' . $currentMember['avatar']['slug'], $currentMember['avatar']['format'], 100, 100); ?>" alt="<?php echo $clauses->get('avatar'); ?>" class="img img-circle">
 								<?php echo $currentMember['nickname']; ?>
 							</a>
 							<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 
 							<ul class="dropdown-menu pull-right">
-								<li><a href="<?php echo $linksDir . 'admin/members/' . $currentMember['id']; ?>"><span class="glyphicon glyphicon-user"></span> <?php echo $clauses->get('modify_profile'); ?></a></li>
+								<li><a href="<?php echo $linksDir . 'admin/members/' . $currentMember['id']; ?>"><span class="glyphicon glyphicon-user"></span> <?php echo $clauses->get('edit_profile'); ?></a></li>
 <?php
 								if ($rights['admin_access'])
 									echo '<li><a href="' . $linksDir . 'admin/' . '"><span class="glyphicon glyphicon-wrench"></span> ' . $clauses->get('admin') . '</a></li>';
@@ -75,7 +75,7 @@
 					}
 					else {
 ?>
-						<button data-toggle="modal" data-target="#login" href="<?php echo $linksDir . 'members/login/ajax/' . str_replace('%', '=', urlencode($location)); ?>" class="pull-right btn btn-primary navbar-btn login-btn" data-loading-text="<?php echo $clauses->get('loading'); ?>">
+						<button data-toggle="modal" data-target="#login" href="<?= $linksDir . 'members/login/ajax/' . str_replace('%', '=', urlencode($location)); ?>" class="pull-right btn btn-primary navbar-btn login-btn" data-loading-text="<?= $clauses->get('loading'); ?>">
 							<span class="glyphicon glyphicon-user"></span>
 							<?php echo $clauses->get('login'); ?>
 						</button>
@@ -147,7 +147,7 @@
 
 		<footer class="container">
 			<div class="col-lg-12 text-center">
-				2013 - <?php echo date('Y'); ?> <strong>Tao Schreiner</strong> - Licensed <a href="<?php echo $subDir . 'LICENSE'; ?>">GPL v3</a>.
+				2013 - <?= date('Y'); ?> <strong>Tao Schreiner</strong> - Licensed <a href="<?= $subDir; ?>LICENSE">GPL v3</a>.
 			</div>
 		</footer>
 <?php

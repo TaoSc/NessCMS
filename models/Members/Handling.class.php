@@ -2,28 +2,29 @@
 	namespace Members;
 
 	class Handling {
-		public static function check($nickname, $slug, $firstName, $lastName, $email, $pwd, $nicknameTest = true, $birthDate = '0000-00-01', $namesTest = true) {
+		public static function check($nickname, $slug, $firstName, $lastName, $email, $pwd, $nicknameTest = true, $birthDate = '0000-00-01', $namesTest = true, $mailTest = true) {
 			if (!empty($birthDate) AND $birthDate !== '0000-00-00' AND !empty($nickname) AND !empty($email) AND !empty($pwd) AND mb_strlen($pwd) >= 6 AND strpos($pwd, '¶') == false) {
 				$birthDateRegex = preg_match('#^([0-9]{4})-([0-9]{2})-([0-9]{2})$#', $birthDate);
 				$emailRegex = preg_match('#^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$#', $email);
 				$namesTestCond = $namesTest ? mb_strlen($lastName) >= 2 AND mb_strlen($firstName) >= 2 : true;
 
 				if ($namesTestCond AND $birthDateRegex AND mb_strlen($nickname) >= 4 AND $emailRegex) {
-					if ($nicknameTest) {
-						$db = \Basics\Site::getDB();
+					$db = \Basics\Site::getDB();
 
+					$otherMbrsIds = null;
+					if ($nicknameTest) {
 						$request = $db->prepare('SELECT id FROM members WHERE slug = ?');
 						$request->execute([$slug]);
-						$otherMbrsIds = $request->fetch(\PDO::FETCH_ASSOC)['id'];
+						$otherMbrsIds .= $request->fetch(\PDO::FETCH_ASSOC)['id'];
 						$request->closeCursor();
-
+					}
+					if ($mailTest) {
 						$request = $db->prepare('SELECT id FROM members WHERE email = ?');
 						$request->execute([$email]);
 						$otherMbrsIds .= $request->fetch(\PDO::FETCH_ASSOC)['id'];
 						$request->closeCursor();
 					}
-					else
-						$otherMbrsIds = null;
+
 
 					if (empty($otherMbrsIds) AND mb_substr_count($nickname, '@') === 0)
 						return true;

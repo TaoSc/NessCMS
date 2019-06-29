@@ -105,7 +105,7 @@
 					$img = $this->post['img_id'];
 
 				if ($clauses->getDBLang('posts', 'availability', $this->post['id'], 'default') == $language AND $img == $this->post['img_id'] AND $slug !== $this->post['slug']) {
-					(new \Media\Image($this->post['img_id']))->setImage($title, $slug, null, null); // if the image slug is already taken nothing will change for it, the error is silenced.
+					(new \Media\Image($this->post['img_id']))->setImage($title, $slug, null); // if the image slug is already taken nothing will change for it, the error is silenced.
 				}
 
 				\Tags\Handling::createRelation($this->post['raw_tags'], json_decode($tagsIds), $this->post['id'], 'posts');

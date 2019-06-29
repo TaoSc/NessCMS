@@ -3,22 +3,29 @@
 
 	class Images {
 		public static function crop($src, $dstUrl, $dstSizes = null) {
-			if (!isset(pathinfo($src)['extension']))
-				die('Error.');
 			ini_set('memory_limit', '-1');
 			set_time_limit(0);
 
-			$extension = preg_replace('#\?.{1,}#i', null, mb_strtolower(pathinfo($src)['extension']));
-			$pngFormat = $extension === 'png';
-			$createFunction = 'imagecreatefrom' . ($extension === 'jpg' ? 'jpeg' : $extension);
+			$typeNb = exif_imagetype($src);
+			if ($typeNb === false)
+				die('File could not be opened.');
+			$supportedTypes = [1 => 'gif', 2 => 'jpeg', 3 => 'png', 6 => 'bmp', 15 => 'wbmp', 16 => 'xbm', 18 => 'webp'];
+
+			if (!isset($supportedTypes[$typeNb]))
+				die('Image type not supported.');
+			else
+				$type = $supportedTypes[$typeNb];
+
+			$saveToLossless = $type !== 'jpeg';
+			$createFunction = 'imagecreatefrom' . $type;
 			$dstSizes = (array) $dstSizes;
 
-			if (!in_array($extension, ['png', 'jpg'], true))
-				$extension = 'jpg';
+			if (!in_array($type, ['png', 'jpeg'], true))
+				$type = 'png';
 
 			$src = $createFunction($src);
 			if (!$src)
-				die('Error.');
+				die('Error duplicating image.');
 
 			$srcW = imagesx($src);
 			$srcH = imagesy($src);
@@ -40,7 +47,7 @@
 				}
 				$transfo = imagecreatetruecolor($transfoW, $transfoH);
 
-				if ($pngFormat) {
+				if ($saveToLossless) {
 					imagealphablending($transfo, false);
 					imagealphablending($dst, false);
 				}
@@ -51,11 +58,11 @@
 				imagecopyresampled($transfo, $src, 0, 0, $srcX, $srcY, $srcW, $srcH, $srcW, $srcH);
 				imagecopyresampled($dst, $transfo, 0, 0, 0, 0, $dstSize[0], $dstSize[1], $transfoW, $transfoH);
 
-				$finalUrl = Templates::getImg($dstUrl, $extension, $dstSize[0], $dstSize[1], false);
+				$finalUrl = Templates::getImg($dstUrl, $type, $dstSize[0], $dstSize[1], false);
 
-				if ($pngFormat) {
+				if ($saveToLossless) {
 					imagesavealpha($dst, true);
-					imagepng($dst, $finalUrl, 0);
+					imagepng($dst, $finalUrl, -1);
 				}
 				else {
 					imageinterlace($dst, true);
@@ -63,6 +70,6 @@
 				}
 			}
 
-			return $extension;
+			return $type;
 		}
 	}

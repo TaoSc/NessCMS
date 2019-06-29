@@ -6,7 +6,7 @@
 
 		public function __construct($id) {
 			$request = \Basics\Site::getDB()->prepare('
-				SELECT id, type_id, nickname, slug, first_name, last_name, email, password, avatar, DATE(registration) reg_date, TIME(registration) reg_time, birth
+				SELECT id, type_id, nickname, slug, first_name, last_name, email, password, avatar avatar_id, DATE(registration) reg_date, TIME(registration) reg_time, birth
 				FROM members
 				WHERE id = ?
 			');
@@ -26,12 +26,12 @@
 				else
 					$this->member['name'] = false;
 
-				if (!$this->member['avatar']) {
-					$this->member['avatar_slug'] = 'default';
-					$this->member['avatar'] = 'png';
+				if (!$this->member['avatar_id']) {
+					$this->member['avatar']['slug'] = 'default';
+					$this->member['avatar']['format'] = 'png';
 				}
 				else
-					$this->member['avatar_slug'] = $this->member['slug'];
+					$this->member['avatar'] = (new \Media\Image($this->member['avatar_id']))->getImage();
 
 				if ($this->member['birth']) {
 					$this->member['age'] = \Basics\Dates::age($this->member['birth']);
@@ -45,6 +45,28 @@
 			}
 
 			return $this->member;
+		}
+
+		public function setMember($nickname, $avatar) {
+			$nicknameTest = $nickname !== $this->member['nickname'];
+			$mailTest = false;
+			$slug = \Basics\Strings::slug($nickname);
+
+			if ($this->member AND \Members\Handling::check($nickname, $slug, $this->member['first_name'], $this->member['last_name'], $this->member['email'], 'password', $nicknameTest, '0000-00-01', false, $mailTest)) {
+				if (!empty($avatar) AND empty($member['avatar_id'])) {
+					$avatar = \Media\Image::create($avatar, $nickname, [[100, 100]], 'avatars');
+				}
+				elseif (empty($avatar) OR !$avatar = (new \Media\Image($this->member['avatar_id']))->updateImage($avatar)) {
+					$avatar = $this->member['avatar_id'];
+				}
+
+				$request = \Basics\Site::getDB()->prepare('UPDATE members SET nickname = ?, avatar = ? WHERE id = ?');
+				$request->execute([$nickname, $avatar, $this->member['id']]);
+
+				return true;
+			}
+			else
+				return false;
 		}
 
 		/*public function setMember($newPseudo, $newSubName, $newFamilyName, $newEmail, $newPwd, $newType, $newAvatar, $pwdCript = true) {

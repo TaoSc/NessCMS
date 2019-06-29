@@ -1,14 +1,15 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="page-header no-margin">
-			<img data-original="<?php echo Basics\Templates::getImg('avatars/' . $member['avatar_slug'], $member['avatar'], 100, 100); ?>" class="img-circle pull-left member-avatar" alt="<?php echo $clauses->get('avatar'); ?>">
-			<h1>
+			<img data-original="<?php echo Basics\Templates::getImg('avatars/' . $member['avatar']['slug'], $member['avatar']['format'], 100, 100); ?>" class="img-circle pull-left member-avatar" alt="<?php echo $clauses->get('avatar'); ?>">
+			<h1><?= $member['nickname']; ?></h1>
 <?php
-				echo $member['nickname'];
 				if (!Basics\Site::parameter('private_emails') AND $member['email'])
 					echo '<a href="mailto:' . $member['email'] . '" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-envelope"></span> ' . $clauses->get('send_message') . '</a>';
+				if ($currentMemberId === $member['id'] OR $rights['admin_access'])
+					echo '<a href="' . $linksDir . 'admin/members/' . $member['id'] . '" class="pull-right btn btn-link"><span class="glyphicon glyphicon-pencil"></span> ' . $clauses->get('edit_profile') . '</a>';
 ?>
-			</h1>
+
 			<div class="clearfix"></div>
 		</div>
 

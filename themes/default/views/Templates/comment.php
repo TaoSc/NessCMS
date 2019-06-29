@@ -1,8 +1,8 @@
 <div class="row">
-	<div class="col-xs-offset-<?php echo (1 + $comment['recursivity']) . ' col-xs-' . (10 - $comment['recursivity']); ?> no-padding single-comment<?php if ($commentAnswers AND $comment['recursivity'] === 0) echo ' less-margin'; ?>" id="comment-<?php echo $comment['id']; ?>">
+	<div class="col-sm-offset-<?= (1 + $comment['recursivity']) . ' col-xs-offset-' . ($comment['recursivity']) . ' col-xs-' . (12 - $comment['recursivity']) . ' col-sm-' . (10 - $comment['recursivity']); ?> no-padding single-comment<?php if ($commentAnswers AND $comment['recursivity'] === 0) echo ' less-margin'; ?>" id="comment-<?= $comment['id']; ?>">
 		<div class="col-xs-2 no-padding user-box text-center">
 			<a href="<?php echo $linksDir . 'members/' . $comment['author']['slug'] . '/'; ?>">
-				<img data-original="<?php echo Basics\Templates::getImg('avatars/' . $comment['author']['avatar_slug'], $comment['author']['avatar'], 100, 100); ?>" alt="<?php echo $clauses->get('avatar'); ?>" class="img-circle img-responsive">
+				<img data-original="<?php echo Basics\Templates::getImg('avatars/' . $comment['author']['avatar']['slug'], $comment['author']['avatar']['format'], 100, 100); ?>" alt="<?php echo $clauses->get('avatar'); ?>" class="img-circle img-responsive">
 				<h4><?php echo $comment['author']['nickname']; ?></h4>
 			</a>
 		</div>
@@ -31,7 +31,7 @@
 						if ($comment['removal_cond'])
 							echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '/delete' . '" type="button" class="btn btn-warning">' . $clauses->get('delete') . '</a>';
 						if ($comment['edit_cond'])
-							echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '' . '" type="button" class="btn btn-warning">' . $clauses->get('modify') . '</a>';
+							echo '<a href="' . $linksDir . 'admin/comments/' . $comment['id'] . '' . '" type="button" class="btn btn-warning">' . $clauses->get('edit') . '</a>';
 						if ($hasVoted AND $currentMemberId AND !$comment['hidden'])
 							echo '<button type="button" class="btn btn-inverse vote-btn" data-id="' . $comment['id'] . '" data-type="comments" value="strip">' . $clauses->get('remove_vote') . '</button>';
 ?>
@@ -46,19 +46,19 @@
 			</div>
 
 			<div class="row options-box">
-				<div class="col-xs-<?php if ($commentsTemplate AND (\Basics\Site::parameter('anonymous_coms') OR $currentMemberId)) echo '7'; else echo '12'; ?>">
+				<div class="<?php if ($commentsTemplate AND (\Basics\Site::parameter('anonymous_coms') OR $currentMemberId)) echo 'col-xs-8 col-sm-7'; else echo 'col-xs-12'; ?>">
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
 							<button type="button" class="btn btn-success btn-sm vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $comment['id']; ?>" data-type="comments" value="up">
-								<span class="glyphicon glyphicon-thumbs-up"></span> <?php echo $clauses->get('to_like'); ?> 
-								(<span class="votes-nbr"><?php echo $comment['likes']; ?></span>)
+								<span class="glyphicon glyphicon-thumbs-up"></span> <?php echo $clauses->get('to_like'); ?>
+								<strong>(<span class="votes-nbr"><?php echo $comment['likes']; ?></span>)</strong>
 							</button>
 						</div>
 
 						<div class="btn-group">
 							<button type="button" class="btn btn-danger btn-sm vote-btn"<?php if ($voteBtnsCond) echo ' disabled'; ?> data-id="<?php echo $comment['id']; ?>" data-type="comments" value="down">
-								<span class="glyphicon glyphicon-thumbs-down"></span> <?php echo $clauses->get('to_dislike'); ?> 
-								(<span class="votes-nbr"><?php echo $comment['dislikes']; ?></span>)								
+								<span class="glyphicon glyphicon-thumbs-down"></span> <?php echo $clauses->get('to_dislike'); ?>
+								<strong>(<span class="votes-nbr"><?php echo $comment['dislikes']; ?></span>)</strong>
 							</button>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 <?php
 				if ($commentsTemplate AND (\Basics\Site::parameter('anonymous_coms') OR $currentMemberId)) {
 ?>
-					<div class="col-xs-5">
+					<div class="col-xs-4 col-sm-5">
 						<button type="button" class="btn btn-default btn-sm btn-block answer-btn" value="<?php echo $comment['id']; ?>">
 							<span class="glyphicon glyphicon-share-alt"></span> <?php echo $clauses->get('answer'); ?>
 						</button>
