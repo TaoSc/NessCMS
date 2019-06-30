@@ -150,8 +150,8 @@ INSERT INTO `site` (`name`, `value`) VALUES
 ('coms_per_page', '10'),
 ('default_language', 'en-us'),
 ('default_user_type', '2'),
-('directory', ?),
 ('name', ?),
+('directory', ?),
 ('private_emails', '1'),
 ('theme', 'default'),
 ('url_rewriting', '0');

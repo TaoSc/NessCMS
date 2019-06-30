@@ -13,9 +13,7 @@
 		$request = \Basics\Site::getDB()->prepare(file_get_contents($siteDir . 'NessCMS.sql'));
 		$request->execute([$_POST['site_name'], trim(stripslashes(pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME)), '/')]);
 
-		$request = \Basics\Site::getDB()->query('UPDATE members SET id = 0 WHERE id = 1');
-
-		$topDir = '/' . Basics\Site::parameter('directory') . '/';
+		$topDir = '/' . trim(Basics\Site::parameter('directory'), '/') . '/';
 		$siteName = Basics\Site::parameter('name');
 		$clauses = new Basics\Languages($language);
 

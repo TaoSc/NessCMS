@@ -114,6 +114,9 @@
 				}
 			}
 
+			if (empty($keyValuePairs))
+				return;
+
 			$SQLLoop = null;
 			$PDOExecute = [];
 			foreach ($keyValuePairs as $keyValue) {

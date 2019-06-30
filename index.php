@@ -26,18 +26,18 @@
 	}
 
 	// Database connection
-	Basics\Site::getDB($dbHost, $dbName, $dbUser, $dbPass);
+	$isDbFilled = Basics\Site::getDB($dbHost, $dbName, $dbUser, $dbPass)->prepare('SELECT * FROM information_schema.tables WHERE table_schema = ? AND table_name = ? LIMIT 1;');
+	$isDbFilled->execute([$dbName, 'site']);
+	if (empty($isDbFilled->fetch(\PDO::FETCH_ASSOC))) {
+		include $siteDir . 'install.php';
+		die();
+	}
 
 	// Site related variables
 	$topDir = Basics\Site::parameter('directory');
 	if ($topDir)
 		$topDir = '/' . trim($topDir, '/') . '/';
 	$siteName = Basics\Site::parameter('name');
-
-	if (!$topDir) {
-		include $siteDir . 'install.php';
-		die();
-	}
 
 	// Language management
 	if (!Basics\site::cookie('lang')) {
