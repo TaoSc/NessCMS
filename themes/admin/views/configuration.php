@@ -107,6 +107,13 @@
 				</select>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label class="col-md-4 col-xs-3 control-label" for="default_timezone"><?php echo $clauses->get('default_timezone'); ?></label>
+			<div class="col-md-4 col-xs-9">
+				<input name="default_timezone" id="default_timezone" type="text" class="form-control" value="<?php echo Basics\Site::parameter('default_timezone'); ?>" required>
+			</div>
+		</div>
 
 		<div class="form-group">
 			<div class="col-md-offset-4 col-xs-offset-3" style="padding-left: 15px;">

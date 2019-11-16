@@ -20,6 +20,9 @@
 
 		if (isset($_POST['default_user_type']))
 			Basics\Site::parameter('default_user_type', $_POST['default_user_type']);
+		
+		if (isset($_POST['default_timezone']))
+			Basics\Site::parameter('default_timezone', $_POST['default_timezone']);
 
 		if (isset($_POST['name']) AND $_POST['name'] !== $siteName) {
 			$cookiesEnabled = Basics\site::cookie('name') AND Basics\site::cookie('password');

@@ -73,7 +73,7 @@ members				= Members
 send				= Send
 details				= details
 cookies_login		= Stay Connected?
-cookies_login_info	= You need to accept the usage of cookies
+cookies_login_info	= You need to accept the use of cookies
 error_home_btn		= Take me home!
 error_previous_btn	= Previous page
 loading				= Loading…
@@ -124,6 +124,8 @@ already_logged_in	= You are already logged in.
 registration_fail	= An error has occurred during your registration.<br><a href="{$linksDir}members/registration">Go back to the form</a>.
 comment_fail		= Your comment couldn’t be sent.
 polls_vote_fail		= Your vote hasn’t been added.<br>Likely you’ve already voted.
+
+timezone			= Time zone
 
 monday				= Monday
 tuesday				= Tuesday

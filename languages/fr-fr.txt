@@ -125,6 +125,8 @@ registration_fail	= Une erreur est survenue lors de votre inscription.<br><a hre
 comment_fail		= Votre commentaire n’a pas pu être envoyé.
 polls_vote_fail		= Votre vote n’a pas été ajouté.<br>Vous avez sans doute déjà voté.
 
+timezone			= Fuseau horaire
+
 monday				= lundi
 tuesday				= mardi
 wednesday			= mercredi

@@ -150,6 +150,7 @@ INSERT INTO `site` (`name`, `value`) VALUES
 ('coms_per_page', '10'),
 ('default_language', 'en-us'),
 ('default_user_type', '2'),
+('default_timezone', 'Europe/Paris'),
 ('name', ?),
 ('directory', ?),
 ('private_emails', '1'),
