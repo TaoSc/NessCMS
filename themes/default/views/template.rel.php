@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<?php \Basics\Templates::basicHeaders(); ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $subDir; ?>images/favicon.ico">
 		<title><?php echo $siteName; ?> | <?php echo $pageTitle; ?></title>
 		<!--[if lt IE 9]>
